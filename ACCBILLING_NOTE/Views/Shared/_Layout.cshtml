@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - BILLING NOTE</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:black;">
+        <div class="container-fluid">
+            <div class="nav-item">
+                @Html.ActionLink("BILLING NOTE", "Index", "Home", new { area = "" }, new { @style = "color:white;" })
+
+            </div>
+            <div class="nav-item" style="margin-right:-650px;">
+                @Html.ActionLink("Print Report", "Index", "Home", new { area = "" }, new { @style = "color:white;" })
+            </div>
+            <div class="nav-item">
+                @Html.ActionLink("Result", "Index", "Home", new { area = "" }, new { @style = "color:white;" })
+            </div>
+        </div>
+
+    </div>
+    <div class="body-content">
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - BILLING NOTE</p>
+        </footer>
+    </div>
+
+  
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
