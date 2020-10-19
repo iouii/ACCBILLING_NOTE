@@ -83,7 +83,7 @@ namespace ACCBILLING_NOTE.Controllers
             "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
-            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX " +
+            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
             "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
             "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '" + name + "' ";
 
@@ -141,9 +141,22 @@ namespace ACCBILLING_NOTE.Controllers
 
             var jsonAd = new List<InvoiceCus>();
             var rowCus = dbh.Rows.Count;
-
+            byte textD;
             for (int i = 0; i < rowCus; i++)
             {
+                var text =dbh.Rows[i]["TERMCODE"].ToString();
+                if (text == "DTABLE")
+                {
+
+                 textD = 150;
+
+                }
+                else
+                {
+
+                 textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString().Substring(0, 3));
+                }
+                
                 jsonAd.Add(new InvoiceCus()
                 {
 
@@ -151,7 +164,8 @@ namespace ACCBILLING_NOTE.Controllers
                     custName = dbh.Rows[i]["NAMECUST"].ToString(),
                     custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
                     custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
-                    custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
+                    custTerm = textD.ToString(),
+                    //custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
                     custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
                     custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
 
@@ -239,7 +253,7 @@ namespace ACCBILLING_NOTE.Controllers
             "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
-            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX " +
+            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
             "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
             "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '" + name + "' ";
 
@@ -298,8 +312,26 @@ namespace ACCBILLING_NOTE.Controllers
             var jsonAd = new List<InvoiceCus>();
             var rowCus = dbh.Rows.Count;
 
+            byte textD;
+
             for (int i = 0; i < rowCus; i++)
             {
+
+
+
+                var text = dbh.Rows[i]["TERMCODE"].ToString();
+                if (text == "DTABLE")
+                {
+
+                    textD = 150;
+
+                }
+                else
+                {
+
+                    textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString().Substring(0, 3));
+                }
+
                 jsonAd.Add(new InvoiceCus()
                 {
 
