@@ -103,10 +103,14 @@
             </div>
 
             <div class="col-12 d-flex justify-content-end">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="createInvoice()">In</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="createInvoiceEx()">Ex</button>
+                   
+                </div>
 
-                <input type="button" name="name" value="Create" id="btnCreate" class="btn btn-sm btn-dark " onclick="createInvoice()" />
 
-            </div>
+                </div>
         </div>
     </div>
 </div>
@@ -217,6 +221,63 @@
             
             }
         </script>
+<script>
+
+    function createInvoiceEx() {
+
+
+        var name = $("#chaName").val();
+        var month = $("#monthSe").val();
+        var year = $("#yearSe").val();
+
+
+
+        var invoice = [];
+        $.each($("input[name='chkCreate']:checked"), function () {
+            invoice.push("'" + $(this).val() + "'");
+        });
+
+
+      
+
+
+        var fileData = new FormData();
+        fileData.append('name', name);
+        fileData.append('month', month);
+        fileData.append('year', year);
+        fileData.append('invoice', invoice);
+
+        // alert(invoice+":"+name+":"+month+":"+year);
+
+
+        if(invoice !=" "){
+
+            $.ajax({
+                url: '/Home/GetExport',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+
+                    location.href = "@Url.Action("Export","Home")";
+
+                },
+                error: function (err) {
+
+                }
+            });
+
+        } else {
+
+            alert("1");
+        }
+
+         
+
+            
+    }
+</script>
 
         <script>
 

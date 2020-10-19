@@ -35,6 +35,21 @@ namespace ACCBILLING_NOTE.Controllers
 
             return View();
         }
+
+        public ActionResult Export()
+        {
+
+            ViewBag.cus = TempData["Cus"];
+            ViewBag.data = TempData["invoi"];
+            ViewBag.datacount = TempData["count"];
+            ViewBag.calAm1 = TempData["calAm1"];
+            ViewBag.calAm2 = TempData["calAm2"];
+            ViewBag.calV = TempData["calV"];
+            ViewBag.TextCal = TempData["textCal"];
+
+
+            return View();
+        }
         public ActionResult GetOver()
         {
             return View();
@@ -179,12 +194,160 @@ namespace ACCBILLING_NOTE.Controllers
             return View("Index");
         }
 
+
         public ActionResult Test()
         {
 
             ViewBag.cusname = cus();
 
             return View();
+        }
+
+
+
+        public ActionResult GetExport()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult GetExport(string name, string month, string year, string invoice)
+        {
+
+            string sqlPirce = "", sqlHeader;
+            Array asas, cuss;
+
+            sqlPirce = "WITH INVOICE AS ( " +
+                  "SELECT  CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
+                  "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
+                  "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE FISCYR = '" + year + "' AND FISCPER = '" + month + "' " +
+            ") " +
+            "SELECT DISTINCT " +
+            "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
+            "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
+            "ON INV.IDCUST = AST.IDCUST  WHERE INV.IDINVC IN (" + invoice + ")";
+
+            sqlHeader = "WITH INVOICE AS ( " +
+            "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
+            "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN, " +
+            "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
+            "FROM ARIBH WHERE FISCYR = '" + year + "' AND FISCPER = '" + month + "' " +
+            ") " +
+            "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
+            "REPLACE(INV.SHPTOSTE2,' ','')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
+            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX " +
+            "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
+            "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '" + name + "' ";
+
+
+
+
+
+
+            con.OpenConnectionSql();
+
+            DataTable dbp = new DataTable();
+            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
+            daprice.Fill(dbp);
+
+
+            DataTable dbh = new DataTable();
+            SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
+            daheader.Fill(dbh);
+
+
+
+
+            var json = new List<Invoice>();
+            var row = dbp.Rows.Count;
+
+            for (int i = 0; i < row; i++)
+            {
+
+                var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
+                var monthT = dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
+                var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
+                var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
+                var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
+                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
+                json.Add(new Invoice()
+                {
+
+                    invoiceNo = dbp.Rows[i]["IDINVC"].ToString(),
+                    invoiceDate = day + "-" + monthT + "-" + yearT,
+                    invoiceDue = dayD + "-" + monthD + "-" + yearD,
+                    invoiceAm1 = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
+                    invoiceVat = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
+                    invoiceAm2 = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
+                    invoiceAm1Cal = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
+                    invoiceVatCal = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
+                    invoiceAm2Cal = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
+
+                });
+
+
+
+
+            }
+
+
+            var jsonAd = new List<InvoiceCus>();
+            var rowCus = dbh.Rows.Count;
+
+            for (int i = 0; i < rowCus; i++)
+            {
+                jsonAd.Add(new InvoiceCus()
+                {
+
+                    idCust = dbh.Rows[i]["IDCUST"].ToString(),
+                    custName = dbh.Rows[i]["NAMECUST"].ToString(),
+                    custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
+                    custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
+                    custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
+                    custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
+                    custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
+
+
+
+                });
+
+
+            }
+
+
+            cuss = jsonAd.ToArray();
+            ViewBag.cus = cuss;
+
+            // var model = JsonConvert.SerializeObject(json);
+
+            var cal = json.Sum(c => c.invoiceAm1);
+            var calV = json.Sum(c => c.invoiceVat);
+            var calAm = json.Sum(c => c.invoiceAm2);
+            var calText = calAm.ToString();
+
+            asas = json.ToArray();
+            ViewBag.data = asas;
+            ViewBag.datacount = json.Count();
+            ViewBag.calAm1 = cal.ToString("N2", CultureInfo.InvariantCulture);
+            ViewBag.calAm2 = calAm.ToString("N2", CultureInfo.InvariantCulture);
+            ViewBag.calV = calV.ToString("N2", CultureInfo.InvariantCulture);
+
+            ViewBag.TextCal = ThaiBahtText(calText);
+
+            TempData["invoi"] = asas;
+
+            TempData["calAm1"] = cal.ToString("N2", CultureInfo.InvariantCulture);
+            TempData["calAm2"] = calAm.ToString("N2", CultureInfo.InvariantCulture);
+            TempData["calV"] = calV.ToString("N2", CultureInfo.InvariantCulture);
+            TempData["textCal"] = ViewBag.TextCal;
+            TempData["Cus"] = cuss;
+            TempData["count"] = ViewBag.datacount;
+
+            return View("Export");
         }
 
 
