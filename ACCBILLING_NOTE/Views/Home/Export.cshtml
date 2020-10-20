@@ -18,52 +18,47 @@
             <div style="padding-left:40px; padding-right:40px;">
                 <div style="padding-left:35px; padding-right:35px;" class="table">
                     <table class="table table-sm table-borderless">
-                        <tr style="font-size:30px; font-weight:600; text-decoration-line:underline">
+                        <tr style="font-size:30px; font-weight:900; text-decoration-line:underline">
                             <td>OGURA CLUTCH THAILAND CO.,LTD.</td>
                         </tr>
                         <tr></tr>
                     </table>
                 </div>
                 <div style="padding-left:35px; padding-right:35px;" class="table">
-
-                    <table class="table table-sm table-borderless" style="font-size:15px; margin-top:5px;">
-                        <tr>
-                            <td>&nbsp;</td>
+@foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
+                {
+                    <table class="table table-sm table-bordered" style="font-size:16px; margin-top:5px;">
+                        <tr>    
+                            <td rowspan="2" style="word-wrap: break-word; max-width:40px;">@cus.custName <br /> @cus.custAdress</td>
+                            <td style="width:200px;"></td>
                             <td style="width:70px;">No. :</td>
-                            <td style="width:160px;"></td>
+                            <td style="width:100px;"></td>
                         </tr>
                         <tr>
-                            <td>&nbsp;</td>
+                           <td></td>
                             <td>Date :</td>
                             <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
                         </tr>
+                  
                         <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>ATTAN:</td>
+                           
+                            <td>ATTAN:@cus.custAdressi</td>
                             <td></td>
                             <td></td>
                         </tr>
 
-                        <tr style="font-size:14px;">
+                        <tr style="font-size:15px;">
                             <td>Gentelman:</td>
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr style="font-size:14px;">
+                        <tr style="font-size:15px;">
                             <td>We are pleasef to enclose the following <br />each one price of invoice</td>
                             <td></td>
                             <td></td>
                         </tr>
                     </table>
+}
                 </div>
 
 
@@ -77,7 +72,7 @@
 
                                 <td style="width:200px;">INVOICE NO</td>
                                 <td align="center">INVOICE DATE</td>
-                                <td align="center">AMOUNT (THB)  </td>
+                                <td align="center" onclick="editDate(this)">AMOUNT (THB)  </td>
                                 <td align="center">DUE DATE </td>
 
                             </tr>
@@ -192,30 +187,25 @@
                     </table>
                 </div>
                 <div style="padding-left:35px; padding-right:35px;" class="table">
-
-                    <table class="table table-sm table-borderless" style="font-size:15px; margin-top:5px;">
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td style="width:70px;">No. :</td>
-                            <td style="width:160px;"></td>
+@foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
+                {
+                     <table class="table table-sm table-borderless" style="font-size:17px; margin-top:5px;">
+                        <tr>    
+                            <td rowspan="2" style="word-wrap:break-word; max-width:80px;">@cus.custName <br /> @cus.custAdress</td>
+                            <td style="width:260px;"></td>
+                            <td >No. :</td>
+                            <td style="width:150px;"></td>
                         </tr>
                         <tr>
-                            <td>&nbsp;</td>
+                           <td></td>
                             <td>Date :</td>
                             <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
                         </tr>
+                      
                         <tr>
-                            <td>&nbsp;</td>
+                           
+                            <td>ATTAN:@cus.custAdressi</td>
                             <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>ATTAN:</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -224,18 +214,21 @@
                             <td>Gentelman:</td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                         <tr style="font-size:14px;">
                             <td>We are pleasef to enclose the following <br />each one price of invoice</td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                     </table>
+}
                 </div>
 
 
                 <div style="padding-left:35px; padding-right:35px;" class="table">
-                    <table class="table table-borderless table-sm" id="tableOc">
+                    <table class="table table-borderless table-sm" id="tableOP">
                         <thead style="border-bottom:1px solid #000000">
                             <tr>
                                 <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
@@ -368,4 +361,23 @@
     }
 
 
+</script>
+
+<script>
+
+    function editDate(r) {
+
+        var i = r.parentNode.rowIndex;
+
+        var table = document.getElementById("tableOc");
+        var tableP = document.getElementById("tableOP");
+
+        var e = table.rows[i].cells[2].innerText;
+
+        var al = prompt('Would you like to change currency?', e)
+
+        var af = table.rows[i].cells[2].innerHTML = al;
+        var changeDue = tableP.rows[i].cells[2].innerHTML = al;
+
+    }
 </script>

@@ -79,10 +79,10 @@ namespace ACCBILLING_NOTE.Controllers
             "FROM ARIBH WHERE FISCYR = '" + year + "' AND FISCPER = '" + month + "' " +
             ") " +
             "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
-            "REPLACE(INV.SHPTOSTE2,' ','')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
+            "REPLACE(INV.SHPTOSTE2,' ',' ')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOSTTE,' ',' ')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOPOST,' ',' ')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOCTRY,' ',' ') AS ADRRESS," +
             "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
             "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
             "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '" + name + "' ";
@@ -131,6 +131,7 @@ namespace ACCBILLING_NOTE.Controllers
                     invoiceVatCal = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
                     invoiceAm2Cal = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
 
+
                 });
 
 
@@ -142,6 +143,8 @@ namespace ACCBILLING_NOTE.Controllers
             var jsonAd = new List<InvoiceCus>();
             var rowCus = dbh.Rows.Count;
             byte textD;
+            string adi;
+           // string Add;
             for (int i = 0; i < rowCus; i++)
             {
                 var text =dbh.Rows[i]["TERMCODE"].ToString();
@@ -156,6 +159,13 @@ namespace ACCBILLING_NOTE.Controllers
 
                  textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString().Substring(0, 3));
                 }
+
+
+                 adi =  dbh.Rows[i]["ADRRESS"].ToString();
+
+
+               //  Add = dbh.Rows[i]["ADRRESS"].ToString().Split(", ");
+             
                 
                 jsonAd.Add(new InvoiceCus()
                 {
@@ -168,6 +178,7 @@ namespace ACCBILLING_NOTE.Controllers
                     //custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
                     custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
                     custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
+                    custAdressi = dbh.Rows[i]["NAMECTAC"].ToString()
 
 
 
@@ -249,10 +260,10 @@ namespace ACCBILLING_NOTE.Controllers
             "FROM ARIBH WHERE FISCYR = '" + year + "' AND FISCPER = '" + month + "' " +
             ") " +
             "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
-            "REPLACE(INV.SHPTOSTE2,' ','')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
+            "REPLACE(INV.SHPTOSTE2,' ',' ')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOSTTE,' ',' ')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOPOST,' ',' ')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOCTRY,' ',' ') AS ADRRESS," +
             "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
             "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
             "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '" + name + "' ";
@@ -342,7 +353,7 @@ namespace ACCBILLING_NOTE.Controllers
                     custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
                     custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
                     custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
-
+                    custAdressi = dbh.Rows[i]["NAMECTAC"].ToString()
 
 
                 });

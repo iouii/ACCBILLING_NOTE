@@ -11,6 +11,8 @@ namespace ACCBILLING_NOTE.Models
         public string custName { get; set; }
         public string custTex { get; set; }
         public string custAdress { get; set; }
+        public string custAdressi { get; set; }
+        public string custAdressii { get; set; }
         public string custTerm { get; set; }
         public string custPhone { get; set; }
         public string custFax { get; set; }

@@ -1,0 +1,371 @@
+﻿@{
+    ViewBag.Title = "PULL REPORT";
+}
+@using ACCBILLING_NOTE.Models
+<style>
+
+    .scaled {
+        transform: scale(0.75); /* Equal to scaleX(0.7) scaleY(0.7) */
+    }
+    #printableArea{
+
+        font-family:'Browallia New';
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div id="ShntableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px;  margin-top:-140px;" class="col-8 scaled">
+            <div style="padding-left:40px; padding-right:40px;">
+                <div style="padding-left:35px; padding-right:35px;" class="table">
+                    <table class="table table-sm table-borderless">
+                        <tr style="font-size:30px; font-weight:600; text-decoration-line:underline">
+                            <td>OGURA CLUTCH THAILAND CO.,LTD.</td>
+                        </tr>
+                        <tr></tr>
+                    </table>
+                </div>
+                <div style="padding-left:35px; padding-right:35px;" class="table">
+
+                    <table class="table table-sm table-borderless" style="font-size:15px; margin-top:5px;">
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td style="width:70px;">No. :</td>
+                            <td style="width:160px;"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>Date :</td>
+                            <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ATTAN:</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr style="font-size:14px;">
+                            <td>Gentelman:</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr style="font-size:14px;">
+                            <td>We are pleasef to enclose the following <br />each one price of invoice</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <div style="padding-left:35px; padding-right:35px;" class="table">
+                    <table class="table table-borderless table-sm" id="tableOc">
+                        <thead style="border-bottom:1px solid #000000">
+                            <tr>
+                                <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
+                            </tr>
+                            <tr style="font-size:16px;">
+
+                                <td style="width:200px;">INVOICE NO</td>
+                                <td align="center">INVOICE DATE</td>
+                                <td align="center">AMOUNT (THB)  </td>
+                                <td align="center">DUE DATE </td>
+
+                            </tr>
+
+                        </thead>
+                        <tbody style="border-bottom:1px solid #000000">
+                            @*@{ var a = 1;}*@
+
+                            @foreach (Invoice v in (Invoice[])ViewBag.data)
+                            {
+
+                                <tr style="font-size:15px;">
+
+
+                                    <td>@v.invoiceNo</td>
+                                    <td align="center">@v.invoiceDate</td>
+                                    <td align="right">@v.invoiceAm2Cal</td>
+                                    <td align="center" onclick="editDate(this)">@v.invoiceDue</td>
+
+
+                                </tr>
+                                //a++;
+                            }
+
+
+                            @{
+                                for (var i = ViewBag.datacount + 1; i <= 15; i++)
+                                 //for (var i = 1; i <= 15; i++)
+                                {
+                                    <tr style="font-size:15px; ">
+
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+
+                                    </tr>
+                                }
+
+
+
+                            }
+
+                        </tbody>
+                        <tr>
+
+                            <td>TOTAL AMOUNT :</td>
+                            <td colspan="4" align="center">@ViewBag.calAm2</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+                <div style="padding-left:35px; padding-right:35px;" class="table">
+                    <table class="table table-sm table-borderless" style="font-size:15px;">
+                        <tr>
+                            <td>TRANFER BANK:</td>
+                            <td style="width:320px;"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ACC.NO. :</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>BRANCH :</td>
+                            <td>Your very truly,</td>
+                        </tr>
+                        <tr>
+                            <td>SWIFT CODE :</td>
+                            <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td style="border-bottom:1px solid #000000"></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="printableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px; display:none" class="col-8">
+            <div style="padding-left:40px; padding-right:40px; margin-top:90px;">
+                <div style="padding-left:35px; padding-right:35px;" class="table">
+                    <table class="table table-sm table-borderless">
+                        <tr style="font-size:35px; font-weight:600; text-decoration-line:underline">
+                            <td>OGURA CLUTCH THAILAND CO.,LTD.</td>
+                        </tr>
+                        <tr></tr>
+                    </table>
+                </div>
+                <div style="padding-left:35px; padding-right:35px;" class="table">
+
+                    <table class="table table-sm table-borderless" style="font-size:15px; margin-top:5px;">
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td style="width:70px;">No. :</td>
+                            <td style="width:160px;"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>Date :</td>
+                            <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ATTAN:</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr style="font-size:14px;">
+                            <td>Gentelman:</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr style="font-size:14px;">
+                            <td>We are pleasef to enclose the following <br />each one price of invoice</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <div style="padding-left:35px; padding-right:35px;" class="table">
+                    <table class="table table-borderless table-sm" id="tableOc">
+                        <thead style="border-bottom:1px solid #000000">
+                            <tr>
+                                <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
+                            </tr>
+                            <tr style="font-size:16px;">
+
+                                <td style="width:200px;">INVOICE NO</td>
+                                <td align="center">INVOICE DATE</td>
+                                <td align="center">AMOUNT (THB)  </td>
+                                <td align="center">DUE DATE </td>
+
+                            </tr>
+
+                        </thead>
+                        <tbody style="border-bottom:1px solid #000000">
+                            @*@{ var a = 1;}*@
+
+                            @foreach (Invoice v in (Invoice[])ViewBag.data)
+                            {
+
+                                <tr style="font-size:15px;">
+
+
+                                    <td>@v.invoiceNo</td>
+                                    <td align="center">@v.invoiceDate</td>
+                                    <td align="right">@v.invoiceAm2Cal</td>
+                                    <td align="center" onclick="editDate(this)">@v.invoiceDue</td>
+
+
+                                </tr>
+                                //a++;
+                            }
+
+
+                            @{
+                                for (var i = ViewBag.datacount + 1; i <= 15; i++)
+                                // for (var i = 1; i <= 15; i++)
+                                {
+                                    <tr style="font-size:15px; ">
+
+                                        <td>&nbsp;</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+
+                                    </tr>
+                                }
+
+
+
+                            }
+
+                        </tbody>
+                        <tr>
+
+                            <td>TOTAL AMOUNT :</td>
+                            <td colspan="4" align="center">@ViewBag.calAm2</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+                <div style="padding-left:35px; padding-right:35px;" class="table">
+                    <table class="table table-sm table-borderless" style="font-size:15px;">
+                        <tr>
+                            <td>TRANFER BANK:</td>
+                            <td style="width:320px;"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ACC.NO. :</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>BRANCH :</td>
+                            <td>Your very truly,</td>
+                        </tr>
+                        <tr>
+                            <td>SWIFT CODE :</td>
+                            <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td style="border-bottom:1px solid #000000"></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+            <div class="col-4" style="background-color:#808080">
+
+                <input type="button" onclick="printDiv('printableArea')" value="Print Invoice" />
+            </div>
+
+
+    </div>
+</div>
+
+<script>
+
+    function printDiv(id) {
+        var printContents = document.getElementById(id).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+
+
+</script>
