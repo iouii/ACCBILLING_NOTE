@@ -578,16 +578,18 @@
                     <tr>
                         <td>
                             Form <select class="form-control form-control-sm" id="selectOriginal" onchange="changeOriginal()">
-                                     <option value="ORIGINAL">ORIGINAL</option>
+                            <option selected>Form Contorl</option>         
+                            <option value="ORIGINAL">ORIGINAL</option>
                                      <option value="COPY">COPY</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Bank <select class="form-control form-control-sm" id="selectBank" onchange="changeBank()">
-                                <option value="1">a</option>
-                                <option value="2">b</option>
+                             <select class="form-control form-control-sm" id="selectBank" onchange="changeBank()">
+                                 <option selected >Bank</option>
+                                     <option value="Bangkok-01">Bangkok-01</option>
+                                     <option value="Bangkok-02">Bangkok-02</option>
                               
                             </select>
                         </td>
@@ -677,7 +679,7 @@
 
                 //var e = table.rows[7].cells[1].innerText;
 
-                if (formBan = 1) {
+                if (formBan == "Bangkok-01") {
 
                     textH = 'สามารถโอนเงินเข้าบัญชีธนาคารกรุงเทพ';
                     text = 'สาขา นิคมอุสาหกรรมอมตะชิตี้ เลขบัญชี626-044759-1';
@@ -693,7 +695,7 @@
                     var af = tableP.rows[9].cells[2].innerHTML = textii;
                     var a = table.rows[9].cells[2].innerHTML = textii;
                     
-                }else {
+                } else if (formBan == "Bangkok-02"){
                     textH = 'สามารถโอนเงินเข้าบัญชีธนาคารกรุงเทพ';
                     text = 'สาขา นิคมอุสาหกรรมอมตะชิตี้ เลขบัญชี626-044759-2';
                     texti = 'By transferring to Bank A/C Number: 626-044759-2 ';
