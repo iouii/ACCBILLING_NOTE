@@ -4,7 +4,7 @@
 @using ACCBILLING_NOTE.Models
 <style>
     .scaled {
-        transform: scale(0.75); /* Equal to scaleX(0.7) scaleY(0.7) */
+        transform: scale(0.8); /* Equal to scaleX(0.7) scaleY(0.7) */
     }
     #printableArea{
 
@@ -14,9 +14,19 @@
         width: 300px;
         word-break: normal;
     }
+    .detec{
+          height:40px !important;
+    }
+    .detec:hover{
+/*background-color:#044CC5;*/
+        border-left:10px solid #F2F2F2;
+        border-right:10px solid #F2F2F2;
+      
+    }
 </style>
 <div class="container-fluid">
     <div class="row">
+
 
         <div id="showtableArea" style=" background-color:#ffffff ; border:1px solid #000000; margin-top:-120px" class="col-8 scaled">
             <div style="padding-left:35px; padding-right:35px;">
@@ -48,7 +58,7 @@
 
                 @foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
                 {
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-borderless table-sm">
 
                         <tr style="font-size:12px;">
 
@@ -200,7 +210,7 @@
                     </tr>
                 </table>
 
-                <table class="table table-sm table-bordered" style="font-size:13px;" id="bill">
+                <table class="table table-sm table-borderless" style="font-size:13px;" id="bill">
                     <tr>
                         <td colspan="2" style="width:80px;"><b>เอกสารที่ใช้ในการวางบิล</b></td>
                         <td>โปรดชำระเงินด้วยเช็คขีดคร่อม "เข้าบัญชีผู้รับเท่านั้น" สั่งจ่ายในนาม</td>
@@ -570,34 +580,53 @@
 
         </div>
 
-        <div class="col-4" style="background-color:#808080">
-            <div class="table-responsive" style="margin-top:10px;">
+        <div class="col-3" >
+            <div class="table-responsive" style="margin-top:5px;">
                 <table class="table table-sm table-bordered">
+                    <thead style="background-color:#5A6268; color:#ffffff">
+                        <tr>
+                            <td align="right" colspan="2">
+                                <input type="button" onclick="printDiv('printableArea')" value="PRINT" class="btn btn-sm btn-success" style="border-radius:0px; color:#ffffff" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
 
-                    <tr>
-                        <td><input type="button" onclick="printDiv('printableArea')" value="Print Invoice" /></td>
-                    </tr>
-                    <tr><td><button id="cmd" onclick="pd();">generate PDF</button></td></tr>
-                    <tr>
-                        <td>
-                             <select class="form-control form-control-sm" id="selectOriginal" onchange="changeOriginal()">
-                            <option selected>Form Contorl</option>         
-                            <option value="ORIGINAL">ORIGINAL</option>
-                                     <option value="COPY">COPY</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                             <select class="form-control form-control-sm" id="selectBank" onchange="changeBank()">
-                                 <option selected >Bank</option>
-                                     <option value="Bangkok-01">Bangkok-01</option>
-                                     <option value="Bangkok-02">Bangkok-02</option>
+
                               
-                            </select>
-                        </td>
 
-                    </tr>
+                                <select class="form-control form-control-sm" id="selectOriginal" onchange="changeOriginal()" style="border-radius:0px;">
+                                    <option selected>Form Contorl</option>
+                                    <option value="ORIGINAL">ORIGINAL</option>
+                                    <option value="COPY">COPY</option>
+                                </select>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <select class="form-control form-control-sm" id="selectBank" onchange="changeBank()" style="border-radius:0px;">
+                                    <option selected>Bank</option>
+                                    <option value="Bangkok-01">Bangkok-01</option>
+                                    <option value="Bangkok-02">Bangkok-02</option>
+
+                                </select>
+                            </td>
+                        </tr>
+
+                        @for (var i = 1; i < 8; i++)
+                        {
+                            <tr class="detec">
+
+                                <td>
+                                    
+                                  &there4;
+                                </td>
+                            </tr>
+                        }
+                    </thead>
+
                 </table>
             
 
@@ -660,7 +689,7 @@
 
 
                
-                        setTimeout(function () { window.location.href="@Html.Raw(Url.Action("Test", "Home"))"; }, 10000);
+                        setTimeout(function () { window.location.href="@Html.Raw(Url.Action("Test", "Home"))"; }, 4000);
                 
 
 

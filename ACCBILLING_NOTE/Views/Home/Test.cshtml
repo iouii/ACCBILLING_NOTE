@@ -74,8 +74,8 @@
                         <tr>
 
                             <td align="right" colspan="5">
-                                <button type="button" class="btn btn-primary btn-sm r" onclick="createInvoice()" style="border-radius:0px">Domestic</button>
-                                <button type="button" class="btn btn-light btn-sm" onclick="createInvoiceEx()" style="border-radius:0px">Export</button>
+                                <button type="button" class="btn btn-primary btn-sm r" onclick="createInvoice()" style="border-radius:0px" data-toggle="tooltip" data-placement="top" title="Create Billing Note with Domestic">Domestic</button>
+                                <button type="button" class="btn btn-light btn-sm" onclick="createInvoiceEx()" style="border-radius:0px" data-toggle="tooltip" data-placement="top" title="Create Billing Note with Export">Export</button>
 
                             </td>
                         </tr>
@@ -197,7 +197,8 @@
 
 <script>
 
-    $(document).ready(function(){
+    $(document).ready(function () {
+
 
         $("#g").click();
 
@@ -331,6 +332,8 @@
 </script>
 
         <script>
+
+
 
             $("#selectAll").click(function () {
                 $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
