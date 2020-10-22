@@ -580,6 +580,8 @@
 
         </div>
 
+        <div id="editor"></div>
+
         <div class="col-3" >
             <div class="table-responsive" style="margin-top:5px;">
                 <table class="table table-sm table-bordered">
@@ -587,6 +589,11 @@
                         <tr>
                             <td align="right" colspan="2">
                                 <input type="button" onclick="printDiv('printableArea')" value="PRINT" class="btn btn-sm btn-success" style="border-radius:0px; color:#ffffff" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="2">
+                                <input type="button" onclick="pdf();" value="PRINT" class="btn btn-sm btn-success" style="border-radius:0px; color:#ffffff" />
                             </td>
                         </tr>
                         <tr>
@@ -886,4 +893,23 @@
         });
         doc.save('sample-file.pdf');
     };
+</script>
+
+<script>
+
+    var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+
+
+    function pdf() {
+        doc.fromHTML($('#printableArea').html(), 15, 15, {
+            'width': 170,
+            'elementHandlers': specialElementHandlers
+        });
+        doc.save('sample-file.pdf');
+    }
 </script>
