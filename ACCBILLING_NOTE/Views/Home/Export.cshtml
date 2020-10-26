@@ -187,18 +187,18 @@
             </div>
         </div>
 
-        <div id="printableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px; display:none" class="col-8">
-            <div style="padding-left:40px; padding-right:40px; margin-top:90px;">
-                <div style="padding-left:35px; padding-right:35px;" class="table">
+        <div id="printableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px; display:none" class="col-12">
+            <div style="padding-left:20px; padding-right:20px; margin-top:90px;">
+                <div style="padding-left:20px; padding-right:20px;" class="table">
                     <table class="table table-sm table-borderless">
-                        <tr style="font-size:35px; font-weight:600; ">
+                        <tr style="font-size:40px; font-weight:800; ">
                             <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
                             <td><b id="textOriginalP" style="font-size:16px; "></b></td>
                         </tr>
                         <tr></tr>
                     </table>
                 </div>
-                <div style="padding-left:35px; padding-right:35px;" class="table">
+                <div style="padding-left:20px; padding-right:20px;" class="table">
 @foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
                 {
                      <table class="table table-sm table-borderless" style="font-size:17px; margin-top:5px;">
@@ -239,7 +239,7 @@
                 </div>
 
 
-                <div style="padding-left:35px; padding-right:35px;" class="table">
+                <div style="padding-left:20px; padding-right:20px;" class="table">
                     <table class="table table-borderless table-sm" id="tableOP">
                         <thead style="border-bottom:1px solid #000000">
                             <tr>
@@ -261,7 +261,7 @@
                             @foreach (Invoice v in (Invoice[])ViewBag.data)
                             {
 
-                                <tr style="font-size:15px;">
+                                <tr style="font-size:16px;">
 
 
                                     <td>@v.invoiceNo</td>
@@ -279,7 +279,7 @@
                                 for (var i = ViewBag.datacount + 1; i <= 15; i++)
                                 // for (var i = 1; i <= 15; i++)
                                 {
-                                    <tr style="font-size:15px; ">
+                                    <tr style="font-size:16px; ">
 
                                         <td>&nbsp;</td>
                                         <td></td>
@@ -304,8 +304,8 @@
                     </table>
 
                 </div>
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-                    <table class="table table-sm table-borderless" style="font-size:15px;">
+                <div style="padding-left:20px; padding-right:20px;" class="table">
+                    <table class="table table-sm table-borderless" style="font-size:16px;">
                         <tr>
                             <td>TRANFER BANK:</td>
                             <td style="width:320px;"></td>
