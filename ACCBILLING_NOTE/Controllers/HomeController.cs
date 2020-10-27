@@ -50,8 +50,8 @@ namespace ACCBILLING_NOTE.Controllers
 
             return View();
         }
-  
 
+   
         public ActionResult Export()
         {
 
@@ -110,12 +110,13 @@ namespace ACCBILLING_NOTE.Controllers
             ") " +
             "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
             "REPLACE(INV.SHPTOSTE2,' ',' ')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOSTE3,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOSTTE,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOPOST,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOCTRY,' ',' ') AS ADRRESS," +
             "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
             "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-            "ON INV.IDCUST = ART.IDCUST WHERE  ART.IDCUST = '" + name + "' ";
+            "ON INV.IDCUST = ART.IDCUST WHERE  ART.IDCUST = '" + name + "'ORDER BY ART.NAMECUST DESC";
 
 
 
@@ -424,6 +425,7 @@ namespace ACCBILLING_NOTE.Controllers
         }
 
 
+
         [HttpPost]
         public ActionResult GetExport(string name, string month, string year, string invoice)
         {
@@ -449,12 +451,13 @@ namespace ACCBILLING_NOTE.Controllers
             ") " +
             "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
             "REPLACE(INV.SHPTOSTE2,' ',' ')+SPACE(2)+ " +
+            "REPLACE(INV.SHPTOSTE3,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOSTTE,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOPOST,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOCTRY,' ',' ') AS ADRRESS," +
             "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
             "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-            "ON INV.IDCUST = ART.IDCUST WHERE   ART.IDCUST = '" + name + "' ";
+            "ON INV.IDCUST = ART.IDCUST WHERE   ART.IDCUST = '" + name + "'  ORDER BY ART.NAMECUST DESC";
 
 
 
@@ -524,6 +527,10 @@ namespace ACCBILLING_NOTE.Controllers
 
                     textD = 150;
 
+                }
+                else if (text == " ")
+                {
+                    textD = 0;
                 }
                 else
                 {
@@ -753,7 +760,7 @@ namespace ACCBILLING_NOTE.Controllers
 
 
             con.OpenConnectionSql();
-            sqlq = " SELECT DISTINCT IDCUST,NAMECUST FROM  ARSTCUS  ";
+            sqlq = " SELECT DISTINCT IDCUST,NAMECUST FROM  ARSTCUS WHERE  NOT  NAMECUST = 'CALSONIC KANSEI (THAILAND) CO.,LTD.' ";
 
             DataTable dbq = new DataTable();
             SqlDataAdapter daq = new SqlDataAdapter(sqlq, con.con);
@@ -816,6 +823,18 @@ namespace ACCBILLING_NOTE.Controllers
 
 
         }
+
+        [HttpPost]
+        public ActionResult Index(string id)
+        {
+            var bnf = cBankTranfer(id);
+
+            return Json(bnf, JsonRequestBehavior.AllowGet);
+
+
+          
+        }
+
 
         [HttpPost]
         public ActionResult Export(string id)

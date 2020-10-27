@@ -511,3 +511,36 @@
     }
 
 </script>
+
+<script>
+
+    function editDate(r) {
+
+
+
+        var i = r.parentNode.rowIndex;
+
+        var table = document.getElementById("tableOc");
+        var tableP = document.getElementById("tableOP");
+
+        var e = table.rows[3].cells[3].innerText;
+
+        var al = prompt('Would you like to change currency?', e)
+
+
+        // var af = table.rows[i].cells[3].innerHTML = al;
+
+        for(var c = 2; c < @ViewBag.datacount +2 ; c++){
+
+            table.rows[c].cells[3].innerHTML = al;
+        }
+
+        for(s = 2; s < @ViewBag.datacount +2; s++){
+
+            tableP.rows[s].cells[3].innerHTML = al;
+        }
+
+        //  var changeDue = tableP.rows[i].cells[3].innerHTML = al;
+
+    }
+</script>

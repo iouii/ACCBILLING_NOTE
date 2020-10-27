@@ -57,7 +57,7 @@
 
 
 
-<script>
+@*<script>
 
     function printDiv(id) {
         var printContents = document.getElementById(id).innerHTML;
@@ -76,7 +76,7 @@
     }
 
 
-</script>
+</script>*@
 
 <script>
 
@@ -89,60 +89,7 @@
 
 
     }
-    function changeBank() {
 
-        var formBan = $("#selectBank").val();
-
-        var tableP = document.getElementById("billP");
-        var tablePC = document.getElementById("billPC");
-        var table = document.getElementById("bill");
-
-        //var e = table.rows[7].cells[1].innerText;
-
-        if (formBan == "Bangkok-01") {
-
-            textH = 'สามารถโอนเงินเข้าบัญชีธนาคารกรุงเทพ';
-            text = 'สาขา นิคมอุสาหกรรมอมตะชิตี้ เลขบัญชี626-044759-1';
-            texti = 'By transferring to Bank A/C Number: 626-044759-1 ';
-            textii = 'Bank & Branch :BANGKOK BANK,AMATA CITY INDUSTRIAL ESTATES';
-
-            var afC = tablePC.rows[6].cells[2].innerHTML = textH;
-            var af = tableP.rows[6].cells[2].innerHTML = textH;
-            var a = table.rows[6].cells[2].innerHTML = textH;
-            var afC = tablePC.rows[7].cells[2].innerHTML = text;
-            var af = tableP.rows[7].cells[2].innerHTML = text;
-            var a = table.rows[7].cells[2].innerHTML = text;
-            var afC = tablePC.rows[8].cells[2].innerHTML = texti;
-            var af = tableP.rows[8].cells[2].innerHTML = texti;
-            var a = table.rows[8].cells[2].innerHTML = texti;
-            var afC = tablePC.rows[9].cells[2].innerHTML = textii;
-            var af = tableP.rows[9].cells[2].innerHTML = textii;
-            var a = table.rows[9].cells[2].innerHTML = textii;
-
-
-        } else if (formBan == "Bangkok-02") {
-            textH = 'สามารถโอนเงินเข้าบัญชีธนาคารกรุงเทพ';
-            text = 'สาขา นิคมอุสาหกรรมอมตะชิตี้ เลขบัญชี626-044759-2';
-            texti = 'By transferring to Bank A/C Number: 626-044759-2 ';
-            textii = 'Bank & Branch :BANGKOK BANK,AMATA CITY INDUSTRIAL ESTATES';
-            var afC = tablePC.rows[6].cells[2].innerHTML = textH;
-            var af = tableP.rows[6].cells[2].innerHTML = textH;
-            var a = table.rows[6].cells[2].innerHTML = textH;
-            var afC = tablePC.rows[7].cells[2].innerHTML = text;
-            var af = tableP.rows[7].cells[2].innerHTML = text;
-            var a = table.rows[7].cells[2].innerHTML = text;
-            var afC = tablePC.rows[8].cells[2].innerHTML = texti;
-            var af = tableP.rows[8].cells[2].innerHTML = texti;
-            var a = table.rows[8].cells[2].innerHTML = texti;
-            var afC = tablePC.rows[9].cells[2].innerHTML = textii;
-            var af = tableP.rows[9].cells[2].innerHTML = textii;
-            var a = table.rows[9].cells[2].innerHTML = textii;
-
-        }
-
-
-
-    }
 
 </script>
 

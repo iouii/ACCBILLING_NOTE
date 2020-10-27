@@ -66,7 +66,7 @@
     }
 </script>
 
-<script>
+@*<script>
 
     function editDate(r) {
 
@@ -82,7 +82,7 @@
         var al = prompt('Would you like to change currency?', e)
 
 
-       // var af = table.rows[i].cells[3].innerHTML = al;
+        var af = table.rows[i].cells[3].innerHTML = al;
 
         for(var e=0; e < @ViewBag.datacount +1 ; e++){
 
@@ -94,10 +94,10 @@
             tableP.rows[s].cells[3].innerHTML = al;
         }
 
-      //  var changeDue = tableP.rows[i].cells[3].innerHTML = al;
+        var changeDue = tableP.rows[i].cells[3].innerHTML = al;
 
     }
-</script>
+</script>*@
 <script>
 
     function changeOriginal() {
