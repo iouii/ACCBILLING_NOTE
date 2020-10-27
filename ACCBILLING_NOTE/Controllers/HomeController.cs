@@ -54,14 +54,25 @@ namespace ACCBILLING_NOTE.Controllers
         {
 
             ViewBag.cus = TempData["Cus"];
-            ViewBag.data = TempData["invoi"];
+            // ViewBag.data = TempData["invoi"];
             ViewBag.datacount = TempData["count"];
             ViewBag.calAm1 = TempData["calAm1"];
             ViewBag.calAm2 = TempData["calAm2"];
             ViewBag.calV = TempData["calV"];
             ViewBag.TextCal = TempData["textCal"];
+            ViewBag.data = TempData["data"];
+            ViewBag.data1 = TempData["data1"];
+            ViewBag.data2 = TempData["data2"];
+            ViewBag.data3 = TempData["data3"];
+            ViewBag.data4 = TempData["data4"];
+            ViewBag.calco = TempData["calcount"];
 
 
+            ViewBag.countDt = TempData["dataCu"];
+            ViewBag.countDt1 = TempData["dataCu1"];
+            ViewBag.countDt2 = TempData["dataCu2"];
+            ViewBag.countDt3 = TempData["dataCu13"];
+              
             return View();
         }
         public ActionResult GetOver()
@@ -75,7 +86,7 @@ namespace ACCBILLING_NOTE.Controllers
 
             string sqlPirce = "", sqlHeader;
             Array asas, cuss,data,data1,data2,data3,data4;
-            string[] sAry, sAry1, sAry2, sAry3, sAry4;
+          
 
             sqlPirce = "WITH INVOICE AS ( " +
                   "SELECT  CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
@@ -219,14 +230,6 @@ namespace ACCBILLING_NOTE.Controllers
             var calText = calAm.ToString();
 
             asas = json.ToArray();
-
-
-            sAry = new string[15];
-            sAry1 = new string[15];
-            sAry2 = new string[15];
-            sAry3 = new string[15];
-            sAry4 = new string[15];
-          
 
 
             var jsonSr = new List<Invoice>();
@@ -422,7 +425,7 @@ namespace ACCBILLING_NOTE.Controllers
         {
 
             string sqlPirce = "", sqlHeader;
-            Array asas, cuss;
+            Array asas, cuss, data, data1, data2, data3, data4;
 
             sqlPirce = "WITH INVOICE AS ( " +
                   "SELECT  CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
@@ -554,6 +557,153 @@ namespace ACCBILLING_NOTE.Controllers
             var calText = calAm.ToString();
 
             asas = json.ToArray();
+
+
+
+            var jsonSr = new List<Invoice>();
+            var jsonSr1 = new List<Invoice>();
+            var jsonSr2 = new List<Invoice>();
+            var jsonSr3 = new List<Invoice>();
+            var jsonSr4 = new List<Invoice>();
+
+            for (var i = 0; i < json.Count(); i++)
+            {
+
+                if (i < 15)
+                {
+
+                    jsonSr.Add(new Invoice
+                    {
+
+                        invoiceNo = json[i].invoiceNo,
+                        invoiceDate = json[i].invoiceDate,
+                        invoiceDue = json[i].invoiceDue,
+                        invoiceAm1 = json[i].invoiceAm1,
+                        invoiceVat = json[i].invoiceVat,
+                        invoiceAm2 = json[i].invoiceAm2,
+                        invoiceAm1Cal = json[i].invoiceAm1Cal,
+                        invoiceVatCal = json[i].invoiceVatCal,
+                        invoiceAm2Cal = json[i].invoiceAm2Cal
+
+                    });
+
+
+                }
+                else if (i > 14 && i < 30)
+                {
+
+
+                    jsonSr1.Add(new Invoice
+                    {
+
+                        invoiceNo = json[i].invoiceNo,
+                        invoiceDate = json[i].invoiceDate,
+                        invoiceDue = json[i].invoiceDue,
+                        invoiceAm1 = json[i].invoiceAm1,
+                        invoiceVat = json[i].invoiceVat,
+                        invoiceAm2 = json[i].invoiceAm2,
+                        invoiceAm1Cal = json[i].invoiceAm1Cal,
+                        invoiceVatCal = json[i].invoiceVatCal,
+                        invoiceAm2Cal = json[i].invoiceAm2Cal
+
+                    });
+
+                }
+                else if (i > 29 && i < 45)
+                {
+
+
+                    jsonSr2.Add(new Invoice
+                    {
+
+                        invoiceNo = json[i].invoiceNo,
+                        invoiceDate = json[i].invoiceDate,
+                        invoiceDue = json[i].invoiceDue,
+                        invoiceAm1 = json[i].invoiceAm1,
+                        invoiceVat = json[i].invoiceVat,
+                        invoiceAm2 = json[i].invoiceAm2,
+                        invoiceAm1Cal = json[i].invoiceAm1Cal,
+                        invoiceVatCal = json[i].invoiceVatCal,
+                        invoiceAm2Cal = json[i].invoiceAm2Cal
+
+
+                    });
+
+                }
+                else if (i > 44 && i < 60)
+                {
+
+
+                    jsonSr3.Add(new Invoice
+                    {
+
+                        invoiceNo = json[i].invoiceNo,
+                        invoiceDate = json[i].invoiceDate,
+                        invoiceDue = json[i].invoiceDue,
+                        invoiceAm1 = json[i].invoiceAm1,
+                        invoiceVat = json[i].invoiceVat,
+                        invoiceAm2 = json[i].invoiceAm2,
+                        invoiceAm1Cal = json[i].invoiceAm1Cal,
+                        invoiceVatCal = json[i].invoiceVatCal,
+                        invoiceAm2Cal = json[i].invoiceAm2Cal
+
+                    });
+
+                }
+                else if (i > 60 && i < 75)
+                {
+
+
+                    jsonSr4.Add(new Invoice
+                    {
+
+                        invoiceNo = json[i].invoiceNo,
+                        invoiceDate = json[i].invoiceDate,
+                        invoiceDue = json[i].invoiceDue,
+                        invoiceAm1 = json[i].invoiceAm1,
+                        invoiceVat = json[i].invoiceVat,
+                        invoiceAm2 = json[i].invoiceAm2,
+                        invoiceAm1Cal = json[i].invoiceAm1Cal,
+                        invoiceVatCal = json[i].invoiceVatCal,
+                        invoiceAm2Cal = json[i].invoiceAm2Cal
+
+
+
+
+
+
+                    });
+
+                }
+
+
+
+            }
+
+
+            data = jsonSr.ToArray();
+            data1 = jsonSr1.ToArray();
+            data2 = jsonSr2.ToArray();
+            data3 = jsonSr3.ToArray();
+            data4 = jsonSr4.ToArray();
+
+
+
+            //  List<Invoice> ArrayData = data.Tolist()
+
+
+            TempData["data"] = data;
+            TempData["data1"] = data1;
+            TempData["data2"] = data2;
+            TempData["data3"] = data3;
+            TempData["data4"] = data4;
+
+            TempData["dataCu"] = jsonSr.Count();
+            TempData["dataCu1"] = jsonSr1.Count();
+            TempData["dataCu2"] = jsonSr2.Count();
+            TempData["dataCu3"] = jsonSr3.Count();
+
+
             ViewBag.data = asas;
             ViewBag.datacount = json.Count();
             ViewBag.calAm1 = cal.ToString("N2", CultureInfo.InvariantCulture);
@@ -570,6 +720,10 @@ namespace ACCBILLING_NOTE.Controllers
             TempData["textCal"] = ViewBag.TextCal;
             TempData["Cus"] = cuss;
             TempData["count"] = ViewBag.datacount;
+            var adde = (json.Count / 15);
+
+            TempData["calcount"] = adde;
+
 
             return View("Export");
         }

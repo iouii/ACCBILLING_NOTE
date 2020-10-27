@@ -184,6 +184,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Te.css" />
+    <Content Include="Content\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -348,6 +349,8 @@
     <Content Include="Views\Shared\_DenPartial.cshtml" />
     <Content Include="Views\Shared\_Den1Partial.cshtml" />
     <Content Include="Views\Shared\_Den2Partial.cshtml" />
+    <Content Include="Views\Shared\_ExPartial.cshtml" />
+    <Content Include="Views\Shared\_Ex1Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
