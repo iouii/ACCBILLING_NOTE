@@ -41,34 +41,14 @@
                             <td>
                                 
                                 Date Start 
-                                <input type="date" name="name" value="" class="form-control form-control-sm" id="dateStart" style="border-radius:0px;" />
+                                <input type="date" name="name" value="" class="form-control form-control-sm" id="dateStart" style="border-radius:0px;" onchange="getname()" />
                                
-                                @*Month}
-                                <select class="form-control form-control-sm" id="monthSe" onchange="getname()" style="border-radius:0px;">
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-
-                                </select>*@
+                   
                             </td>
                             <td>
                                 Date End
                                 <input type="date" name="name" value="" class="form-control form-control-sm " id="dateEnd" onchange="getname()" style="border-radius:0px;" />
-                                @*Year 
-                                <select class="form-control form-control-sm" id="yearSe" onchange="getname()" style="border-radius:0px;">
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                </select>*@
+                   
                             </td>
                         </tr>
                         <tr>
@@ -89,16 +69,7 @@
                         </tr>
                     </thead>
                     <tbody id="Tacl"></tbody>
-                    @*@foreach (Invoice ih in (Invoice[])ViewBag.n  ameGet)
-                    {
-                        <tr>
-                            <td><input type="checkbox" name="name" value="" /></td>
-                            <td>@ih.invoiceNo</td>
-                            <td>@ih.invoiceDate</td>
-                            <td>@ih.invoiceDue</td>
-
-                        </tr>
-                    }*@
+          
 
                 </table>
             </div>

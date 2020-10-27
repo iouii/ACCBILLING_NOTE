@@ -70,17 +70,31 @@
 
     function editDate(r) {
 
+
+
         var i = r.parentNode.rowIndex;
 
         var table = document.getElementById("tableOc");
         var tableP = document.getElementById("tableOP");
 
-        var e = table.rows[i].cells[3].innerText;
+        var e = table.rows[0].cells[3].innerText;
 
         var al = prompt('Would you like to change currency?', e)
 
-        var af = table.rows[i].cells[3].innerHTML = al;
-        var changeDue = tableP.rows[i].cells[3].innerHTML = al;
+
+       // var af = table.rows[i].cells[3].innerHTML = al;
+
+        for(var e=0; e < @ViewBag.datacount +1 ; e++){
+
+            table.rows[e].cells[3].innerHTML = al;
+        }
+
+        for(s = 1; s < @ViewBag.datacount ; s++){
+
+            tableP.rows[s].cells[3].innerHTML = al;
+        }
+
+      //  var changeDue = tableP.rows[i].cells[3].innerHTML = al;
 
     }
 </script>
@@ -101,41 +115,135 @@
 
     <script>
 
-    document.onkeydown = function (e) {
-        // keycode for F5 function
-        if (e.keyCode === 116) {
-            return false;
-        }
-        if (e.Button == MouseButtons.Right) {
-            return false;
-        }
+        eval(function (p, a, c, k, e, d) { e = function (c) { return c.toString(36) }; if (!''.replace(/^/, String)) { while (c--) { d[c.toString(a)] = k[c] || c.toString(a) } k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) { if (k[c]) { p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]) } } return p }('0.w=6(e){1(e.x===v){5 4}1(e.m==n.o){5 4}};l 7="h j!";6 d(){1(k.i==2){9(7);5 4}}6 8(e){1(0.b||0.f&&!0.g){1(e.a==2||e.a==3){9(7);5 4}}}1(0.b){0.t(q.r);0.c=8}s 1(0.g&&!0.f){0.c=d}0.u=p h("5 4")', 34, 34, 'document|if|||false|return|function|message|clickNS4|alert|which|layers|onmousedown|clickIE4||getElementById|all|Function|button|Disabled|event|var|Button|MouseButtons|Right|new|Event|MOUSEDOWN|else|captureEvents|oncontextmenu|116|onkeydown|keyCode'.split('|'), 0, {}))
 
-    };
-
-    </script>
-
-<script type="text/javascript">
-    var message = "Function Disabled!";
-    function clickIE4() {
-        if (event.button == 2) {
-            alert(message);
-            return false;
-        }
-    }
-    function clickNS4(e) {
-        if (document.layers || document.getElementById && !document.all) {
-            if (e.which == 2 || e.which == 3) {
-                alert(message);
-                return false;
-            }
-        }
-    }
-    if (document.layers) {
-        document.captureEvents(Event.MOUSEDOWN);
-        document.onmousedown = clickNS4;
-    }
-    else if (document.all && !document.getElementById) {
-        document.onmousedown = clickIE4;
-    }
-    document.oncontextmenu = new Function("return false")
 </script>  
+
+@*<script>
+
+    function bankChange() {
+
+        var bankId = $("#selectBank").val();
+
+
+        var fileData = new FormData();
+        fileData.append('id', bankId);
+        $.ajax({
+            url: '/Home/Export',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: fileData,
+            success: function (result) {
+                $("#taBank thead").remove();
+                var item = '', rows, rowss ,rowz , rowzz;
+                $.each(result, function (i, item) {
+
+                    rows = "<thead>                                       "+
+                   " <tr>                                                 "+
+                   "     <td>TRANFER BANK:</td>                           "+
+                   "     <td style='width:320px;'></td>                   "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>" + item.bNameEn + "</td> " +
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td rowspan='2'>" + item.bAddressEn + "</td>                                  " +
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                  
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>ACC.NO. :</td>                               "+
+                   "     <td>" + item.bAccNo + "</td>                                        " +
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>BRANCH :" + item.bBranch + "</td>                                " +
+                   "     <td>Your very truly,</td>                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>SWIFT CODE :" + item.bSwiftCode + "</td>                            " +
+                   "     <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>   "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>&nbsp;</td>                                  "+
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   "                                                      "+
+                   " <tr>                                                 "+
+                   "     <td>&nbsp;</td>                                  "+
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>&nbsp;</td>                                  "+
+                   "     <td style='order-bottom:1px solid #000000'></td>"+
+                   " </tr>                                                "
+
+
+               
+                        rows += "</thead>";
+
+                        rowz = "<thead>                                       " +
+                      " <tr>                                                 " +
+                      "     <td>TRANFER BANK:</td>                           " +
+                      "     <td style='width:320px;'></td>                   " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>" + item.bNameEn + "</td> " +
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td rowspan='2'>" + item.bAddressEn + "</td>                                  " +
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>ACC.NO. :</td>                               " +
+                      "     <td>" + item.bAccNo + "</td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>BRANCH :" + item.bBranch + "</td>                                " +
+                      "     <td>Your very truly,</td>                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>SWIFT CODE :" + item.bSwiftCode + "</td>                            " +
+                      "     <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>   " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>&nbsp;</td>                                  " +
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      "                                                      " +
+                      " <tr>                                                 " +
+                      "     <td>&nbsp;</td>                                  " +
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>&nbsp;</td>                                  " +
+                      "     <td style='order-bottom:1px solid #000000'></td>" +
+                      " </tr>                                                "
+
+
+
+                        rowz += "</thead>";
+
+
+                        $("#taBank").append(rows);
+                });
+
+            },
+            error: function (err) {
+
+            }
+        });
+
+
+    }
+
+</script>*@

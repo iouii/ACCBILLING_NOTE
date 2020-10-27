@@ -11,6 +11,7 @@ using System.Globalization;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Web.Helpers;
+using ACCBILLING_NOTE.Context;
 
 
 namespace ACCBILLING_NOTE.Controllers
@@ -20,7 +21,8 @@ namespace ACCBILLING_NOTE.Controllers
       
         ConnectdataBase con = new ConnectdataBase();
 
-        
+        OCTIIS_WEBAPPEntities sql = new OCTIIS_WEBAPPEntities();
+
         public ActionResult Index()
         {
 
@@ -43,8 +45,8 @@ namespace ACCBILLING_NOTE.Controllers
             ViewBag.countDt1 = TempData["dataCu1"];
             ViewBag.countDt2 = TempData["dataCu2"];
             ViewBag.countDt3 = TempData["dataCu13"];
-              
 
+            ViewBag.bankTr = bankQuery();
 
             return View();
         }
@@ -72,7 +74,9 @@ namespace ACCBILLING_NOTE.Controllers
             ViewBag.countDt1 = TempData["dataCu1"];
             ViewBag.countDt2 = TempData["dataCu2"];
             ViewBag.countDt3 = TempData["dataCu13"];
-              
+
+            ViewBag.bankTr = bankQuery();
+
             return View();
         }
         public ActionResult GetOver()
@@ -403,7 +407,7 @@ namespace ACCBILLING_NOTE.Controllers
 
             ViewBag.cusname = cus();
 
-       
+           
 
             var ae = DateTime.Now.Date.ToString("dd/MM/yyyy").ToString();
 
@@ -779,14 +783,87 @@ namespace ACCBILLING_NOTE.Controllers
             return cusname;
         }
 
+
+        public Array bankQuery()
+        {
+            List<bankTranfer> bank = new List<bankTranfer>();
+            Array bankAr;
+
+            var querySql = sql.Acc_Bank.ToList();
+
+            foreach (var bn in querySql)
+            {
+
+                bank.Add(new bankTranfer
+                {
+                    bId = bn.Id.ToString(),
+                    bAddressEn  =bn.Address_EN,
+                    bAddressThai = bn.Address_Thi,
+                    bNameEn = bn.BankName_EN,
+                    bNameThai = bn.BankName_Thi,
+                    bAccNo = bn.AccOn,
+                    bBranch = bn.Branch,
+                    bSwiftCode = bn.SwiftCode
+
+
+                });
+            }
+
+
+            bankAr = bank.ToArray();
+
+            return bankAr;
+
+
+        }
+
+        [HttpPost]
+        public ActionResult Export(string id)
+        {
+            var bnf = cBankTranfer(id);
+
+
+            return Json(bnf, JsonRequestBehavior.AllowGet);
+        }
+        
+        public List<bankTranfer> cBankTranfer(string id)
+        {
+            var json = new List<bankTranfer>();
+
+            var bankQuery = sql.Acc_Bank.Where(c => c.Id.ToString() == id).ToList();
+
+
+            foreach (var bn in bankQuery)
+            {
+
+                json.Add(new bankTranfer {
+
+                    bId = bn.Id.ToString(),
+                    bAddressEn = bn.Address_EN,
+                    bAddressThai = bn.Address_Thi,
+                    bNameEn = bn.BankName_EN,
+                    bNameThai = bn.BankName_Thi,
+                    bAccNo = bn.AccOn,
+                    bBranch = bn.Branch,
+                    bSwiftCode = bn.SwiftCode
+                
+                
+                });
+
+            }
+
+
+
+
+
+            return json;
+        }
+
         public List<Invoice> nameQ(string name,string month,string year)
         {
 
             string sqlPirce;
 
-
-
-           
             sqlPirce = "WITH INVOICE AS ( " +
          "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
          "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
@@ -795,7 +872,7 @@ namespace ACCBILLING_NOTE.Controllers
            "SELECT DISTINCT " +
            "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
            "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-           "ON INV.IDCUST = AST.IDCUST  WHERE AST.IDCUST = '" + name + "' ";
+           "ON INV.IDCUST = AST.IDCUST  WHERE AST.IDCUST LIKE  '" + name + "%' ";
 
 
             con.OpenConnectionSql();

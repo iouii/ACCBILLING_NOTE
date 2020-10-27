@@ -806,7 +806,7 @@
             </div>
         </div>
 
-        <div id="editor"></div>
+       
 
         <div class="col-3">
             <div class="table-responsive" style="margin-top:5px;">
@@ -820,25 +820,21 @@
                         <tr>
 
                             <td>
-                                <select class="form-control form-control-sm" id="selectBank" onchange="changeBank()" style="border-radius:0px;">
-                                    <option selected>Bank</option>
-                                    <option value="Bangkok-01">Bangkok-01</option>
-                                    <option value="Bangkok-02">Bangkok-02</option>
 
+                                <select class="form-control form-control-sm" id="selectBank" onchange="changeBank()" style="border-radius:0px;">
+                                    
+                                    
+                                
+@foreach (bankTranfer ban in (bankTranfer[])ViewBag.bankTr)
+{
+                                    <option value="@ban.bId">@ban.bNameEn</option>
+}
                                 </select>
+
                             </td>
                         </tr>
 
-                        @for (var i = 1; i < 8; i++)
-                        {
-                            <tr class="detec">
-
-                                <td>
-
-                                    &there4;
-                                </td>
-                            </tr>
-                        }
+                       
                     </thead>
 
                 </table>
@@ -888,60 +884,7 @@
 
 
     }
-    function changeBank() {
 
-        var formBan = $("#selectBank").val();
-
-        var tableP = document.getElementById("billP");
-        var tablePC = document.getElementById("billPC");
-        var table = document.getElementById("bill");
-
-        //var e = table.rows[7].cells[1].innerText;
-
-        if (formBan == "Bangkok-01") {
-
-            textH = 'สามารถโอนเงินเข้าบัญชีธนาคารกรุงเทพ';
-            text = 'สาขา นิคมอุสาหกรรมอมตะชิตี้ เลขบัญชี626-044759-1';
-            texti = 'By transferring to Bank A/C Number: 626-044759-1 ';
-            textii = 'Bank & Branch :BANGKOK BANK,AMATA CITY INDUSTRIAL ESTATES';
-
-            var afC = tablePC.rows[6].cells[2].innerHTML = textH;
-            var af = tableP.rows[6].cells[2].innerHTML = textH;
-            var a = table.rows[6].cells[2].innerHTML = textH;
-            var afC = tablePC.rows[7].cells[2].innerHTML = text;
-            var af = tableP.rows[7].cells[2].innerHTML = text;
-            var a = table.rows[7].cells[2].innerHTML = text;
-            var afC = tablePC.rows[8].cells[2].innerHTML = texti;
-            var af = tableP.rows[8].cells[2].innerHTML = texti;
-            var a = table.rows[8].cells[2].innerHTML = texti;
-            var afC = tablePC.rows[9].cells[2].innerHTML = textii;
-            var af = tableP.rows[9].cells[2].innerHTML = textii;
-            var a = table.rows[9].cells[2].innerHTML = textii;
-
-
-        } else if (formBan == "Bangkok-02") {
-            textH = 'สามารถโอนเงินเข้าบัญชีธนาคารกรุงเทพ';
-            text = 'สาขา นิคมอุสาหกรรมอมตะชิตี้ เลขบัญชี626-044759-2';
-            texti = 'By transferring to Bank A/C Number: 626-044759-2 ';
-            textii = 'Bank & Branch :BANGKOK BANK,AMATA CITY INDUSTRIAL ESTATES';
-            var afC = tablePC.rows[6].cells[2].innerHTML = textH;
-            var af = tableP.rows[6].cells[2].innerHTML = textH;
-            var a = table.rows[6].cells[2].innerHTML = textH;
-            var afC = tablePC.rows[7].cells[2].innerHTML = text;
-            var af = tableP.rows[7].cells[2].innerHTML = text;
-            var a = table.rows[7].cells[2].innerHTML = text;
-            var afC = tablePC.rows[8].cells[2].innerHTML = texti;
-            var af = tableP.rows[8].cells[2].innerHTML = texti;
-            var a = table.rows[8].cells[2].innerHTML = texti;
-            var afC = tablePC.rows[9].cells[2].innerHTML = textii;
-            var af = tableP.rows[9].cells[2].innerHTML = textii;
-            var a = table.rows[9].cells[2].innerHTML = textii;
-
-        }
-
-
-
-    }
 
 </script>
 
