@@ -41,7 +41,15 @@
 
     .logoImg{
         
-        width:370px;
-        
+        width:370px !important;        
+        height:80px !important;
+    }
 
+    .line-custom{
+
+        line-height: 14pt !important;
+    }
+    .textB{
+
+        font-weight:bold ;
     }

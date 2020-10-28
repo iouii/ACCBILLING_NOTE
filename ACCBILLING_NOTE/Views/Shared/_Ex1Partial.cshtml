@@ -1,10 +1,10 @@
 ﻿
 @using ACCBILLING_NOTE.Models
 <div id="ShntableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px;  margin-top:-140px;" class="col-8 scaled">
-    <div style="padding-left:40px; padding-right:40px;">
+    <div style="padding-left:40px; padding-right:40px; padding-top:90px; padding-bottom:50px;">
         <div style="padding-left:35px; padding-right:35px;" class="table">
             <table class="table table-sm table-borderless">
-                <tr style="font-size:30px; font-weight:900; ">
+                <tr style="font-size:35px; font-weight:700; ">
                     <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
                     <td><b id="textOriginal" style="font-size:16px;"></b></td>
                 </tr>
@@ -107,7 +107,7 @@
                 </tbody>
                 <tr>
 
-                    <td>TOTAL AMOUNT :</td>
+                    <td></td>
                     <td colspan="4" align="center">&nbsp;</td>
                 </tr>
 
@@ -165,7 +165,7 @@
     </div>
 </div>
 <div class="col-3">
-    <div class="table-responsive" style="margin-top:5px;">
+    <div class="table-responsive" style="margin-top:35px;">
         <table class="table table-sm table-bordered">
             <thead style="background-color:#5A6268; color:#ffffff">
                 <tr>
@@ -173,24 +173,12 @@
                         <input type="button" onclick="printDiv('printableArea')" value="PRINT" class="btn btn-sm btn-success" style="border-radius:0px; color:#ffffff" />
                     </td>
                 </tr>
-                <tr>
-                    <td>
-
-
-
-
-                        <select class="form-control form-control-sm" id="selectOriginal" onchange="changeOriginal()" style="border-radius:0px;">
-                            <option selected>Form Contorl</option>
-                            <option value="ORIGINAL">ORIGINAL</option>
-                            <option value="COPY">COPY</option>
-                        </select>
-                    </td>
-
-                </tr>
+            
                 <tr>
 
                     <td>
                         <select class="form-control form-control-sm" id="selectBank" onchange="bankChange();" style="border-radius:0px;">
+                            <option>bank</option>
                             @foreach (bankTranfer ban in (bankTranfer[])ViewBag.bankTr)
                             {
                                 <option value="@ban.bId">@ban.bNameEn</option>
@@ -206,11 +194,11 @@
 
     </div>
 </div>
-<div id="ShntableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px;  margin-top:-140px;" class="col-8 scaled">
-    <div style="padding-left:40px; padding-right:40px;">
+<div id="ShntableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px;  margin-top:-330px;" class="col-8 scaled">
+    <div style="padding-left:40px; padding-right:40px; padding-top:90px; padding-bottom:50px; ">
         <div style="padding-left:35px; padding-right:35px;" class="table">
             <table class="table table-sm table-borderless">
-                <tr style="font-size:30px; font-weight:900; ">
+                <tr style="font-size:35px; font-weight:700; ">
                     <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
                     <td><b id="textOriginal" style="font-size:16px;"></b></td>
                 </tr>
@@ -376,9 +364,9 @@
         <div style="padding-left:20px; padding-right:20px; margin-top:90px;">
             <div style="padding-left:20px; padding-right:20px;" class="table">
                 <table class="table table-sm table-borderless">
-                    <tr style="font-size:40px; font-weight:800; ">
+                    <tr style="font-size:45px; font-weight:700; ">
                         <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
-                        <td><b id="textOriginalP" style="font-size:16px; ">ORIGINAL</b></td>
+                        <td><b id="textOriginalP" style="font-size:16px; "></b></td>
                     </tr>
                     <tr></tr>
                 </table>
@@ -482,7 +470,7 @@
                     </tbody>
                     <tr>
 
-                        <td>TOTAL AMOUNT :</td>
+                        <td></td>
                         <td colspan="4" align="center">&nbsp;</td>
                     </tr>
 
@@ -547,9 +535,9 @@
 
             <div style="padding-left:20px; padding-right:20px;" class="table">
                 <table class="table table-sm table-borderless">
-                    <tr style="font-size:40px; font-weight:800; ">
+                    <tr style="font-size:45px; font-weight:700; ">
                         <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
-                        <td><b id="textOriginalP" style="font-size:16px; ">ORIGINAL</b></td>
+                        <td><b id="textOriginalP" style="font-size:16px; "></b></td>
                     </tr>
                     <tr></tr>
                 </table>
@@ -746,7 +734,7 @@
                    "     <td style='width:320px;'></td>                   " +
                    " </tr>                                                " +
                    " <tr>                                                 " +
-                   "     <td>" + item.bNameEn + "</td>                    " +
+                   "     <td><b>" + item.bNameEn + "</b></td>                    " +
                    "     <td></td>                                        " +
                    " </tr>                                                " +
                    " <tr>                                                 " +
@@ -787,154 +775,11 @@
 
                     rowshi += "</tbody>";
 
-                    rowshii = "<tbody>                                     " +
-                  " <tr>                                                 " +
-                  "     <td>TRANFER BANK:</td>                           " +
-                  "     <td style='width:320px;'></td>                   " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>" + item.bNameEn + "</td>                    " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td rowspan='2'>" + item.bAddressEn + "</td>     " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>ACC.NO. : " + item.bAccNo + "</td>           " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>BRANCH : " + item.bBranch + "</td>           " +
-                  "     <td>Your very truly,</td>                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>SWIFT CODE : " + item.bSwiftCode + "</td>    " +
-                  "     <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>   " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>&nbsp;</td>                                  " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  "                                                      " +
-                  " <tr>                                                 " +
-                  "     <td>&nbsp;</td>                                  " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>&nbsp;</td>                                  " +
-                  "     <td style='border-bottom:1px solid #000000'></td>" +
-                  " </tr>                                                ";
-
-
-
-                    rowshii += "</tbody>";
-                    rowpri = "<tbody>                                       " +
-          " <tr>                                                 " +
-          "     <td>TRANFER BANK:</td>                           " +
-          "     <td style='width:320px;'></td>                   " +
-          " </tr>                                                " +
-          " <tr>                                                 " +
-          "     <td>" + item.bNameEn + "</td>                    " +
-          "     <td></td>                                        " +
-          " </tr>                                                " +
-          " <tr>                                                 " +
-          "     <td rowspan='2'>" + item.bAddressEn + "</td>     " +
-          "     <td></td>                                        " +
-          " </tr>                                                " +
-          " <tr>                                                 " +
-
-          "     <td></td>                                        " +
-          " </tr>                                                " +
-          " <tr>                                                 " +
-          "     <td>ACC.NO. :" + item.bAccNo + "</td>            " +
-          "     <td></td>                                        " +
-          " </tr>                                                " +
-          " <tr>                                                 " +
-          "     <td>BRANCH :" + item.bBranch + "</td>            " +
-          "     <td>Your very truly,</td>                        " +
-          " </tr>                                                " +
-          " <tr>                                                 " +
-          "     <td>SWIFT CODE :" + item.bSwiftCode + "</td>     " +
-          "     <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>   " +
-          " </tr>                                                " +
-          " <tr>                                                 " +
-          "     <td>&nbsp;</td>                                  " +
-          "     <td></td>                                        " +
-          " </tr>                                                " +
-          "                                                      " +
-          " <tr>                                                 " +
-          "     <td>&nbsp;</td>                                  " +
-          "     <td></td>                                        " +
-          " </tr>                                                " +
-          " <tr>                                                 " +
-          "     <td>&nbsp;</td>                                  " +
-          "     <td style='border-bottom:1px solid #000000'></td>" +
-          " </tr>                                                ";
-
-
-
-                    rowpri += "</tbody>";
-
-                    rowprii = "<tbody>                                     " +
-                  " <tr>                                                 " +
-                  "     <td>TRANFER BANK:</td>                           " +
-                  "     <td style='width:320px;'></td>                   " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>" + item.bNameEn + "</td>                    " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td rowspan='2'>" + item.bAddressEn + "</td>     " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>ACC.NO. : " + item.bAccNo + "</td>           " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>BRANCH : " + item.bBranch + "</td>           " +
-                  "     <td>Your very truly,</td>                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>SWIFT CODE : " + item.bSwiftCode + "</td>    " +
-                  "     <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>   " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>&nbsp;</td>                                  " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  "                                                      " +
-                  " <tr>                                                 " +
-                  "     <td>&nbsp;</td>                                  " +
-                  "     <td></td>                                        " +
-                  " </tr>                                                " +
-                  " <tr>                                                 " +
-                  "     <td>&nbsp;</td>                                  " +
-                  "     <td style='border-bottom:1px solid #000000'></td>" +
-                  " </tr>                                                ";
-
-
-
-                    rowprii += "</tbody>";
-
-
-
-
 
                     $("#shi").append(rowshi);
-                    $("#shii").append(rowshii);
-                    $("#pri").append(rowpri);
-                    $("#prii").append(rowprii);
+                    $("#shii").append(rowshi);
+                    $("#pri").append(rowshi);
+                    $("#prii").append(rowshi);
                 });
 
             },

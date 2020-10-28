@@ -78,22 +78,8 @@
 
 </script>*@
 
-<script>
 
-    function changeOriginal() {
-
-        var formOri = $("#selectOriginal").val();
-
-        $("#textOriginalP").text(formOri);
-        $("#textOriginal").text(formOri);
-
-
-    }
-
-
-</script>
-
-<script>
+@*<script>
 
     function editDate(r) {
 
@@ -110,7 +96,7 @@
         var changeDue = tableP.rows[i].cells[3].innerHTML = al;
 
     }
-</script>
+</script>*@
 
 <script>
 
@@ -162,51 +148,9 @@
 
 </script>
 
-<script>
-
-    var ObjAdd, myJSON;
-
-    function checkCreate() {
-        var invoice = [];
-        $.each($("input[name='chkCreate']:checked"), function () {
-            invoice.push($(this).val());
-        });
-
-        ObjAdd = { Invoice: invoice };
-        myJSON = JSON.stringify(ObjAdd);
-
-        if (myJSON != null) {
 
 
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: '/Home/ActionJob',
-                data: { myJSONs: myJSON },
-                // contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    // get the result and do some magic with it
-                    alert(data);
-
-
-                    window.location.href = "@Html.Raw(Url.Action("ModelDepartAction", "Home", new { masterkey= @ViewBag.masterkey ,nodekey = @ViewBag.nodekey,idlist = @ViewBag.idlist }))";
-
-
-                }
-            });
-
-        }
-        else {
-            alert("Plase input data");
-        }
-
-    }
-
-
-
-</script>
-
-<script>
+@*<script>
 
     document.onkeydown = function (e) {
         // keycode for F5 function
@@ -216,9 +160,9 @@
 
     };
 
-</script>
+</script>*@
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     var message = "Function Disabled!";
     function clickIE4() {
         if (event.button == 2) {
@@ -242,7 +186,7 @@
         document.onmousedown = clickIE4;
     }
     document.oncontextmenu = new Function("return false")
-</script>
+</script>*@
 
 
 
