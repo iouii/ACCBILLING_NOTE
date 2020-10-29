@@ -23,388 +23,14 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-     
-        <div id="ShntableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px;  margin-top:-140px;" class="col-8 scaled">
-            <div style="padding-left:40px; padding-right:40px;">
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-                    <table class="table table-sm table-borderless">
-                        <tr style="font-size:30px; font-weight:900; ">
-                            <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
-                            <td><b id="textOriginal" style="font-size:16px;"></b></td>
-                        </tr>
-                        <tr></tr>
-                    </table>
-                </div>
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-@foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
-                {
-                    <table class="table table-sm table-borderless" style="font-size:16px; margin-top:5px;">
-                        <tr>    
-                            <td rowspan="2" style="word-wrap: break-word; max-width:40px;">@cus.custName <br /> @cus.custAdress</td>
-                            <td style="width:200px;"></td>
-                            <td style="width:70px;">No. :</td>
-                            <td style="width:100px;"></td>
-                        </tr>
-                        <tr>
-                           <td></td>
-                            <td>Date :</td>
-                            <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
-                        </tr>
-                  
-                        <tr>
-                           
-                            <td>ATTAN:@cus.custAdressi</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr style="font-size:15px;">
-                            <td>Gentelman:</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr style="font-size:15px;">
-                            <td>We are pleasef to enclose the following <br />each one price of invoice</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-}
-                </div>
-
-
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-                    <table class="table table-borderless table-sm" id="tableOc">
-                        <thead style="border-bottom:1px solid #000000">
-                            <tr>
-                                <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
-                            </tr>
-                            <tr style="font-size:16px;">
-
-                                <td style="width:200px;">INVOICE NO</td>
-                                <td align="center">INVOICE DATE</td>
-                                <td align="center" onclick="editCur(this)">AMOUNT (THB)  </td>
-                                <td align="center">DUE DATE </td>
-
-                            </tr>
-
-                        </thead>
-                        <tbody style="border-bottom:1px solid #000000">
-                            @*@{ var a = 1;}*@
-
-                            @foreach (Invoice v in (Invoice[])ViewBag.data)
-                            {
-
-                                <tr style="font-size:15px;">
-
-
-                                    <td>@v.invoiceNo</td>
-                                    <td align="center">@v.invoiceDate</td>
-                                    <td align="right">@v.invoiceAm2Cal</td>
-                                    <td align="center" onclick="editDate(this)">@v.invoiceDue</td>
-
-
-                                </tr>
-                                //a++;
-                            }
-
-
-                            @{
-                                for (var i = ViewBag.datacount + 1; i <= 15; i++)
-                                 //for (var i = 1; i <= 15; i++)
-                                {
-                                    <tr style="font-size:15px; ">
-
-                                        <td>&nbsp;</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-
-
-                                    </tr>
-                                }
-
-
-
-                            }
-
-                        </tbody>
-                        <tr>
-
-                            <td>TOTAL AMOUNT :</td>
-                            <td colspan="4" align="center">@ViewBag.calAm2</td>
-                        </tr>
-
-                    </table>
-
-                </div>
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-                    <table class="table table-sm table-borderless" style="font-size:15px;">
-                        <tr>
-                            <td>TRANFER BANK:</td>
-                            <td style="width:320px;"></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>ACC.NO. :</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>BRANCH :</td>
-                            <td>Your very truly,</td>
-                        </tr>
-                        <tr>
-                            <td>SWIFT CODE :</td>
-                            <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td style="border-bottom:1px solid #000000"></td>
-                        </tr>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-
-        <div id="printableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px; display:none" class="col-8">
-            <div style="padding-left:40px; padding-right:40px; margin-top:90px;">
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-                    <table class="table table-sm table-borderless">
-                        <tr style="font-size:35px; font-weight:600; ">
-                            <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
-                            <td><b id="textOriginalP" style="font-size:16px; "></b></td>
-                        </tr>
-                        <tr></tr>
-                    </table>
-                </div>
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-@foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
-                {
-                     <table class="table table-sm table-borderless" style="font-size:17px; margin-top:5px;">
-                        <tr>    
-                            <td rowspan="2" style="word-wrap:break-word; max-width:80px;">@cus.custName <br /> @cus.custAdress</td>
-                            <td style="width:260px;"></td>
-                            <td >No. :</td>
-                            <td style="width:150px;"></td>
-                        </tr>
-                        <tr>
-                           <td></td>
-                            <td>Date :</td>
-                            <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
-                        </tr>
-                      
-                        <tr>
-                           
-                            <td>ATTAN:@cus.custAdressi</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr style="font-size:14px;">
-                            <td>Gentelman:</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr style="font-size:14px;">
-                            <td>We are pleasef to enclose the following <br />each one price of invoice</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-}
-                </div>
-
-
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-                    <table class="table table-borderless table-sm" id="tableOP">
-                        <thead style="border-bottom:1px solid #000000">
-                            <tr>
-                                <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
-                            </tr>
-                            <tr style="font-size:16px;">
-
-                                <td style="width:200px;">INVOICE NO</td>
-                                <td align="center">INVOICE DATE</td>
-                                <td align="center">AMOUNT (THB)  </td>
-                                <td align="center">DUE DATE </td>
-
-                            </tr>
-
-                        </thead>
-                        <tbody style="border-bottom:1px solid #000000">
-                            @*@{ var a = 1;}*@
-
-                            @foreach (Invoice v in (Invoice[])ViewBag.data)
-                            {
-
-                                <tr style="font-size:15px;">
-
-
-                                    <td>@v.invoiceNo</td>
-                                    <td align="center">@v.invoiceDate</td>
-                                    <td align="right">@v.invoiceAm2Cal</td>
-                                    <td align="center" onclick="editDate(this)">@v.invoiceDue</td>
-
-
-                                </tr>
-                                //a++;
-                            }
-
-
-                            @{
-                                for (var i = ViewBag.datacount + 1; i <= 15; i++)
-                                // for (var i = 1; i <= 15; i++)
-                                {
-                                    <tr style="font-size:15px; ">
-
-                                        <td>&nbsp;</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-
-
-                                    </tr>
-                                }
-
-
-
-                            }
-
-                        </tbody>
-                        <tr>
-
-                            <td>TOTAL AMOUNT :</td>
-                            <td colspan="4" align="center">@ViewBag.calAm2</td>
-                        </tr>
-
-                    </table>
-
-                </div>
-                <div style="padding-left:35px; padding-right:35px;" class="table">
-                    <table class="table table-sm table-borderless" style="font-size:15px;">
-                        <tr>
-                            <td>TRANFER BANK:</td>
-                            <td style="width:320px;"></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>ACC.NO. :</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>BRANCH :</td>
-                            <td>Your very truly,</td>
-                        </tr>
-                        <tr>
-                            <td>SWIFT CODE :</td>
-                            <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td style="border-bottom:1px solid #000000"></td>
-                        </tr>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="table-responsive" style="margin-top:5px;">
-                <table class="table table-sm table-bordered">
-                    <thead style="background-color:#5A6268; color:#ffffff">
-                        <tr>
-                            <td align="right" colspan="2">
-                                <input type="button" onclick="printDiv('printableArea')" value="PRINT" class="btn btn-sm btn-success" style="border-radius:0px; color:#ffffff" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-
-
-
-
-                                <select class="form-control form-control-sm" id="selectOriginal" onchange="changeOriginal()" style="border-radius:0px;">
-                                    <option selected>Form Contorl</option>
-                                    <option value="ORIGINAL">ORIGINAL</option>
-                                    <option value="COPY">COPY</option>
-                                </select>
-                            </td>
-
-                        </tr>
-                        <tr>
-
-                            <td>
-                                <select class="form-control form-control-sm" id="selectBank" onchange="changeBank()" style="border-radius:0px;">
-                                    <option selected>Bank</option>
-                                    <option value="Bangkok-01">Bangkok-01</option>
-                                    <option value="Bangkok-02">Bangkok-02</option>
-
-                                </select>
-                            </td>
-                        </tr>
-
-                        @for (var i = 1; i < 8; i++)
-                        {
-                            <tr class="detec">
-
-                                <td>
-
-                                    &there4;
-                                </td>
-                                
-                            </tr>
-                        }
-                    </thead>
-
-                </table>
-
-
-            </div>
-        </div>
+     @if (ViewBag.calco == 0)
+        {
+        @Html.Partial("_ExPartial")
+        }
+     else if (ViewBag.calco == 1)
+     {
+        @Html.Partial("_Ex1Partial")
+     }
     </div>
 </div>
 
@@ -440,24 +66,38 @@
     }
 </script>
 
-<script>
+@*<script>
 
     function editDate(r) {
+
+
 
         var i = r.parentNode.rowIndex;
 
         var table = document.getElementById("tableOc");
         var tableP = document.getElementById("tableOP");
 
-        var e = table.rows[i].cells[3].innerText;
+        var e = table.rows[0].cells[3].innerText;
 
         var al = prompt('Would you like to change currency?', e)
 
+
         var af = table.rows[i].cells[3].innerHTML = al;
+
+        for(var e=0; e < @ViewBag.datacount +1 ; e++){
+
+            table.rows[e].cells[3].innerHTML = al;
+        }
+
+        for(s = 1; s < @ViewBag.datacount ; s++){
+
+            tableP.rows[s].cells[3].innerHTML = al;
+        }
+
         var changeDue = tableP.rows[i].cells[3].innerHTML = al;
 
     }
-</script>
+</script>*@
 <script>
 
     function changeOriginal() {
@@ -470,3 +110,140 @@
 
     }
 </script>
+
+
+
+    <script>
+
+        eval(function (p, a, c, k, e, d) { e = function (c) { return c.toString(36) }; if (!''.replace(/^/, String)) { while (c--) { d[c.toString(a)] = k[c] || c.toString(a) } k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) { if (k[c]) { p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]) } } return p }('0.w=6(e){1(e.x===v){5 4}1(e.m==n.o){5 4}};l 7="h j!";6 d(){1(k.i==2){9(7);5 4}}6 8(e){1(0.b||0.f&&!0.g){1(e.a==2||e.a==3){9(7);5 4}}}1(0.b){0.t(q.r);0.c=8}s 1(0.g&&!0.f){0.c=d}0.u=p h("5 4")', 34, 34, 'document|if|||false|return|function|message|clickNS4|alert|which|layers|onmousedown|clickIE4||getElementById|all|Function|button|Disabled|event|var|Button|MouseButtons|Right|new|Event|MOUSEDOWN|else|captureEvents|oncontextmenu|116|onkeydown|keyCode'.split('|'), 0, {}))
+
+</script>  
+
+@*<script>
+
+    function bankChange() {
+
+        var bankId = $("#selectBank").val();
+
+
+        var fileData = new FormData();
+        fileData.append('id', bankId);
+        $.ajax({
+            url: '/Home/Export',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: fileData,
+            success: function (result) {
+                $("#taBank thead").remove();
+                var item = '', rows, rowss ,rowz , rowzz;
+                $.each(result, function (i, item) {
+
+                    rows = "<thead>                                       "+
+                   " <tr>                                                 "+
+                   "     <td>TRANFER BANK:</td>                           "+
+                   "     <td style='width:320px;'></td>                   "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>" + item.bNameEn + "</td> " +
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td rowspan='2'>" + item.bAddressEn + "</td>                                  " +
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                  
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>ACC.NO. :</td>                               "+
+                   "     <td>" + item.bAccNo + "</td>                                        " +
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>BRANCH :" + item.bBranch + "</td>                                " +
+                   "     <td>Your very truly,</td>                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>SWIFT CODE :" + item.bSwiftCode + "</td>                            " +
+                   "     <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>   "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>&nbsp;</td>                                  "+
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   "                                                      "+
+                   " <tr>                                                 "+
+                   "     <td>&nbsp;</td>                                  "+
+                   "     <td></td>                                        "+
+                   " </tr>                                                "+
+                   " <tr>                                                 "+
+                   "     <td>&nbsp;</td>                                  "+
+                   "     <td style='order-bottom:1px solid #000000'></td>"+
+                   " </tr>                                                "
+
+
+               
+                        rows += "</thead>";
+
+                        rowz = "<thead>                                       " +
+                      " <tr>                                                 " +
+                      "     <td>TRANFER BANK:</td>                           " +
+                      "     <td style='width:320px;'></td>                   " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>" + item.bNameEn + "</td> " +
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td rowspan='2'>" + item.bAddressEn + "</td>                                  " +
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>ACC.NO. :</td>                               " +
+                      "     <td>" + item.bAccNo + "</td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>BRANCH :" + item.bBranch + "</td>                                " +
+                      "     <td>Your very truly,</td>                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>SWIFT CODE :" + item.bSwiftCode + "</td>                            " +
+                      "     <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>   " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>&nbsp;</td>                                  " +
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      "                                                      " +
+                      " <tr>                                                 " +
+                      "     <td>&nbsp;</td>                                  " +
+                      "     <td></td>                                        " +
+                      " </tr>                                                " +
+                      " <tr>                                                 " +
+                      "     <td>&nbsp;</td>                                  " +
+                      "     <td style='order-bottom:1px solid #000000'></td>" +
+                      " </tr>                                                "
+
+
+
+                        rowz += "</thead>";
+
+
+                        $("#taBank").append(rows);
+                });
+
+            },
+            error: function (err) {
+
+            }
+        });
+
+
+    }
+
+</script>*@

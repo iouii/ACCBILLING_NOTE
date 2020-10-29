@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OCTIIS_WEBAPPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Acc_Bank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BankName_EN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Address_EN" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+    <Property Name="BankName_Thi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Address_Thi" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+    <Property Name="AccOn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Branch" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="SwiftCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Acc_BillingDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OnInvoiceHeader" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OnInvoiceDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Codecustomer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Inv_date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Inv_duedate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Amount" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Vat" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Acc_BillingHeader">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeCustomer" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="TaxId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Telepone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreditTrem" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="Bank" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="FilepdfName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Acc_payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pay_status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="pay_supplier_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="pay_amount" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="pay_vat" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="pay_vatResult" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="pay_total_amount" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="pay_tax" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="pay_w_taxResult" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="pay_total_tax" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="pay_bank" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="pay_createdate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="pay_timecreate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="pay_upate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="pay_timeUpdate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="OCTIIS_WEBAPPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Acc_Bank" EntityType="Self.Acc_Bank" />
+    <EntitySet Name="Acc_BillingDetail" EntityType="Self.Acc_BillingDetail" />
+    <EntitySet Name="Acc_BillingHeader" EntityType="Self.Acc_BillingHeader" />
+    <EntitySet Name="Acc_payment" EntityType="Self.Acc_payment" />
+  </EntityContainer>
+</Schema>

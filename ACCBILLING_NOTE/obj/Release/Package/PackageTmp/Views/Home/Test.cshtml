@@ -28,47 +28,27 @@
                         <tr style=" font-size:12px;">
                             <td colspan="3">
                                 Customer
-                                <select class="form-control form-control-sm" id="chaName" onchange="getname()" style="border-radius:0px;">
+                                <select class="form-control form-control-sm" id="chaName" style="border-radius:0px;" onchange="getname()">
 
                                     <option value="0" selected></option>
 
                                     @foreach (InvoiceCus ov in (InvoiceCus[])ViewBag.cusname)
                                     {
-
-
-
-                                        <option value="@ov.custName">@ov.custName</option>
-
-
+                                        <option value="@ov.idCust">@ov.custName</option>
                                     }
-
                                 </select>
                             </td>
                             <td>
-                                Month
-                                <select class="form-control form-control-sm" id="monthSe" onchange="getname()" style="border-radius:0px;">
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-
-                                </select>
+                                
+                                Date Start 
+                                <input type="date" name="name" value="" class="form-control form-control-sm" id="dateStart" style="border-radius:0px;" onchange="getname()" />
+                               
+                   
                             </td>
                             <td>
-                                Year
-                                <select class="form-control form-control-sm" id="yearSe" onchange="getname()" style="border-radius:0px;">
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                </select>
+                                Date End
+                                <input type="date" name="name" value="" class="form-control form-control-sm " id="dateEnd" onchange="getname()" style="border-radius:0px;" />
+                   
                             </td>
                         </tr>
                         <tr>
@@ -89,16 +69,7 @@
                         </tr>
                     </thead>
                     <tbody id="Tacl"></tbody>
-                    @*@foreach (Invoice ih in (Invoice[])ViewBag.nameGet)
-                    {
-                        <tr>
-                            <td><input type="checkbox" name="name" value="" /></td>
-                            <td>@ih.invoiceNo</td>
-                            <td>@ih.invoiceDate</td>
-                            <td>@ih.invoiceDue</td>
-
-                        </tr>
-                    }*@
+          
 
                 </table>
             </div>
@@ -147,19 +118,52 @@
     </div>
 
       
+<script>
+
+    $(document).ready(function () {
+
+       
+        $("#g").click();
+        var trrt = Date.now;
+            
+      
+
+
+    });
+</script>
+
+
     
         <script>
 
-            function getname() {
+    function getname() {
 
-                var name = $("#chaName").val();
-                var month = $("#monthSe").val();
-                var year = $("#yearSe").val();
+        var name = $("#chaName").val();
+
+        var dateS = $("#dateStart").val();
+        var dateE = $("#dateEnd").val();
+
+
+        if(dateS ==""){
+
+            dateS = @ViewBag.datew ;
+                }
+        if(dateE ==""){
+
+            dateE = @ViewBag.datew ;
+        }
+
+
+                var res = dateS.replaceAll("-", "");
+
+                var resE = dateE.replaceAll("-", "");
+
 
                 var fileData = new FormData();
+
                 fileData.append('name', name);
-                fileData.append('month', month);
-                fileData.append('year', year);
+                fileData.append('month', res);
+                fileData.append('year', resE);
 
 
 
@@ -193,28 +197,34 @@
             }
 
 
-        </script>
-
-<script>
-
-    $(document).ready(function () {
-
-
-        $("#g").click();
-
-
-    });
 </script>
+
         <script>
 
             function createInvoice() {
 
-               //$("#gO").click();
+             
 
+         
                 var name = $("#chaName").val();
-                var month = $("#monthSe").val();
-                var year = $("#yearSe").val();
 
+                var dateS = $("#dateStart").val();
+                var dateE = $("#dateEnd").val();
+
+
+                if(dateS ==""){
+
+                    dateS = @ViewBag.datew ;
+                }
+                if(dateE ==""){
+
+                    dateE = @ViewBag.datew ;
+                }
+
+
+                var res = dateS.replaceAll("-", "");
+
+                var resE = dateE.replaceAll("-", "");
 
 
                 var invoice = [];
@@ -224,14 +234,14 @@
 
                
 
-                if (invoice.length > 0 && invoice.length <= 15) {
+                if (invoice.length > 0 ) {
 
                     $("#gO").click();
 
                     var fileData = new FormData();
                     fileData.append('name', name);
-                    fileData.append('month', month);
-                    fileData.append('year', year);
+                    fileData.append('month', res);
+                    fileData.append('year', resE);
                     fileData.append('invoice', invoice);
 
                     // alert(invoice+":"+name+":"+month+":"+year);
@@ -274,11 +284,25 @@
     function createInvoiceEx() {
 
 
-       
         var name = $("#chaName").val();
-        var month = $("#monthSe").val();
-        var year = $("#yearSe").val();
 
+        var dateS = $("#dateStart").val();
+        var dateE = $("#dateEnd").val();
+
+
+        if(dateS ==""){
+
+            dateS = @ViewBag.datew ;
+        }
+        if(dateE ==""){
+
+            dateE = @ViewBag.datew ;
+        }
+
+
+        var res = dateS.replaceAll("-", "");
+
+        var resE = dateE.replaceAll("-", "");
 
 
         var invoice = [];
@@ -288,14 +312,14 @@
 
 
       
-        if (invoice.length > 0 && invoice.length <= 15) {
+        if (invoice.length > 0 ) {
 
             $("#gO").click();
 
         var fileData = new FormData();
         fileData.append('name', name);
-        fileData.append('month', month);
-        fileData.append('year', year);
+        fileData.append('month', res);
+        fileData.append('year', resE);
         fileData.append('invoice', invoice);
 
         // alert(invoice+":"+name+":"+month+":"+year);
@@ -341,3 +365,5 @@
             });
 
         </script>
+
+

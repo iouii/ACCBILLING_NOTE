@@ -18,7 +18,8 @@ namespace ACCBILLING_NOTE.Controllers
 {
     public class HomeController : Controller
     {
-      
+       
+
         ConnectdataBase con = new ConnectdataBase();
 
         OCTIIS_WEBAPPEntities sql = new OCTIIS_WEBAPPEntities();
@@ -81,6 +82,16 @@ namespace ACCBILLING_NOTE.Controllers
         }
         public ActionResult GetOver()
         {
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+
+
+
+            ViewBag.getIn = ParController.IntE();
+
             return View();
         }
 

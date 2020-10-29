@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OCTIIS_WEBAPPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Acc_Bank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BankName_EN" Type="varchar" MaxLength="100" />
+    <Property Name="Address_EN" Type="varchar" MaxLength="3000" />
+    <Property Name="BankName_Thi" Type="varchar" MaxLength="100" />
+    <Property Name="Address_Thi" Type="varchar" MaxLength="3000" />
+    <Property Name="AccOn" Type="varchar" MaxLength="100" />
+    <Property Name="Branch" Type="varchar" MaxLength="200" />
+    <Property Name="SwiftCode" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Acc_BillingDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OnInvoiceHeader" Type="varchar" MaxLength="50" />
+    <Property Name="OnInvoiceDetail" Type="varchar" MaxLength="50" />
+    <Property Name="Codecustomer" Type="varchar" MaxLength="50" />
+    <Property Name="Inv_date" Type="varchar" MaxLength="10" />
+    <Property Name="Inv_duedate" Type="varchar" MaxLength="10" />
+    <Property Name="Amount" Type="varchar" MaxLength="100" />
+    <Property Name="Vat" Type="varchar" MaxLength="3" />
+    <Property Name="Total" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Acc_BillingHeader">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeCustomer" Type="varchar" MaxLength="10" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="300" />
+    <Property Name="TaxId" Type="varchar" MaxLength="100" />
+    <Property Name="Address" Type="varchar" MaxLength="1000" />
+    <Property Name="Telepone" Type="varchar" MaxLength="20" />
+    <Property Name="Fax" Type="varchar" MaxLength="20" />
+    <Property Name="Date" Type="varchar" MaxLength="20" />
+    <Property Name="CreditTrem" Type="varchar" MaxLength="4" />
+    <Property Name="Bank" Type="varchar" MaxLength="1000" />
+    <Property Name="FilepdfName" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Acc_payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pay_status" Type="nvarchar" MaxLength="20" />
+    <Property Name="pay_supplier_name" Type="nvarchar" MaxLength="200" />
+    <Property Name="pay_amount" Type="nvarchar" MaxLength="200" />
+    <Property Name="pay_vat" Type="nvarchar" MaxLength="200" />
+    <Property Name="pay_vatResult" Type="nvarchar" MaxLength="200" />
+    <Property Name="pay_total_amount" Type="nvarchar" MaxLength="200" />
+    <Property Name="pay_tax" Type="nvarchar" MaxLength="200" />
+    <Property Name="pay_w_taxResult" Type="nvarchar" MaxLength="200" />
+    <Property Name="pay_total_tax" Type="nvarchar" MaxLength="200" />
+    <Property Name="pay_bank" Type="nvarchar" MaxLength="30" />
+    <Property Name="pay_createdate" Type="nvarchar" MaxLength="20" />
+    <Property Name="pay_timecreate" Type="nvarchar" MaxLength="20" />
+    <Property Name="pay_upate" Type="nvarchar" MaxLength="20" />
+    <Property Name="pay_timeUpdate" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityContainer Name="OCTIIS_WEBAPPModelStoreContainer">
+    <EntitySet Name="Acc_Bank" EntityType="Self.Acc_Bank" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Acc_BillingDetail" EntityType="Self.Acc_BillingDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Acc_BillingHeader" EntityType="Self.Acc_BillingHeader" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Acc_payment" EntityType="Self.Acc_payment" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

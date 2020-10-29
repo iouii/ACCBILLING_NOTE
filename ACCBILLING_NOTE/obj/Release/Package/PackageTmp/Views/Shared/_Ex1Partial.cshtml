@@ -1,0 +1,840 @@
+﻿
+@using ACCBILLING_NOTE.Models
+<div id="ShntableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px;  margin-top:-140px;" class="col-8 scaled">
+    <div style="padding-left:40px; padding-right:40px; padding-top:90px; padding-bottom:50px;">
+        <div style="padding-left:35px; padding-right:35px;" class="table">
+            <table class="table table-sm table-borderless">
+                <tr style="font-size:35px; font-weight:700; ">
+                    <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
+                    <td><b id="textOriginal" style="font-size:16px;"></b></td>
+                </tr>
+                <tr></tr>
+            </table>
+        </div>
+        <div style="padding-left:35px; padding-right:35px;" class="table">
+            @foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
+            {
+                <table class="table table-sm table-borderless" style="font-size:16px; margin-top:5px;">
+                    <tr>
+                        <td rowspan="2" style="word-wrap: break-word; max-width:40px;">@cus.custName <br /> @cus.custAdress</td>
+                        <td style="width:200px;"></td>
+                        <td style="width:70px;">No. :</td>
+                        <td style="width:100px;"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Date :</td>
+                        <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
+                    </tr>
+
+                    <tr>
+
+                        <td>ATTAN:@cus.custAdressi</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr style="font-size:15px;">
+                        <td>Gentelman:</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-size:15px;">
+                        <td>We are pleasef to enclose the following <br />each one price of invoice</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            }
+        </div>
+
+
+        <div style="padding-left:35px; padding-right:35px;" class="table">
+            <table class="table table-borderless table-sm" id="tableOc">
+                <thead style="border-bottom:1px solid #000000">
+                    <tr>
+                        <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
+                    </tr>
+                    <tr style="font-size:16px;">
+
+                        <td style="width:200px;">INVOICE NO</td>
+                        <td align="center">INVOICE DATE</td>
+                        <td align="center" onclick="editCur(this)">AMOUNT (THB)  </td>
+                        <td align="center" onclick="editDate(this)">DUE DATE </td>
+
+                    </tr>
+
+                </thead>
+                <tbody style="border-bottom:1px solid #000000">
+                    @*@{ var a = 1;}*@
+
+                    @foreach (Invoice v in (Invoice[])ViewBag.data)
+                    {
+
+                        <tr style="font-size:15px;">
+
+
+                            <td>@v.invoiceNo</td>
+                            <td align="center">@v.invoiceDate</td>
+                            <td align="right">@v.invoiceAm2Cal</td>
+                            <td align="center" >@v.invoiceDue</td>
+
+
+                        </tr>
+                        //a++;
+                    }
+
+
+                    @{
+                        for (var i = ViewBag.countDt + 1; i <= 15; i++)
+                        //for (var i = 1; i <= 15; i++)
+                        {
+                            <tr style="font-size:15px; ">
+
+                                <td>&nbsp;</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+
+                            </tr>
+                        }
+
+
+
+                    }
+
+                </tbody>
+                <tr>
+
+                    <td></td>
+                    <td colspan="4" align="center">&nbsp;</td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div style="padding-left:35px; padding-right:35px;" class="table">
+            <table class="table table-sm table-borderless" style="font-size:15px;" id="shi">
+                <tbody>
+                    <tr>
+                        <td>TRANFER BANK:</td>
+                        <td style="width:320px;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>ACC.NO. :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>BRANCH :</td>
+                        <td>Your very truly,</td>
+                    </tr>
+                    <tr>
+                        <td>SWIFT CODE :</td>
+                        <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td style="border-bottom:1px solid #000000"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<div class="col-3">
+    <div class="table-responsive" style="margin-top:35px;">
+        <table class="table table-sm table-bordered">
+            <thead style="background-color:#5A6268; color:#ffffff">
+                <tr>
+                    <td align="right" colspan="2">
+                        <input type="button" onclick="printDiv('printableArea')" value="PRINT" class="btn btn-sm btn-success" style="border-radius:0px; color:#ffffff" />
+                    </td>
+                </tr>
+            
+                <tr>
+
+                    <td>
+                        <select class="form-control form-control-sm" id="selectBank" onchange="bankChange();" style="border-radius:0px;">
+                            <option>bank</option>
+                            @foreach (bankTranfer ban in (bankTranfer[])ViewBag.bankTr)
+                            {
+                                <option value="@ban.bId">@ban.bNameEn</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+            </thead>
+
+        </table>
+
+
+    </div>
+</div>
+<div id="ShntableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px;  margin-top:-330px;" class="col-8 scaled">
+    <div style="padding-left:40px; padding-right:40px; padding-top:90px; padding-bottom:50px; ">
+        <div style="padding-left:35px; padding-right:35px;" class="table">
+            <table class="table table-sm table-borderless">
+                <tr style="font-size:35px; font-weight:700; ">
+                    <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
+                    <td><b id="textOriginal" style="font-size:16px;"></b></td>
+                </tr>
+                <tr></tr>
+            </table>
+        </div>
+        <div style="padding-left:35px; padding-right:35px;" class="table">
+            @foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
+            {
+                <table class="table table-sm table-borderless" style="font-size:16px; margin-top:5px;">
+                    <tr>
+                        <td rowspan="2" style="word-wrap: break-word; max-width:40px;">@cus.custName <br /> @cus.custAdress</td>
+                        <td style="width:200px;"></td>
+                        <td style="width:70px;">No. :</td>
+                        <td style="width:100px;"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Date :</td>
+                        <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
+                    </tr>
+
+                    <tr>
+
+                        <td>ATTAN:@cus.custAdressi</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr style="font-size:15px;">
+                        <td>Gentelman:</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-size:15px;">
+                        <td>We are pleasef to enclose the following <br />each one price of invoice</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            }
+        </div>
+
+
+        <div style="padding-left:35px; padding-right:35px;" class="table">
+            <table class="table table-borderless table-sm" id="tableOci">
+                <thead style="border-bottom:1px solid #000000">
+                    <tr>
+                        <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
+                    </tr>
+                    <tr style="font-size:16px;">
+
+                        <td style="width:200px;">INVOICE NO</td>
+                        <td align="center">INVOICE DATE</td>
+                        <td align="center" onclick="editCur(this)">AMOUNT (THB)  </td>
+                        <td align="center">DUE DATE </td>
+
+                    </tr>
+
+                </thead>
+                <tbody style="border-bottom:1px solid #000000">
+                    @*@{ var a = 1;}*@
+
+                    @foreach (Invoice v in (Invoice[])ViewBag.data1)
+                    {
+
+                        <tr style="font-size:15px;">
+
+
+                            <td>@v.invoiceNo</td>
+                            <td align="center">@v.invoiceDate</td>
+                            <td align="right">@v.invoiceAm2Cal</td>
+                            <td align="center" onclick="editDate(this)">@v.invoiceDue</td>
+
+
+                        </tr>
+                        //a++;
+                    }
+
+
+                    @{
+                        for (var i = ViewBag.countDt1 + 1; i <= 15; i++)
+                        //for (var i = 1; i <= 15; i++)
+                        {
+                            <tr style="font-size:15px; ">
+
+                                <td>&nbsp;</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+
+                            </tr>
+                        }
+
+
+
+                    }
+
+                </tbody>
+                <tr>
+
+                    <td>TOTAL AMOUNT :</td>
+                    <td colspan="4" align="center">@ViewBag.calAm2</td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div style="padding-left:35px; padding-right:35px;" class="table">
+            <table class="table table-sm table-borderless" style="font-size:15px;" id="shii">
+                <tbody>
+                    <tr>
+                        <td>TRANFER BANK:</td>
+                        <td style="width:320px;"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>ACC.NO. :</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>BRANCH :</td>
+                        <td>Your very truly,</td>
+                    </tr>
+                    <tr>
+                        <td>SWIFT CODE :</td>
+                        <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td style="border-bottom:1px solid #000000"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div id="printableArea" style="background-color:#ffffff ; border:1px solid #000000; padding:15px; display:none" class="col-12">
+    <div class="page">
+        <div style="padding-left:20px; padding-right:20px; margin-top:90px;">
+            <div style="padding-left:20px; padding-right:20px;" class="table">
+                <table class="table table-sm table-borderless">
+                    <tr style="font-size:45px; font-weight:700; ">
+                        <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
+                        <td><b id="textOriginalP" style="font-size:16px; "></b></td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </div>
+            <div style="padding-left:20px; padding-right:20px;" class="table">
+                @foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
+                {
+                    <table class="table table-sm table-borderless" style="font-size:17px; margin-top:5px;">
+                        <tr>
+                            <td rowspan="2" style="word-wrap:break-word; max-width:80px;">@cus.custName <br /> @cus.custAdress</td>
+                            <td style="width:260px;"></td>
+                            <td>No. :</td>
+                            <td style="width:150px;"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Date :</td>
+                            <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
+                        </tr>
+
+                        <tr>
+
+                            <td>ATTAN:@cus.custAdressi</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr style="font-size:14px;">
+                            <td>Gentelman:</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr style="font-size:14px;">
+                            <td>We are pleasef to enclose the following <br />each one price of invoice</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                }
+            </div>
+
+
+            <div style="padding-left:20px; padding-right:20px;" class="table">
+                <table class="table table-borderless table-sm" id="tableOP">
+                    <thead style="border-bottom:1px solid #000000">
+                        <tr>
+                            <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
+                        </tr>
+                        <tr style="font-size:16px;">
+
+                            <td style="width:200px;">INVOICE NO</td>
+                            <td align="center">INVOICE DATE</td>
+                            <td align="center">AMOUNT (THB)  </td>
+                            <td align="center">DUE DATE </td>
+
+                        </tr>
+
+                    </thead>
+                    <tbody style="border-bottom:1px solid #000000">
+                        @*@{ var a = 1;}*@
+
+                        @foreach (Invoice v in (Invoice[])ViewBag.data)
+                        {
+
+                            <tr style="font-size:16px;">
+
+
+                                <td>@v.invoiceNo</td>
+                                <td align="center">@v.invoiceDate</td>
+                                <td align="right">@v.invoiceAm2Cal</td>
+                                <td align="center" onclick="editDate(this)">@v.invoiceDue</td>
+
+
+                            </tr>
+                            //a++;
+                        }
+
+
+                        @{
+                            for (var i = ViewBag.countDt + 1; i <= 15; i++)
+                            // for (var i = 1; i <= 15; i++)
+                            {
+                                <tr style="font-size:16px; ">
+
+                                    <td>&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+
+                                </tr>
+                            }
+
+
+
+                        }
+
+                    </tbody>
+                    <tr>
+
+                        <td></td>
+                        <td colspan="4" align="center">&nbsp;</td>
+                    </tr>
+
+                </table>
+
+            </div>
+            <div style="padding-left:20px; padding-right:20px;" class="table">
+                <table class="table table-sm table-borderless" style="font-size:16px;" id="pri">
+                    <tbody>
+                        <tr>
+                            <td>TRANFER BANK:</td>
+                            <td style="width:320px;"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ACC.NO. :</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>BRANCH :</td>
+                            <td>Your very truly,</td>
+                        </tr>
+                        <tr>
+                            <td>SWIFT CODE :</td>
+                            <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td style="border-bottom:1px solid #000000"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div style="padding-left:20px; padding-right:20px;">
+            <div class="col-12" style="margin-top:250px; height:120px;">
+
+            </div>
+
+            <div style="padding-left:20px; padding-right:20px;" class="table">
+                <table class="table table-sm table-borderless">
+                    <tr style="font-size:45px; font-weight:700; ">
+                        <td style="text-decoration-line:underline;">OGURA CLUTCH THAILAND CO.,LTD.</td>
+                        <td><b id="textOriginalP" style="font-size:16px; "></b></td>
+                    </tr>
+                    <tr></tr>
+                </table>
+            </div>
+            <div style="padding-left:20px; padding-right:20px;" class="table">
+                @foreach (InvoiceCus cus in (InvoiceCus[])ViewBag.cus)
+                {
+                    <table class="table table-sm table-borderless" style="font-size:17px; margin-top:5px;">
+                        <tr>
+                            <td rowspan="2" style="word-wrap:break-word; max-width:80px;">@cus.custName <br /> @cus.custAdress</td>
+                            <td style="width:260px;"></td>
+                            <td>No. :</td>
+                            <td style="width:150px;"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Date :</td>
+                            <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
+                        </tr>
+
+                        <tr>
+
+                            <td>ATTAN:@cus.custAdressi</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr style="font-size:14px;">
+                            <td>Gentelman:</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr style="font-size:14px;">
+                            <td>We are pleasef to enclose the following <br />each one price of invoice</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                }
+            </div>
+
+
+            <div style="padding-left:20px; padding-right:20px;" class="table">
+                <table class="table table-borderless table-sm" id="tableOPi">
+                    <thead style="border-bottom:1px solid #000000">
+                        <tr>
+                            <td align="center" colspan="4 "><h2>-Collection Statement -</h2></td>
+                        </tr>
+                        <tr style="font-size:16px;">
+
+                            <td style="width:200px;">INVOICE NO</td>
+                            <td align="center">INVOICE DATE</td>
+                            <td align="center">AMOUNT (THB)  </td>
+                            <td align="center" onclick="editDate(this)">DUE DATE </td>
+
+                        </tr>
+
+                    </thead>
+                    <tbody style="border-bottom:1px solid #000000">
+                        @*@{ var a = 1;}*@
+
+                        @foreach (Invoice v in (Invoice[])ViewBag.data1)
+                        {
+
+                            <tr style="font-size:16px;">
+
+
+                                <td>@v.invoiceNo</td>
+                                <td align="center">@v.invoiceDate</td>
+                                <td align="right">@v.invoiceAm2Cal</td>
+                                <td align="center">@v.invoiceDue</td>
+
+
+                            </tr>
+                            //a++;
+                        }
+
+
+                        @{
+                            for (var i = ViewBag.countDt1 + 1; i <= 15; i++)
+                            // for (var i = 1; i <= 15; i++)
+                            {
+                                <tr style="font-size:16px; ">
+
+                                    <td>&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+
+                                </tr>
+                            }
+
+
+
+                        }
+
+                    </tbody>
+                    <tr>
+
+                        <td>TOTAL AMOUNT :</td>
+                        <td colspan="4" align="center">@ViewBag.calAm2</td>
+                    </tr>
+
+                </table>
+
+            </div>
+            <div style="padding-left:20px; padding-right:20px;" class="table">
+                <table class="table table-sm table-borderless" style="font-size:16px;" id="prii">
+                    <tbody>
+                        <tr>
+                            <td>TRANFER BANK:</td>
+                            <td style="width:320px;"></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ACC.NO. :</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>BRANCH :</td>
+                            <td>Your very truly,</td>
+                        </tr>
+                        <tr>
+                            <td>SWIFT CODE :</td>
+                            <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td style="border-bottom:1px solid #000000"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+
+<script>
+
+    function bankChange() {
+
+        var bankId = $("#selectBank").val();
+
+
+        //  alert(bankId);
+
+        var fileData = new FormData();
+        fileData.append('id', bankId);
+        $.ajax({
+            url: '/Home/Export',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: fileData,
+            success: function (result) {
+                $("#shi tbody").remove();
+                $("#shii tbody").remove();
+                $("#pri tbody").remove();
+                $("#prii tbody").remove();
+                var item = '', rowshi, rowshii,rowpri,rowprii;
+                $.each(result, function (i, item) {
+
+                    rowshi = "<tbody>                                       " +
+                   " <tr>                                                 " +
+                   "     <td>TRANFER BANK:</td>                           " +
+                   "     <td style='width:320px;'></td>                   " +
+                   " </tr>                                                " +
+                   " <tr>                                                 " +
+                   "     <td><b>" + item.bNameEn + "</b></td>                    " +
+                   "     <td></td>                                        " +
+                   " </tr>                                                " +
+                   " <tr>                                                 " +
+                   "     <td rowspan='2'>" + item.bAddressEn + "</td>     " +
+                   "     <td></td>                                        " +
+                   " </tr>                                                " +
+                   " <tr>                                                 " +
+
+                   "     <td></td>                                        " +
+                   " </tr>                                                " +
+                   " <tr>                                                 " +
+                   "     <td>ACC.NO. :" + item.bAccNo + "</td>            " +
+                   "     <td></td>                                        " +
+                   " </tr>                                                " +
+                   " <tr>                                                 " +
+                   "     <td>BRANCH :" + item.bBranch + "</td>            " +
+                   "     <td>Your very truly,</td>                        " +
+                   " </tr>                                                " +
+                   " <tr>                                                 " +
+                   "     <td>SWIFT CODE :" + item.bSwiftCode + "</td>     " +
+                   "     <td><b>OGURA CLUTCH THAILAND CO.,LTD.</b></td>   " +
+                   " </tr>                                                " +
+                   " <tr>                                                 " +
+                   "     <td>&nbsp;</td>                                  " +
+                   "     <td></td>                                        " +
+                   " </tr>                                                " +
+                   "                                                      " +
+                   " <tr>                                                 " +
+                   "     <td>&nbsp;</td>                                  " +
+                   "     <td></td>                                        " +
+                   " </tr>                                                " +
+                   " <tr>                                                 " +
+                   "     <td>&nbsp;</td>                                  " +
+                   "     <td style='border-bottom:1px solid #000000'></td>" +
+                   " </tr>                                                ";
+
+
+
+                    rowshi += "</tbody>";
+
+
+                    $("#shi").append(rowshi);
+                    $("#shii").append(rowshi);
+                    $("#pri").append(rowshi);
+                    $("#prii").append(rowshi);
+                });
+
+            },
+            error: function (err) {
+
+            }
+        });
+
+
+    }
+
+</script>
+
+<script>
+
+    function editDate(r) {
+
+
+
+        //var i = r.parentNode.rowIndex;
+
+        var tablei = document.getElementById("tableOc");
+        var tableii = document.getElementById("tableOci");
+        var tablePi = document.getElementById("tableOP");
+        var tablePii = document.getElementById("tableOPi");
+       
+        var qe = tablei.rows[3].cells[3].innerText;
+
+        var al = prompt('Would you like to change currency?', qe)
+
+
+    
+
+        for(var ea=2; ea < @ViewBag.countDt + 2 ; ea++){
+
+            tablei.rows[ea].cells[3].innerHTML = al;
+        }
+
+        for(sa = 2; sa < @ViewBag.countDt1 + 2 ; sa++){
+
+            tableii.rows[sa].cells[3].innerHTML = al;
+        }
+
+        for(var e=2; e < @ViewBag.countDt + 2 ; e++){
+
+         
+            tablePi.rows[e].cells[3].innerHTML = al;
+        }
+
+        for(s = 2; s < @ViewBag.countDt1 + 2 ; s++){
+
+            tablePii.rows[s].cells[3].innerHTML = al;
+        }
+
+
+
+    }
+</script>

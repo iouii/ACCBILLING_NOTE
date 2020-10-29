@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OCTIIS_WEBAPPModelStoreContainer" CdmEntityContainer="OCTIIS_WEBAPPEntities">
+    <EntitySetMapping Name="Acc_Bank">
+      <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel.Acc_Bank">
+        <MappingFragment StoreEntitySet="Acc_Bank">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BankName_EN" ColumnName="BankName_EN" />
+          <ScalarProperty Name="Address_EN" ColumnName="Address_EN" />
+          <ScalarProperty Name="BankName_Thi" ColumnName="BankName_Thi" />
+          <ScalarProperty Name="Address_Thi" ColumnName="Address_Thi" />
+          <ScalarProperty Name="AccOn" ColumnName="AccOn" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="SwiftCode" ColumnName="SwiftCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_BillingDetail">
+      <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel.Acc_BillingDetail">
+        <MappingFragment StoreEntitySet="Acc_BillingDetail">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OnInvoiceHeader" ColumnName="OnInvoiceHeader" />
+          <ScalarProperty Name="OnInvoiceDetail" ColumnName="OnInvoiceDetail" />
+          <ScalarProperty Name="Codecustomer" ColumnName="Codecustomer" />
+          <ScalarProperty Name="Inv_date" ColumnName="Inv_date" />
+          <ScalarProperty Name="Inv_duedate" ColumnName="Inv_duedate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Vat" ColumnName="Vat" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_BillingHeader">
+      <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel.Acc_BillingHeader">
+        <MappingFragment StoreEntitySet="Acc_BillingHeader">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CodeCustomer" ColumnName="CodeCustomer" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="TaxId" ColumnName="TaxId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Telepone" ColumnName="Telepone" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="CreditTrem" ColumnName="CreditTrem" />
+          <ScalarProperty Name="Bank" ColumnName="Bank" />
+          <ScalarProperty Name="FilepdfName" ColumnName="FilepdfName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acc_payment">
+      <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel.Acc_payment">
+        <MappingFragment StoreEntitySet="Acc_payment">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="pay_status" ColumnName="pay_status" />
+          <ScalarProperty Name="pay_supplier_name" ColumnName="pay_supplier_name" />
+          <ScalarProperty Name="pay_amount" ColumnName="pay_amount" />
+          <ScalarProperty Name="pay_vat" ColumnName="pay_vat" />
+          <ScalarProperty Name="pay_vatResult" ColumnName="pay_vatResult" />
+          <ScalarProperty Name="pay_total_amount" ColumnName="pay_total_amount" />
+          <ScalarProperty Name="pay_tax" ColumnName="pay_tax" />
+          <ScalarProperty Name="pay_w_taxResult" ColumnName="pay_w_taxResult" />
+          <ScalarProperty Name="pay_total_tax" ColumnName="pay_total_tax" />
+          <ScalarProperty Name="pay_bank" ColumnName="pay_bank" />
+          <ScalarProperty Name="pay_createdate" ColumnName="pay_createdate" />
+          <ScalarProperty Name="pay_timecreate" ColumnName="pay_timecreate" />
+          <ScalarProperty Name="pay_upate" ColumnName="pay_upate" />
+          <ScalarProperty Name="pay_timeUpdate" ColumnName="pay_timeUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
