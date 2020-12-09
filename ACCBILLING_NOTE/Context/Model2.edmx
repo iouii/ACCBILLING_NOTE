@@ -1,0 +1,658 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Thomas_OguraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="InvoiceHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceNo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="InvoiceCreateDate" Type="date" Nullable="false" />
+          <Property Name="PaymentDueDate" Type="date" Nullable="false" />
+          <Property Name="MasterCustomerId" Type="int" Nullable="false" />
+          <Property Name="MasterInvoiceId" Type="int" Nullable="false" />
+          <Property Name="InvoiceName" Type="nvarchar" MaxLength="80" />
+          <Property Name="InvoiceApproverName" Type="nvarchar" MaxLength="30" />
+          <Property Name="InvoiceApproverPosition" Type="nvarchar" MaxLength="30" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark2" Type="nvarchar" MaxLength="100" />
+          <Property Name="MasterAccHeaderForAccId" Type="int" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="150" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="150" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+          <Property Name="TelephoneNo1" Type="varchar" MaxLength="20" />
+          <Property Name="TelephoneNo2" Type="varchar" MaxLength="20" />
+          <Property Name="FaxNo" Type="varchar" MaxLength="20" />
+          <Property Name="Attn" Type="nvarchar" MaxLength="40" />
+          <Property Name="EnumRoundTypeId" Type="int" Nullable="false" />
+          <Property Name="MasterCurrencyId" Type="int" Nullable="false" />
+          <Property Name="EnumExchangeRateTypeId" Type="int" Nullable="false" />
+          <Property Name="ClosingDate" Type="date" />
+          <Property Name="PaymentTerm" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentMonth" Type="int" />
+          <Property Name="PaymentDate" Type="date" />
+          <Property Name="Amount" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="DiscountAmount" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="SubTotalAmount" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="AdvanceReceiptAmount" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="AdvanceReceiptVat" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="TotalAmount" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="Vat" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="SubTotalAmountNative" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="ExchangeRate" Type="numeric" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="MasterCurrencyNativeCurrencyId" Type="int" Nullable="false" />
+          <Property Name="GrandTotalNative" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="DomesticPpn" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="GrandTotal" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="IsInvoiceIssued" Type="bit" Nullable="false" />
+          <Property Name="InvoiceIssuedDate" Type="date" />
+          <Property Name="IsInvoiceExportedToAcc" Type="bit" Nullable="false" />
+          <Property Name="IsCancelled" Type="bit" Nullable="false" />
+          <Property Name="CancelReason" Type="nvarchar" MaxLength="100" />
+          <Property Name="MasterNumberingRuleId" Type="int" Nullable="false" />
+          <Property Name="IsPrinted" Type="bit" Nullable="false" />
+          <Property Name="PrintedDate" Type="date" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="EnumAccDocTypeId" Type="int" Nullable="false" />
+          <Property Name="TaxId" Type="nvarchar" MaxLength="20" />
+          <Property Name="CompanyBranchName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EnumBranchTypeId" Type="int" Nullable="false" />
+          <Property Name="CustomerBranchName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerTaxId" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsDetailEditable" Type="bit" Nullable="false" />
+          <Property Name="IsRecalculate" Type="bit" Nullable="false" />
+          <Property Name="IsVoucherPrinted" Type="bit" Nullable="false" />
+          <Property Name="VoucherPrintedDate" Type="date" />
+          <Property Name="WithholdingTax" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="PaymentAmount" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="IsDocumentAttached" Type="bit" Nullable="false" />
+          <Property Name="IsSendToCustomer" Type="bit" Nullable="false" />
+          <Property Name="LCNo" Type="nvarchar" MaxLength="15" />
+          <Property Name="ETD" Type="date" />
+          <Property Name="Source" Type="nvarchar" MaxLength="30" />
+          <Property Name="DestinationEx" Type="nvarchar" MaxLength="30" />
+          <Property Name="ShippingTerms" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReferenceEx" Type="nvarchar" MaxLength="50" />
+          <Property Name="ETA" Type="date" />
+          <Property Name="ShippingMarks" Type="nvarchar" MaxLength="350" />
+          <Property Name="CountryOfOrigin" Type="nvarchar" MaxLength="80" />
+          <Property Name="Freight" Type="nvarchar" MaxLength="20" />
+          <Property Name="PaymentTotalCount" Type="int" Nullable="false" />
+          <Property Name="TotalClearingBillingAmount" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="RestBillingAmount" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="EnumPaymentStatusId" Type="int" Nullable="false" />
+          <Property Name="BLDate" Type="date" />
+          <Property Name="RemarkPONo" Type="nvarchar" MaxLength="100" />
+          <Property Name="DONo" Type="nvarchar" MaxLength="30" />
+          <Property Name="MasterIncotermId" Type="int" />
+          <Property Name="CountryOfConsignee" Type="nvarchar" MaxLength="20" />
+          <Property Name="ShippedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="VesselFlightNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="EnumInvoiceRemarkId" Type="int" />
+          <Property Name="DestinationName" Type="nvarchar" MaxLength="80" />
+          <Property Name="DestinationAddress1" Type="nvarchar" MaxLength="150" />
+          <Property Name="DestinationAddress2" Type="nvarchar" MaxLength="150" />
+          <Property Name="DestinationPostalCode" Type="varchar" MaxLength="10" />
+          <Property Name="DestinationTelephoneNo1" Type="varchar" MaxLength="20" />
+          <Property Name="DestinationTelephoneNo2" Type="varchar" MaxLength="20" />
+          <Property Name="DestinationFaxNo" Type="varchar" MaxLength="20" />
+          <Property Name="DestinationAttn" Type="nvarchar" MaxLength="40" />
+          <Property Name="CreatedUser" Type="nvarchar" MaxLength="80" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedUser" Type="nvarchar" MaxLength="80" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MasterCustomer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MasterInvoiceId" Type="int" Nullable="false" />
+          <Property Name="PersonInCharge" Type="nvarchar" MaxLength="40" />
+          <Property Name="TelInside" Type="varchar" MaxLength="20" />
+          <Property Name="TelOutside" Type="varchar" MaxLength="20" />
+          <Property Name="EnumReturnTypeId" Type="int" Nullable="false" />
+          <Property Name="MasterIncotermId" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="MasterBusinessPartnerId" Type="int" Nullable="false" />
+          <Property Name="IsOversea" Type="bit" Nullable="false" />
+          <Property Name="CreatedUser" Type="nvarchar" MaxLength="80" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedUser" Type="nvarchar" MaxLength="80" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MasterInvoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="InvoiceName" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="InvoiceShortName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="150" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TelephoneNo1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TelephoneNo2" Type="varchar" MaxLength="20" />
+          <Property Name="FaxNo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PaymentTerm" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="PaymentCondition" Type="nvarchar" MaxLength="50" />
+          <Property Name="MasterVatHeaderId" Type="int" Nullable="false" />
+          <Property Name="EnumRoundTypeId" Type="int" Nullable="false" />
+          <Property Name="MasterCurrencyId" Type="int" Nullable="false" />
+          <Property Name="EnumExchangeRateTypeId" Type="int" Nullable="false" />
+          <Property Name="TaxId" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="EnumBranchTypeId" Type="int" Nullable="false" />
+          <Property Name="BranchName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="MasterAccHeaderForAccId" Type="int" />
+          <Property Name="MasterInvoiceGroupId" Type="int" />
+          <Property Name="PersonInCharge" Type="nvarchar" MaxLength="40" />
+          <Property Name="EmailTo" Type="varchar" MaxLength="100" />
+          <Property Name="EmailCC1" Type="varchar" MaxLength="100" />
+          <Property Name="EmailCC2" Type="varchar" MaxLength="100" />
+          <Property Name="EmailCC3" Type="varchar" MaxLength="100" />
+          <Property Name="EmailCC4" Type="varchar" MaxLength="100" />
+          <Property Name="EmailCC5" Type="varchar" MaxLength="100" />
+          <Property Name="EmailCC6" Type="varchar" MaxLength="100" />
+          <Property Name="EmailCC7" Type="varchar" MaxLength="100" />
+          <Property Name="EmailCC8" Type="varchar" MaxLength="100" />
+          <Property Name="CreditLimit" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="OutStandingBalance" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="AvailableCreditLimit" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="MasterPaymentInformationId" Type="int" />
+          <Property Name="Attn" Type="nvarchar" MaxLength="40" />
+          <Property Name="CreatedUser" Type="nvarchar" MaxLength="80" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedUser" Type="nvarchar" MaxLength="80" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_InvoiceHeader_MasterCustomer">
+          <End Role="MasterCustomer" Type="Self.MasterCustomer" Multiplicity="1" />
+          <End Role="InvoiceHeader" Type="Self.InvoiceHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterCustomer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceHeader">
+              <PropertyRef Name="MasterCustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceHeader_MasterInvoice">
+          <End Role="MasterInvoice" Type="Self.MasterInvoice" Multiplicity="1" />
+          <End Role="InvoiceHeader" Type="Self.InvoiceHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterInvoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceHeader">
+              <PropertyRef Name="MasterInvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MasterCustomer_MasterInvoice">
+          <End Role="MasterInvoice" Type="Self.MasterInvoice" Multiplicity="1" />
+          <End Role="MasterCustomer" Type="Self.MasterCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterInvoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MasterCustomer">
+              <PropertyRef Name="MasterInvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Thomas_OguraModelStoreContainer">
+          <EntitySet Name="InvoiceHeader" EntityType="Self.InvoiceHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterCustomer" EntityType="Self.MasterCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterInvoice" EntityType="Self.MasterInvoice" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_InvoiceHeader_MasterCustomer" Association="Self.FK_InvoiceHeader_MasterCustomer">
+            <End Role="MasterCustomer" EntitySet="MasterCustomer" />
+            <End Role="InvoiceHeader" EntitySet="InvoiceHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceHeader_MasterInvoice" Association="Self.FK_InvoiceHeader_MasterInvoice">
+            <End Role="MasterInvoice" EntitySet="MasterInvoice" />
+            <End Role="InvoiceHeader" EntitySet="InvoiceHeader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MasterCustomer_MasterInvoice" Association="Self.FK_MasterCustomer_MasterInvoice">
+            <End Role="MasterInvoice" EntitySet="MasterInvoice" />
+            <End Role="MasterCustomer" EntitySet="MasterCustomer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Thomas_OguraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="InvoiceHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InvoiceCreateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PaymentDueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MasterCustomerId" Type="Int32" Nullable="false" />
+          <Property Name="MasterInvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceApproverName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceApproverPosition" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remark2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MasterAccHeaderForAccId" Type="Int32" />
+          <Property Name="Address1" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TelephoneNo1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TelephoneNo2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FaxNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Attn" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="EnumRoundTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MasterCurrencyId" Type="Int32" Nullable="false" />
+          <Property Name="EnumExchangeRateTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ClosingDate" Type="DateTime" Precision="0" />
+          <Property Name="PaymentTerm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentMonth" Type="Int32" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="DiscountAmount" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="SubTotalAmount" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="AdvanceReceiptAmount" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="AdvanceReceiptVat" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="Vat" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="SubTotalAmountNative" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="ExchangeRate" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="MasterCurrencyNativeCurrencyId" Type="Int32" Nullable="false" />
+          <Property Name="GrandTotalNative" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="DomesticPpn" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="GrandTotal" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="IsInvoiceIssued" Type="Boolean" Nullable="false" />
+          <Property Name="InvoiceIssuedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsInvoiceExportedToAcc" Type="Boolean" Nullable="false" />
+          <Property Name="IsCancelled" Type="Boolean" Nullable="false" />
+          <Property Name="CancelReason" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MasterNumberingRuleId" Type="Int32" Nullable="false" />
+          <Property Name="IsPrinted" Type="Boolean" Nullable="false" />
+          <Property Name="PrintedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="EnumAccDocTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TaxId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyBranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnumBranchTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerBranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerTaxId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsDetailEditable" Type="Boolean" Nullable="false" />
+          <Property Name="IsRecalculate" Type="Boolean" Nullable="false" />
+          <Property Name="IsVoucherPrinted" Type="Boolean" Nullable="false" />
+          <Property Name="VoucherPrintedDate" Type="DateTime" Precision="0" />
+          <Property Name="WithholdingTax" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="IsDocumentAttached" Type="Boolean" Nullable="false" />
+          <Property Name="IsSendToCustomer" Type="Boolean" Nullable="false" />
+          <Property Name="LCNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ETD" Type="DateTime" Precision="0" />
+          <Property Name="Source" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DestinationEx" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingTerms" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceEx" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ETA" Type="DateTime" Precision="0" />
+          <Property Name="ShippingMarks" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CountryOfOrigin" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Freight" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentTotalCount" Type="Int32" Nullable="false" />
+          <Property Name="TotalClearingBillingAmount" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="RestBillingAmount" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="EnumPaymentStatusId" Type="Int32" Nullable="false" />
+          <Property Name="BLDate" Type="DateTime" Precision="0" />
+          <Property Name="RemarkPONo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DONo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MasterIncotermId" Type="Int32" />
+          <Property Name="CountryOfConsignee" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ShippedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VesselFlightNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnumInvoiceRemarkId" Type="Int32" />
+          <Property Name="DestinationName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="DestinationAddress1" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DestinationAddress2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DestinationPostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationTelephoneNo1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationTelephoneNo2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationFaxNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DestinationAttn" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="MasterCustomer" Relationship="Self.FK_InvoiceHeader_MasterCustomer" FromRole="InvoiceHeader" ToRole="MasterCustomer" />
+          <NavigationProperty Name="MasterInvoice" Relationship="Self.FK_InvoiceHeader_MasterInvoice" FromRole="InvoiceHeader" ToRole="MasterInvoice" />
+        </EntityType>
+        <EntityType Name="MasterCustomer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MasterInvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="PersonInCharge" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="TelInside" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TelOutside" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EnumReturnTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MasterIncotermId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="MasterBusinessPartnerId" Type="Int32" Nullable="false" />
+          <Property Name="IsOversea" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="InvoiceHeaders" Relationship="Self.FK_InvoiceHeader_MasterCustomer" FromRole="MasterCustomer" ToRole="InvoiceHeader" />
+          <NavigationProperty Name="MasterInvoice" Relationship="Self.FK_MasterCustomer_MasterInvoice" FromRole="MasterCustomer" ToRole="MasterInvoice" />
+        </EntityType>
+        <EntityType Name="MasterInvoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InvoiceName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InvoiceShortName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TelephoneNo1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TelephoneNo2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FaxNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaymentTerm" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="PaymentCondition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MasterVatHeaderId" Type="Int32" Nullable="false" />
+          <Property Name="EnumRoundTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MasterCurrencyId" Type="Int32" Nullable="false" />
+          <Property Name="EnumExchangeRateTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TaxId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EnumBranchTypeId" Type="Int32" Nullable="false" />
+          <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="MasterAccHeaderForAccId" Type="Int32" />
+          <Property Name="MasterInvoiceGroupId" Type="Int32" />
+          <Property Name="PersonInCharge" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="EmailTo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailCC1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailCC2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailCC3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailCC4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailCC5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailCC6" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailCC7" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailCC8" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreditLimit" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="OutStandingBalance" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="AvailableCreditLimit" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+          <Property Name="MasterPaymentInformationId" Type="Int32" />
+          <Property Name="Attn" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="InvoiceHeaders" Relationship="Self.FK_InvoiceHeader_MasterInvoice" FromRole="MasterInvoice" ToRole="InvoiceHeader" />
+          <NavigationProperty Name="MasterCustomers" Relationship="Self.FK_MasterCustomer_MasterInvoice" FromRole="MasterInvoice" ToRole="MasterCustomer" />
+        </EntityType>
+        <Association Name="FK_InvoiceHeader_MasterCustomer">
+          <End Role="MasterCustomer" Type="Self.MasterCustomer" Multiplicity="1" />
+          <End Role="InvoiceHeader" Type="Self.InvoiceHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterCustomer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceHeader">
+              <PropertyRef Name="MasterCustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceHeader_MasterInvoice">
+          <End Role="MasterInvoice" Type="Self.MasterInvoice" Multiplicity="1" />
+          <End Role="InvoiceHeader" Type="Self.InvoiceHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterInvoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InvoiceHeader">
+              <PropertyRef Name="MasterInvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MasterCustomer_MasterInvoice">
+          <End Role="MasterInvoice" Type="Self.MasterInvoice" Multiplicity="1" />
+          <End Role="MasterCustomer" Type="Self.MasterCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterInvoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MasterCustomer">
+              <PropertyRef Name="MasterInvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Thomas_OguraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="InvoiceHeaders" EntityType="Self.InvoiceHeader" />
+          <EntitySet Name="MasterCustomers" EntityType="Self.MasterCustomer" />
+          <EntitySet Name="MasterInvoices" EntityType="Self.MasterInvoice" />
+          <AssociationSet Name="FK_InvoiceHeader_MasterCustomer" Association="Self.FK_InvoiceHeader_MasterCustomer">
+            <End Role="MasterCustomer" EntitySet="MasterCustomers" />
+            <End Role="InvoiceHeader" EntitySet="InvoiceHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceHeader_MasterInvoice" Association="Self.FK_InvoiceHeader_MasterInvoice">
+            <End Role="MasterInvoice" EntitySet="MasterInvoices" />
+            <End Role="InvoiceHeader" EntitySet="InvoiceHeaders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MasterCustomer_MasterInvoice" Association="Self.FK_MasterCustomer_MasterInvoice">
+            <End Role="MasterInvoice" EntitySet="MasterInvoices" />
+            <End Role="MasterCustomer" EntitySet="MasterCustomers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Thomas_OguraModelStoreContainer" CdmEntityContainer="Thomas_OguraEntities">
+          <EntitySetMapping Name="InvoiceHeaders">
+            <EntityTypeMapping TypeName="Thomas_OguraModel.InvoiceHeader">
+              <MappingFragment StoreEntitySet="InvoiceHeader">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="InvoiceCreateDate" ColumnName="InvoiceCreateDate" />
+                <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+                <ScalarProperty Name="MasterCustomerId" ColumnName="MasterCustomerId" />
+                <ScalarProperty Name="MasterInvoiceId" ColumnName="MasterInvoiceId" />
+                <ScalarProperty Name="InvoiceName" ColumnName="InvoiceName" />
+                <ScalarProperty Name="InvoiceApproverName" ColumnName="InvoiceApproverName" />
+                <ScalarProperty Name="InvoiceApproverPosition" ColumnName="InvoiceApproverPosition" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Remark2" ColumnName="Remark2" />
+                <ScalarProperty Name="MasterAccHeaderForAccId" ColumnName="MasterAccHeaderForAccId" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="TelephoneNo1" ColumnName="TelephoneNo1" />
+                <ScalarProperty Name="TelephoneNo2" ColumnName="TelephoneNo2" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Attn" ColumnName="Attn" />
+                <ScalarProperty Name="EnumRoundTypeId" ColumnName="EnumRoundTypeId" />
+                <ScalarProperty Name="MasterCurrencyId" ColumnName="MasterCurrencyId" />
+                <ScalarProperty Name="EnumExchangeRateTypeId" ColumnName="EnumExchangeRateTypeId" />
+                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+                <ScalarProperty Name="PaymentTerm" ColumnName="PaymentTerm" />
+                <ScalarProperty Name="PaymentMonth" ColumnName="PaymentMonth" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="SubTotalAmount" ColumnName="SubTotalAmount" />
+                <ScalarProperty Name="AdvanceReceiptAmount" ColumnName="AdvanceReceiptAmount" />
+                <ScalarProperty Name="AdvanceReceiptVat" ColumnName="AdvanceReceiptVat" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Vat" ColumnName="Vat" />
+                <ScalarProperty Name="SubTotalAmountNative" ColumnName="SubTotalAmountNative" />
+                <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+                <ScalarProperty Name="MasterCurrencyNativeCurrencyId" ColumnName="MasterCurrencyNativeCurrencyId" />
+                <ScalarProperty Name="GrandTotalNative" ColumnName="GrandTotalNative" />
+                <ScalarProperty Name="DomesticPpn" ColumnName="DomesticPpn" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="IsInvoiceIssued" ColumnName="IsInvoiceIssued" />
+                <ScalarProperty Name="InvoiceIssuedDate" ColumnName="InvoiceIssuedDate" />
+                <ScalarProperty Name="IsInvoiceExportedToAcc" ColumnName="IsInvoiceExportedToAcc" />
+                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+                <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
+                <ScalarProperty Name="MasterNumberingRuleId" ColumnName="MasterNumberingRuleId" />
+                <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
+                <ScalarProperty Name="PrintedDate" ColumnName="PrintedDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="EnumAccDocTypeId" ColumnName="EnumAccDocTypeId" />
+                <ScalarProperty Name="TaxId" ColumnName="TaxId" />
+                <ScalarProperty Name="CompanyBranchName" ColumnName="CompanyBranchName" />
+                <ScalarProperty Name="EnumBranchTypeId" ColumnName="EnumBranchTypeId" />
+                <ScalarProperty Name="CustomerBranchName" ColumnName="CustomerBranchName" />
+                <ScalarProperty Name="CustomerTaxId" ColumnName="CustomerTaxId" />
+                <ScalarProperty Name="IsDetailEditable" ColumnName="IsDetailEditable" />
+                <ScalarProperty Name="IsRecalculate" ColumnName="IsRecalculate" />
+                <ScalarProperty Name="IsVoucherPrinted" ColumnName="IsVoucherPrinted" />
+                <ScalarProperty Name="VoucherPrintedDate" ColumnName="VoucherPrintedDate" />
+                <ScalarProperty Name="WithholdingTax" ColumnName="WithholdingTax" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="IsDocumentAttached" ColumnName="IsDocumentAttached" />
+                <ScalarProperty Name="IsSendToCustomer" ColumnName="IsSendToCustomer" />
+                <ScalarProperty Name="LCNo" ColumnName="LCNo" />
+                <ScalarProperty Name="ETD" ColumnName="ETD" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="DestinationEx" ColumnName="DestinationEx" />
+                <ScalarProperty Name="ShippingTerms" ColumnName="ShippingTerms" />
+                <ScalarProperty Name="ReferenceEx" ColumnName="ReferenceEx" />
+                <ScalarProperty Name="ETA" ColumnName="ETA" />
+                <ScalarProperty Name="ShippingMarks" ColumnName="ShippingMarks" />
+                <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+                <ScalarProperty Name="PaymentTotalCount" ColumnName="PaymentTotalCount" />
+                <ScalarProperty Name="TotalClearingBillingAmount" ColumnName="TotalClearingBillingAmount" />
+                <ScalarProperty Name="RestBillingAmount" ColumnName="RestBillingAmount" />
+                <ScalarProperty Name="EnumPaymentStatusId" ColumnName="EnumPaymentStatusId" />
+                <ScalarProperty Name="BLDate" ColumnName="BLDate" />
+                <ScalarProperty Name="RemarkPONo" ColumnName="RemarkPONo" />
+                <ScalarProperty Name="DONo" ColumnName="DONo" />
+                <ScalarProperty Name="MasterIncotermId" ColumnName="MasterIncotermId" />
+                <ScalarProperty Name="CountryOfConsignee" ColumnName="CountryOfConsignee" />
+                <ScalarProperty Name="ShippedBy" ColumnName="ShippedBy" />
+                <ScalarProperty Name="VesselFlightNo" ColumnName="VesselFlightNo" />
+                <ScalarProperty Name="EnumInvoiceRemarkId" ColumnName="EnumInvoiceRemarkId" />
+                <ScalarProperty Name="DestinationName" ColumnName="DestinationName" />
+                <ScalarProperty Name="DestinationAddress1" ColumnName="DestinationAddress1" />
+                <ScalarProperty Name="DestinationAddress2" ColumnName="DestinationAddress2" />
+                <ScalarProperty Name="DestinationPostalCode" ColumnName="DestinationPostalCode" />
+                <ScalarProperty Name="DestinationTelephoneNo1" ColumnName="DestinationTelephoneNo1" />
+                <ScalarProperty Name="DestinationTelephoneNo2" ColumnName="DestinationTelephoneNo2" />
+                <ScalarProperty Name="DestinationFaxNo" ColumnName="DestinationFaxNo" />
+                <ScalarProperty Name="DestinationAttn" ColumnName="DestinationAttn" />
+                <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedUser" ColumnName="ModifiedUser" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterCustomers">
+            <EntityTypeMapping TypeName="Thomas_OguraModel.MasterCustomer">
+              <MappingFragment StoreEntitySet="MasterCustomer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="MasterInvoiceId" ColumnName="MasterInvoiceId" />
+                <ScalarProperty Name="PersonInCharge" ColumnName="PersonInCharge" />
+                <ScalarProperty Name="TelInside" ColumnName="TelInside" />
+                <ScalarProperty Name="TelOutside" ColumnName="TelOutside" />
+                <ScalarProperty Name="EnumReturnTypeId" ColumnName="EnumReturnTypeId" />
+                <ScalarProperty Name="MasterIncotermId" ColumnName="MasterIncotermId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MasterBusinessPartnerId" ColumnName="MasterBusinessPartnerId" />
+                <ScalarProperty Name="IsOversea" ColumnName="IsOversea" />
+                <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedUser" ColumnName="ModifiedUser" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterInvoices">
+            <EntityTypeMapping TypeName="Thomas_OguraModel.MasterInvoice">
+              <MappingFragment StoreEntitySet="MasterInvoice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
+                <ScalarProperty Name="InvoiceName" ColumnName="InvoiceName" />
+                <ScalarProperty Name="InvoiceShortName" ColumnName="InvoiceShortName" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="TelephoneNo1" ColumnName="TelephoneNo1" />
+                <ScalarProperty Name="TelephoneNo2" ColumnName="TelephoneNo2" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="PaymentTerm" ColumnName="PaymentTerm" />
+                <ScalarProperty Name="PaymentCondition" ColumnName="PaymentCondition" />
+                <ScalarProperty Name="MasterVatHeaderId" ColumnName="MasterVatHeaderId" />
+                <ScalarProperty Name="EnumRoundTypeId" ColumnName="EnumRoundTypeId" />
+                <ScalarProperty Name="MasterCurrencyId" ColumnName="MasterCurrencyId" />
+                <ScalarProperty Name="EnumExchangeRateTypeId" ColumnName="EnumExchangeRateTypeId" />
+                <ScalarProperty Name="TaxId" ColumnName="TaxId" />
+                <ScalarProperty Name="EnumBranchTypeId" ColumnName="EnumBranchTypeId" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MasterAccHeaderForAccId" ColumnName="MasterAccHeaderForAccId" />
+                <ScalarProperty Name="MasterInvoiceGroupId" ColumnName="MasterInvoiceGroupId" />
+                <ScalarProperty Name="PersonInCharge" ColumnName="PersonInCharge" />
+                <ScalarProperty Name="EmailTo" ColumnName="EmailTo" />
+                <ScalarProperty Name="EmailCC1" ColumnName="EmailCC1" />
+                <ScalarProperty Name="EmailCC2" ColumnName="EmailCC2" />
+                <ScalarProperty Name="EmailCC3" ColumnName="EmailCC3" />
+                <ScalarProperty Name="EmailCC4" ColumnName="EmailCC4" />
+                <ScalarProperty Name="EmailCC5" ColumnName="EmailCC5" />
+                <ScalarProperty Name="EmailCC6" ColumnName="EmailCC6" />
+                <ScalarProperty Name="EmailCC7" ColumnName="EmailCC7" />
+                <ScalarProperty Name="EmailCC8" ColumnName="EmailCC8" />
+                <ScalarProperty Name="CreditLimit" ColumnName="CreditLimit" />
+                <ScalarProperty Name="OutStandingBalance" ColumnName="OutStandingBalance" />
+                <ScalarProperty Name="AvailableCreditLimit" ColumnName="AvailableCreditLimit" />
+                <ScalarProperty Name="MasterPaymentInformationId" ColumnName="MasterPaymentInformationId" />
+                <ScalarProperty Name="Attn" ColumnName="Attn" />
+                <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedUser" ColumnName="ModifiedUser" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

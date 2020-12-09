@@ -21,28 +21,26 @@ namespace ACCBILLING_NOTE.Controllers
        
 
         ConnectdataBase con = new ConnectdataBase();
+        Thomas_OguraEntities conn = new Thomas_OguraEntities();
 
         OCTIIS_WEBAPPEntities sql = new OCTIIS_WEBAPPEntities();
 
         public ActionResult Index()
         {
 
-            ViewBag.cus = TempData["Cus"];
-           // ViewBag.data = TempData["invoi"];
-            ViewBag.datacount = TempData["count"];
-            ViewBag.calAm1 = TempData["calAm1"];
-            ViewBag.calAm2 = TempData["calAm2"];
-            ViewBag.calV = TempData["calV"];
-            ViewBag.TextCal = TempData["textCal"];
-            ViewBag.data    =  TempData["data"]   ;
-            ViewBag.data1    =  TempData["data1"]  ;
-            ViewBag.data2    =  TempData["data2"]  ;
-            ViewBag.data3    = TempData["data3"]  ;
-            ViewBag.data4    = TempData["data4"]  ;
-            ViewBag.calco = TempData["calcount"];
-
-
-            ViewBag.countDt = TempData["dataCu"];
+            ViewBag.cus         = TempData["Cus"];
+            ViewBag.datacount   = TempData["count"];
+            ViewBag.calAm1      = TempData["calAm1"];
+            ViewBag.calAm2      = TempData["calAm2"];
+            ViewBag.calV        = TempData["calV"];
+            ViewBag.TextCal     = TempData["textCal"];
+            ViewBag.data        = TempData["data"]   ;
+            ViewBag.data1       = TempData["data1"]  ;
+            ViewBag.data2       = TempData["data2"]  ;
+            ViewBag.data3       = TempData["data3"]  ;
+            ViewBag.data4       = TempData["data4"]  ;
+            ViewBag.calco       = TempData["calcount"];
+            ViewBag.countDt  = TempData["dataCu"];
             ViewBag.countDt1 = TempData["dataCu1"];
             ViewBag.countDt2 = TempData["dataCu2"];
             ViewBag.countDt3 = TempData["dataCu13"];
@@ -55,7 +53,6 @@ namespace ACCBILLING_NOTE.Controllers
    
         public ActionResult Export()
         {
-
             ViewBag.cus = TempData["Cus"];
             // ViewBag.data = TempData["invoi"];
             ViewBag.datacount = TempData["count"];
@@ -69,8 +66,6 @@ namespace ACCBILLING_NOTE.Controllers
             ViewBag.data3 = TempData["data3"];
             ViewBag.data4 = TempData["data4"];
             ViewBag.calco = TempData["calcount"];
-
-
             ViewBag.countDt = TempData["dataCu"];
             ViewBag.countDt1 = TempData["dataCu1"];
             ViewBag.countDt2 = TempData["dataCu2"];
@@ -164,14 +159,14 @@ namespace ACCBILLING_NOTE.Controllers
                 {
 
                     invoiceNo       = dbp.Rows[i]["IDINVC"].ToString(),
-                    invoiceDate         = day + "/" + monthT + "/" + yearT,
+                    invoiceDate     = day + "/" + monthT + "/" + yearT,
                     invoiceDue      = dayD + "/" + monthD + "/" + yearD,
                     invoiceAm1      = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
                     invoiceVat      = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
                     invoiceAm2      = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
-                    invoiceAm1Cal       = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-                    invoiceVatCal       = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-                    invoiceAm2Cal       = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
+                    invoiceAm1Cal   = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
+                    invoiceVatCal   = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
+                    invoiceAm2Cal   = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
 
 
                 });
@@ -180,15 +175,10 @@ namespace ACCBILLING_NOTE.Controllers
 
 
             }
-
-
             var jsonAd = new List<InvoiceCus>();
             var rowCus = dbh.Rows.Count;
             byte textD;
             string adi;
-
-          
-           // string Add;
             for (int i = 0; i < rowCus; i++)
             {
                 var text =dbh.Rows[i]["TERMCODE"].ToString();
@@ -203,14 +193,8 @@ namespace ACCBILLING_NOTE.Controllers
 
                  textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString().Substring(0, 3));
                 }
-
-
                  adi =  dbh.Rows[i]["ADRRESS"].ToString();
 
-
-               //  Add = dbh.Rows[i]["ADRRESS"].ToString().Split(", ");
-             
-                
                 jsonAd.Add(new InvoiceCus()
                 {
 
@@ -248,7 +232,7 @@ namespace ACCBILLING_NOTE.Controllers
             asas = json.ToArray();
 
 
-            var jsonSr = new List<Invoice>();
+            var jsonSr  = new List<Invoice>();
             var jsonSr1 = new List<Invoice>();
             var jsonSr2 = new List<Invoice>();
             var jsonSr3 = new List<Invoice>();
@@ -280,12 +264,12 @@ namespace ACCBILLING_NOTE.Controllers
                     jsonSr1.Add(new Invoice
                     {
 
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
+                        invoiceNo     = json[i].invoiceNo,
+                        invoiceDate   = json[i].invoiceDate,
+                        invoiceDue    = json[i].invoiceDue,
+                        invoiceAm1    = json[i].invoiceAm1,
+                        invoiceVat    = json[i].invoiceVat,
+                        invoiceAm2    = json[i].invoiceAm2,
                         invoiceAm1Cal = json[i].invoiceAm1Cal,
                         invoiceVatCal = json[i].invoiceVatCal,
                         invoiceAm2Cal = json[i].invoiceAm2Cal
@@ -416,6 +400,8 @@ namespace ACCBILLING_NOTE.Controllers
 
         public ActionResult Test()
         {
+
+            queryData();
 
             ViewBag.cusname = cus();
 
@@ -760,9 +746,6 @@ namespace ACCBILLING_NOTE.Controllers
          return Json(sh,JsonRequestBehavior.AllowGet);
         }
 
- 
-
-       
 
         public Array cus()
         {
@@ -800,8 +783,6 @@ namespace ACCBILLING_NOTE.Controllers
 
             return cusname;
         }
-
-
         public Array bankQuery()
         {
             List<bankTranfer> bank = new List<bankTranfer>();
@@ -826,13 +807,9 @@ namespace ACCBILLING_NOTE.Controllers
 
                 });
             }
-
-
             bankAr = bank.ToArray();
 
             return bankAr;
-
-
         }
 
         [HttpPost]
@@ -841,12 +818,8 @@ namespace ACCBILLING_NOTE.Controllers
             var bnf = cBankTranfer(id);
 
             return Json(bnf, JsonRequestBehavior.AllowGet);
-
-
           
         }
-
-
         [HttpPost]
         public ActionResult Export(string id)
         {
@@ -876,16 +849,9 @@ namespace ACCBILLING_NOTE.Controllers
                     bAccNo = bn.AccOn,
                     bBranch = bn.Branch,
                     bSwiftCode = bn.SwiftCode
-                
-                
+                               
                 });
-
             }
-
-
-
-
-
             return json;
         }
 
@@ -1242,7 +1208,25 @@ namespace ACCBILLING_NOTE.Controllers
 
 
 
-         
+        public void queryData()
+        {
+            Array fg;
+            var quer = conn.InvoiceHeaders
+                .Join(conn.MasterCustomers, header => header.MasterCustomerId
+                , mCustomer => mCustomer.Id, (header, mCustomer) => new { header, mCustomer })
+                .Join(conn.MasterInvoices, header => header.header.MasterInvoiceId
+                , mInvoice => mInvoice.Id, (header, mInvoice) => new { header, mInvoice })
+               
+               .ToList();
+
+
+            var ty = quer.Where(l => l.header.header.CreatedDate >= new DateTime(2020, 11, 01) && l.header.header.CreatedDate <= new DateTime(2020, 11, 30)).Where(c => c.header.mCustomer.CustomerCode.ToString() == "C0011").ToList();
+
+            var acH = ty.Select(c => c.header.header.Address1).GroupBy(d => d.header.header.Address1);
+
+            fg = ty.ToArray();
+            ViewBag.pp = ty;
+        }
    
     }
 }

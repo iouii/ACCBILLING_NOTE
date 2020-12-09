@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Thomas_OguraModelStoreContainer" CdmEntityContainer="Thomas_OguraEntities">
+    <EntitySetMapping Name="InvoiceHeaders">
+      <EntityTypeMapping TypeName="Thomas_OguraModel.InvoiceHeader">
+        <MappingFragment StoreEntitySet="InvoiceHeader">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+          <ScalarProperty Name="InvoiceCreateDate" ColumnName="InvoiceCreateDate" />
+          <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+          <ScalarProperty Name="MasterCustomerId" ColumnName="MasterCustomerId" />
+          <ScalarProperty Name="MasterInvoiceId" ColumnName="MasterInvoiceId" />
+          <ScalarProperty Name="InvoiceName" ColumnName="InvoiceName" />
+          <ScalarProperty Name="InvoiceApproverName" ColumnName="InvoiceApproverName" />
+          <ScalarProperty Name="InvoiceApproverPosition" ColumnName="InvoiceApproverPosition" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Remark2" ColumnName="Remark2" />
+          <ScalarProperty Name="MasterAccHeaderForAccId" ColumnName="MasterAccHeaderForAccId" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="TelephoneNo1" ColumnName="TelephoneNo1" />
+          <ScalarProperty Name="TelephoneNo2" ColumnName="TelephoneNo2" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="Attn" ColumnName="Attn" />
+          <ScalarProperty Name="EnumRoundTypeId" ColumnName="EnumRoundTypeId" />
+          <ScalarProperty Name="MasterCurrencyId" ColumnName="MasterCurrencyId" />
+          <ScalarProperty Name="EnumExchangeRateTypeId" ColumnName="EnumExchangeRateTypeId" />
+          <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+          <ScalarProperty Name="PaymentTerm" ColumnName="PaymentTerm" />
+          <ScalarProperty Name="PaymentMonth" ColumnName="PaymentMonth" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+          <ScalarProperty Name="SubTotalAmount" ColumnName="SubTotalAmount" />
+          <ScalarProperty Name="AdvanceReceiptAmount" ColumnName="AdvanceReceiptAmount" />
+          <ScalarProperty Name="AdvanceReceiptVat" ColumnName="AdvanceReceiptVat" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="Vat" ColumnName="Vat" />
+          <ScalarProperty Name="SubTotalAmountNative" ColumnName="SubTotalAmountNative" />
+          <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+          <ScalarProperty Name="MasterCurrencyNativeCurrencyId" ColumnName="MasterCurrencyNativeCurrencyId" />
+          <ScalarProperty Name="GrandTotalNative" ColumnName="GrandTotalNative" />
+          <ScalarProperty Name="DomesticPpn" ColumnName="DomesticPpn" />
+          <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+          <ScalarProperty Name="IsInvoiceIssued" ColumnName="IsInvoiceIssued" />
+          <ScalarProperty Name="InvoiceIssuedDate" ColumnName="InvoiceIssuedDate" />
+          <ScalarProperty Name="IsInvoiceExportedToAcc" ColumnName="IsInvoiceExportedToAcc" />
+          <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+          <ScalarProperty Name="CancelReason" ColumnName="CancelReason" />
+          <ScalarProperty Name="MasterNumberingRuleId" ColumnName="MasterNumberingRuleId" />
+          <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
+          <ScalarProperty Name="PrintedDate" ColumnName="PrintedDate" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="EnumAccDocTypeId" ColumnName="EnumAccDocTypeId" />
+          <ScalarProperty Name="TaxId" ColumnName="TaxId" />
+          <ScalarProperty Name="CompanyBranchName" ColumnName="CompanyBranchName" />
+          <ScalarProperty Name="EnumBranchTypeId" ColumnName="EnumBranchTypeId" />
+          <ScalarProperty Name="CustomerBranchName" ColumnName="CustomerBranchName" />
+          <ScalarProperty Name="CustomerTaxId" ColumnName="CustomerTaxId" />
+          <ScalarProperty Name="IsDetailEditable" ColumnName="IsDetailEditable" />
+          <ScalarProperty Name="IsRecalculate" ColumnName="IsRecalculate" />
+          <ScalarProperty Name="IsVoucherPrinted" ColumnName="IsVoucherPrinted" />
+          <ScalarProperty Name="VoucherPrintedDate" ColumnName="VoucherPrintedDate" />
+          <ScalarProperty Name="WithholdingTax" ColumnName="WithholdingTax" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+          <ScalarProperty Name="IsDocumentAttached" ColumnName="IsDocumentAttached" />
+          <ScalarProperty Name="IsSendToCustomer" ColumnName="IsSendToCustomer" />
+          <ScalarProperty Name="LCNo" ColumnName="LCNo" />
+          <ScalarProperty Name="ETD" ColumnName="ETD" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="DestinationEx" ColumnName="DestinationEx" />
+          <ScalarProperty Name="ShippingTerms" ColumnName="ShippingTerms" />
+          <ScalarProperty Name="ReferenceEx" ColumnName="ReferenceEx" />
+          <ScalarProperty Name="ETA" ColumnName="ETA" />
+          <ScalarProperty Name="ShippingMarks" ColumnName="ShippingMarks" />
+          <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
+          <ScalarProperty Name="Freight" ColumnName="Freight" />
+          <ScalarProperty Name="PaymentTotalCount" ColumnName="PaymentTotalCount" />
+          <ScalarProperty Name="TotalClearingBillingAmount" ColumnName="TotalClearingBillingAmount" />
+          <ScalarProperty Name="RestBillingAmount" ColumnName="RestBillingAmount" />
+          <ScalarProperty Name="EnumPaymentStatusId" ColumnName="EnumPaymentStatusId" />
+          <ScalarProperty Name="BLDate" ColumnName="BLDate" />
+          <ScalarProperty Name="RemarkPONo" ColumnName="RemarkPONo" />
+          <ScalarProperty Name="DONo" ColumnName="DONo" />
+          <ScalarProperty Name="MasterIncotermId" ColumnName="MasterIncotermId" />
+          <ScalarProperty Name="CountryOfConsignee" ColumnName="CountryOfConsignee" />
+          <ScalarProperty Name="ShippedBy" ColumnName="ShippedBy" />
+          <ScalarProperty Name="VesselFlightNo" ColumnName="VesselFlightNo" />
+          <ScalarProperty Name="EnumInvoiceRemarkId" ColumnName="EnumInvoiceRemarkId" />
+          <ScalarProperty Name="DestinationName" ColumnName="DestinationName" />
+          <ScalarProperty Name="DestinationAddress1" ColumnName="DestinationAddress1" />
+          <ScalarProperty Name="DestinationAddress2" ColumnName="DestinationAddress2" />
+          <ScalarProperty Name="DestinationPostalCode" ColumnName="DestinationPostalCode" />
+          <ScalarProperty Name="DestinationTelephoneNo1" ColumnName="DestinationTelephoneNo1" />
+          <ScalarProperty Name="DestinationTelephoneNo2" ColumnName="DestinationTelephoneNo2" />
+          <ScalarProperty Name="DestinationFaxNo" ColumnName="DestinationFaxNo" />
+          <ScalarProperty Name="DestinationAttn" ColumnName="DestinationAttn" />
+          <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedUser" ColumnName="ModifiedUser" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterCustomers">
+      <EntityTypeMapping TypeName="Thomas_OguraModel.MasterCustomer">
+        <MappingFragment StoreEntitySet="MasterCustomer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+          <ScalarProperty Name="MasterInvoiceId" ColumnName="MasterInvoiceId" />
+          <ScalarProperty Name="PersonInCharge" ColumnName="PersonInCharge" />
+          <ScalarProperty Name="TelInside" ColumnName="TelInside" />
+          <ScalarProperty Name="TelOutside" ColumnName="TelOutside" />
+          <ScalarProperty Name="EnumReturnTypeId" ColumnName="EnumReturnTypeId" />
+          <ScalarProperty Name="MasterIncotermId" ColumnName="MasterIncotermId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="MasterBusinessPartnerId" ColumnName="MasterBusinessPartnerId" />
+          <ScalarProperty Name="IsOversea" ColumnName="IsOversea" />
+          <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedUser" ColumnName="ModifiedUser" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterInvoices">
+      <EntityTypeMapping TypeName="Thomas_OguraModel.MasterInvoice">
+        <MappingFragment StoreEntitySet="MasterInvoice">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
+          <ScalarProperty Name="InvoiceName" ColumnName="InvoiceName" />
+          <ScalarProperty Name="InvoiceShortName" ColumnName="InvoiceShortName" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="TelephoneNo1" ColumnName="TelephoneNo1" />
+          <ScalarProperty Name="TelephoneNo2" ColumnName="TelephoneNo2" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="PaymentTerm" ColumnName="PaymentTerm" />
+          <ScalarProperty Name="PaymentCondition" ColumnName="PaymentCondition" />
+          <ScalarProperty Name="MasterVatHeaderId" ColumnName="MasterVatHeaderId" />
+          <ScalarProperty Name="EnumRoundTypeId" ColumnName="EnumRoundTypeId" />
+          <ScalarProperty Name="MasterCurrencyId" ColumnName="MasterCurrencyId" />
+          <ScalarProperty Name="EnumExchangeRateTypeId" ColumnName="EnumExchangeRateTypeId" />
+          <ScalarProperty Name="TaxId" ColumnName="TaxId" />
+          <ScalarProperty Name="EnumBranchTypeId" ColumnName="EnumBranchTypeId" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="MasterAccHeaderForAccId" ColumnName="MasterAccHeaderForAccId" />
+          <ScalarProperty Name="MasterInvoiceGroupId" ColumnName="MasterInvoiceGroupId" />
+          <ScalarProperty Name="PersonInCharge" ColumnName="PersonInCharge" />
+          <ScalarProperty Name="EmailTo" ColumnName="EmailTo" />
+          <ScalarProperty Name="EmailCC1" ColumnName="EmailCC1" />
+          <ScalarProperty Name="EmailCC2" ColumnName="EmailCC2" />
+          <ScalarProperty Name="EmailCC3" ColumnName="EmailCC3" />
+          <ScalarProperty Name="EmailCC4" ColumnName="EmailCC4" />
+          <ScalarProperty Name="EmailCC5" ColumnName="EmailCC5" />
+          <ScalarProperty Name="EmailCC6" ColumnName="EmailCC6" />
+          <ScalarProperty Name="EmailCC7" ColumnName="EmailCC7" />
+          <ScalarProperty Name="EmailCC8" ColumnName="EmailCC8" />
+          <ScalarProperty Name="CreditLimit" ColumnName="CreditLimit" />
+          <ScalarProperty Name="OutStandingBalance" ColumnName="OutStandingBalance" />
+          <ScalarProperty Name="AvailableCreditLimit" ColumnName="AvailableCreditLimit" />
+          <ScalarProperty Name="MasterPaymentInformationId" ColumnName="MasterPaymentInformationId" />
+          <ScalarProperty Name="Attn" ColumnName="Attn" />
+          <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedUser" ColumnName="ModifiedUser" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
