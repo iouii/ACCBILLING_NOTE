@@ -23,5 +23,8 @@ namespace ACCBILLING_NOTE.Context
         public string Amount { get; set; }
         public string Vat { get; set; }
         public string Total { get; set; }
+        public string Inv_headerDate { get; set; }
+        public string CustomerName { get; set; }
+        public string AccBankId { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OCTIIS_WEBAPPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OCTIIS_WEBAPPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Acc_Bank">
           <Key>
             <PropertyRef Name="Id" />
@@ -23,14 +23,17 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Inv_headerDate" Type="varchar" MaxLength="50" />
           <Property Name="OnInvoiceHeader" Type="varchar" MaxLength="50" />
           <Property Name="OnInvoiceDetail" Type="varchar" MaxLength="50" />
           <Property Name="Codecustomer" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="200" />
           <Property Name="Inv_date" Type="varchar" MaxLength="10" />
           <Property Name="Inv_duedate" Type="varchar" MaxLength="10" />
           <Property Name="Amount" Type="varchar" MaxLength="100" />
-          <Property Name="Vat" Type="varchar" MaxLength="3" />
+          <Property Name="Vat" Type="varchar" MaxLength="100" />
           <Property Name="Total" Type="varchar" MaxLength="100" />
+          <Property Name="AccBankId" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Acc_BillingHeader">
           <Key>
@@ -74,8 +77,7 @@
           <EntitySet Name="Acc_BillingHeader" EntityType="Self.Acc_BillingHeader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Acc_payment" EntityType="Self.Acc_payment" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OCTIIS_WEBAPPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -103,8 +105,11 @@
           <Property Name="Inv_date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Inv_duedate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Amount" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Vat" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Vat" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Total" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Inv_headerDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AccBankId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Acc_BillingHeader">
           <Key>
@@ -171,6 +176,9 @@
           <EntitySetMapping Name="Acc_BillingDetail">
             <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel.Acc_BillingDetail">
               <MappingFragment StoreEntitySet="Acc_BillingDetail">
+                <ScalarProperty Name="AccBankId" ColumnName="AccBankId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Inv_headerDate" ColumnName="Inv_headerDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="OnInvoiceHeader" ColumnName="OnInvoiceHeader" />
                 <ScalarProperty Name="OnInvoiceDetail" ColumnName="OnInvoiceDetail" />

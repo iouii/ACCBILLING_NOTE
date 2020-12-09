@@ -28,28 +28,23 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-      
+
         @if (ViewBag.calco == 0)
         {
-
 
             @Html.Partial("_DenPartial");
 
         }
         else if (ViewBag.calco == 1)
         {
-            
-        @Html.Partial("_Den1Partial");
+
+            @Html.Partial("_Den1Partial");
         }
         else if (ViewBag.calco == 2)
         {
 
             @Html.Partial("_Den2Partial");
         }
-   
-        
-
-
 
     </div>
 
@@ -59,44 +54,44 @@
 
 @*<script>
 
-    function printDiv(id) {
-        var printContents = document.getElementById(id).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
+        function printDiv(id) {
+            var printContents = document.getElementById(id).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
 
 
 
-        setTimeout(function () { window.location.href = "@Html.Raw(Url.Action("Test", "Home"))"; }, 4000);
+            setTimeout(function () { window.location.href = "@Html.Raw(Url.Action("Test", "Home"))"; }, 4000);
 
 
 
 
-    }
+        }
 
 
-</script>*@
+    </script>*@
 
 
 @*<script>
 
-    function editDate(r) {
+        function editDate(r) {
 
-        var i = r.parentNode.rowIndex;
+            var i = r.parentNode.rowIndex;
 
-        var table = document.getElementById("tableOc");
-        var tableP = document.getElementById("taP");
+            var table = document.getElementById("tableOc");
+            var tableP = document.getElementById("taP");
 
-        var e = table.rows[i].cells[3].innerText;
+            var e = table.rows[i].cells[3].innerText;
 
-        var al = prompt('Would you like to change due date?', e)
+            var al = prompt('Would you like to change due date?', e)
 
-        var af = table.rows[i].cells[3].innerHTML = al;
-        var changeDue = tableP.rows[i].cells[3].innerHTML = al;
+            var af = table.rows[i].cells[3].innerHTML = al;
+            var changeDue = tableP.rows[i].cells[3].innerHTML = al;
 
-    }
-</script>*@
+        }
+    </script>*@
 
 <script>
 
@@ -152,41 +147,41 @@
 
 @*<script>
 
-    document.onkeydown = function (e) {
-        // keycode for F5 function
-        if (e.keyCode === 116) {
-            return false;
-        }
+        document.onkeydown = function (e) {
+            // keycode for F5 function
+            if (e.keyCode === 116) {
+                return false;
+            }
 
-    };
+        };
 
-</script>*@
+    </script>*@
 
 @*<script type="text/javascript">
-    var message = "Function Disabled!";
-    function clickIE4() {
-        if (event.button == 2) {
-            alert(message);
-            return false;
-        }
-    }
-    function clickNS4(e) {
-        if (document.layers || document.getElementById && !document.all) {
-            if (e.which == 2 || e.which == 3) {
+        var message = "Function Disabled!";
+        function clickIE4() {
+            if (event.button == 2) {
                 alert(message);
                 return false;
             }
         }
-    }
-    if (document.layers) {
-        document.captureEvents(Event.MOUSEDOWN);
-        document.onmousedown = clickNS4;
-    }
-    else if (document.all && !document.getElementById) {
-        document.onmousedown = clickIE4;
-    }
-    document.oncontextmenu = new Function("return false")
-</script>*@
+        function clickNS4(e) {
+            if (document.layers || document.getElementById && !document.all) {
+                if (e.which == 2 || e.which == 3) {
+                    alert(message);
+                    return false;
+                }
+            }
+        }
+        if (document.layers) {
+            document.captureEvents(Event.MOUSEDOWN);
+            document.onmousedown = clickNS4;
+        }
+        else if (document.all && !document.getElementById) {
+            document.onmousedown = clickIE4;
+        }
+        document.oncontextmenu = new Function("return false")
+    </script>*@
 
 
 

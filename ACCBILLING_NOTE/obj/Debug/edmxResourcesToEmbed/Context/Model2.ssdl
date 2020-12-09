@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Thomas_OguraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="MasterCustomer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MasterInvoiceId" Type="int" Nullable="false" />
+    <Property Name="PersonInCharge" Type="nvarchar" MaxLength="40" />
+    <Property Name="TelInside" Type="varchar" MaxLength="20" />
+    <Property Name="TelOutside" Type="varchar" MaxLength="20" />
+    <Property Name="EnumReturnTypeId" Type="int" Nullable="false" />
+    <Property Name="MasterIncotermId" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="MasterBusinessPartnerId" Type="int" Nullable="false" />
+    <Property Name="IsOversea" Type="bit" Nullable="false" />
+    <Property Name="CreatedUser" Type="nvarchar" MaxLength="80" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedUser" Type="nvarchar" MaxLength="80" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceName" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="InvoiceShortName" Type="nvarchar" MaxLength="20" />
+    <Property Name="Address1" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Address2" Type="nvarchar" MaxLength="150" />
+    <Property Name="PostalCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="TelephoneNo1" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="TelephoneNo2" Type="varchar" MaxLength="20" />
+    <Property Name="FaxNo" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="PaymentTerm" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="PaymentCondition" Type="nvarchar" MaxLength="50" />
+    <Property Name="MasterVatHeaderId" Type="int" Nullable="false" />
+    <Property Name="EnumRoundTypeId" Type="int" Nullable="false" />
+    <Property Name="MasterCurrencyId" Type="int" Nullable="false" />
+    <Property Name="EnumExchangeRateTypeId" Type="int" Nullable="false" />
+    <Property Name="TaxId" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="EnumBranchTypeId" Type="int" Nullable="false" />
+    <Property Name="BranchName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="MasterAccHeaderForAccId" Type="int" />
+    <Property Name="MasterInvoiceGroupId" Type="int" />
+    <Property Name="PersonInCharge" Type="nvarchar" MaxLength="40" />
+    <Property Name="EmailTo" Type="varchar" MaxLength="100" />
+    <Property Name="EmailCC1" Type="varchar" MaxLength="100" />
+    <Property Name="EmailCC2" Type="varchar" MaxLength="100" />
+    <Property Name="EmailCC3" Type="varchar" MaxLength="100" />
+    <Property Name="EmailCC4" Type="varchar" MaxLength="100" />
+    <Property Name="EmailCC5" Type="varchar" MaxLength="100" />
+    <Property Name="EmailCC6" Type="varchar" MaxLength="100" />
+    <Property Name="EmailCC7" Type="varchar" MaxLength="100" />
+    <Property Name="EmailCC8" Type="varchar" MaxLength="100" />
+    <Property Name="CreditLimit" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+    <Property Name="OutStandingBalance" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+    <Property Name="AvailableCreditLimit" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+    <Property Name="MasterPaymentInformationId" Type="int" />
+    <Property Name="Attn" Type="nvarchar" MaxLength="40" />
+    <Property Name="CreatedUser" Type="nvarchar" MaxLength="80" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedUser" Type="nvarchar" MaxLength="80" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MasterCustomer_MasterInvoice">
+    <End Role="MasterInvoice" Type="Self.MasterInvoice" Multiplicity="1" />
+    <End Role="MasterCustomer" Type="Self.MasterCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterInvoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterCustomer">
+        <PropertyRef Name="MasterInvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Thomas_OguraModelStoreContainer">
+    <EntitySet Name="MasterCustomer" EntityType="Self.MasterCustomer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterInvoice" EntityType="Self.MasterInvoice" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MasterCustomer_MasterInvoice" Association="Self.FK_MasterCustomer_MasterInvoice">
+      <End Role="MasterInvoice" EntitySet="MasterInvoice" />
+      <End Role="MasterCustomer" EntitySet="MasterCustomer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

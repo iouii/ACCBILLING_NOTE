@@ -15,7 +15,7 @@
         word-break: normal;
     }
 </style>
-<div class="container" >
+<div class="container">
 
     <div class="row">
 
@@ -23,10 +23,10 @@
 
             <div class="table col-10 " id="addT">
                 <table class="table table-sm table-bordered table-hover table-striped">
-                    
+
                     <thead class="text-center" style="background-color:#5A6268; color:#ffffff">
                         <tr style=" font-size:12px;">
-                            <td colspan="3">
+                            <td colspan="5">
                                 Customer
                                 <select class="form-control form-control-sm" id="chaName" style="border-radius:0px;" onchange="getname()">
 
@@ -34,26 +34,26 @@
 
                                     @foreach (InvoiceCus ov in (InvoiceCus[])ViewBag.cusname)
                                     {
-                                        <option value="@ov.idCust">@ov.custName</option>
+                                        <option value="@ov.idCust">@ov.custName</option> //idCust
                                     }
                                 </select>
                             </td>
                             <td>
-                                
-                                Date Start 
+
+                                Date Start
                                 <input type="date" name="name" value="" class="form-control form-control-sm" id="dateStart" style="border-radius:0px;" onchange="getname()" />
-                               
-                   
+
+
                             </td>
                             <td>
                                 Date End
                                 <input type="date" name="name" value="" class="form-control form-control-sm " id="dateEnd" onchange="getname()" style="border-radius:0px;" />
-                   
+
                             </td>
                         </tr>
                         <tr>
 
-                            <td align="right" colspan="5">
+                            <td align="right" colspan="10">
                                 <button type="button" class="btn btn-primary btn-sm r" onclick="createInvoice()" style="border-radius:0px" data-toggle="tooltip" data-placement="top" title="Create Billing Note with Domestic">Domestic</button>
                                 <button type="button" class="btn btn-light btn-sm" onclick="createInvoiceEx()" style="border-radius:0px" data-toggle="tooltip" data-placement="top" title="Create Billing Note with Export">Export</button>
 
@@ -65,220 +65,209 @@
                             <th>Invoice No</th>
                             <th>Date</th>
                             <th>Due Date</th>
+                            <th>BLDate</th>
+                            <th>Remark</th>
 
                         </tr>
                     </thead>
                     <tbody id="Tacl"></tbody>
-          
+
 
                 </table>
             </div>
         </div>
 
-            <div class="col-12 d-flex justify-content-end">
+        <div class="col-12 d-flex justify-content-end">
 
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" style="display:none;" id="gO"></button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" style="display:none;" id="gO"></button>
 
-            </div>
-            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog" style="background-color:transparent; margin-top:270px; border:none;">
-                    <div class="modal-content" style="background-color:transparent;border:none;">
-                        <div class="d-flex justify-content-center " style="background-color:transparent;border:none;">
-                            <div class="spinner-grow text-primary" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-secondary" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-success" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-danger" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-warning" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-info" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-light" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-dark" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
+        </div>
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" style="background-color:transparent; margin-top:270px; border:none;">
+                <div class="modal-content" style="background-color:transparent;border:none;">
+                    <div class="d-flex justify-content-center " style="background-color:transparent;border:none;">
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-secondary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-success" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-danger" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-warning" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-info" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-light" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="sr-only">Loading...</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
-      
+</div>
+
+
 <script>
 
     $(document).ready(function () {
-
-       
         $("#g").click();
         var trrt = Date.now;
-            
-      
-
-
     });
 </script>
 
 
-    
-        <script>
+
+<script>
 
     function getname() {
+
+        var name = $("#chaName").val();
+        var dateS = $("#dateStart").val();
+        var dateE = $("#dateEnd").val();
+        var datetime = new Date();
+        var dateStart = datetime.getFullYear() + "-" + (datetime.getMonth() + 1) + "-" + datetime.getDate();
+        if (dateS == "") {
+
+            dateS = dateStart;//ViewBag.datew ;
+        }
+        if (dateE == "") {
+
+            dateE = dateStart;//ViewBag.datew ;
+        }
+
+
+        var res = dateS; //.replaceAll("-", "");
+
+        var resE = dateE; //.replaceAll("-", "");
+
+
+        var fileData = new FormData();
+
+        fileData.append('name', name);
+        fileData.append('month', res);
+        fileData.append('year', resE);
+
+        $.ajax({
+            url: '/Home/Test',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: fileData,
+            success: function (result) {
+                $("#Tacl tr").remove();
+                var item = '', rows, rowss;
+                $.each(result, function (i, item) {
+
+                    rows = "<tr style='font-size:11px;'>" +
+                        "<td align='center'><input type='checkbox' value=" + item.invoiceNo + " name='chkCreate'></td>" +
+                        "<td  align='center'>" + (i + 1) + "</td>" +
+                        "<td  align='center'>" + item.invoiceNo + "</td>" +
+                        "<td  align='center'>" + item.invoiceDate + "</td>" +
+                        "<td  align='center'>" + item.invoiceDue + "</td>" +
+                        "<td  align='center'>" + item.invoicebldate + "</td>" +
+                        "<td  align='center'>" + item.invoicenocom + "</td>";
+
+                    rows += "</tr>";
+                    $("#Tacl").append(rows);
+                });
+
+            },
+            error: function (err) {
+
+            }
+        });
+    }
+
+
+</script>
+
+<script>
+
+    function createInvoice() {
+
+
+
 
         var name = $("#chaName").val();
 
         var dateS = $("#dateStart").val();
         var dateE = $("#dateEnd").val();
 
+        var dateTimeStart = new Date();
+        var startDate = dateTimeStart.getFullYear() + "-" + (dateTimeStart.getMonth() + 1) + "-" + dateTimeStart.getDay();
+        if (dateS == "") {
 
-        if(dateS ==""){
+            dateS = startDate; //ViewBag.datew ;
+        }
+        if (dateE == "") {
 
-            dateS = @ViewBag.datew ;
-                }
-        if(dateE ==""){
-
-            dateE = @ViewBag.datew ;
+            dateE = startDate;//ViewBag.datew ;
         }
 
 
-                var res = dateS.replaceAll("-", "");
+        var res = dateS;//.replaceAll("-", "");
 
-                var resE = dateE.replaceAll("-", "");
-
-
-                var fileData = new FormData();
-
-                fileData.append('name', name);
-                fileData.append('month', res);
-                fileData.append('year', resE);
+        var resE = dateE;//.replaceAll("-", "");
 
 
-
-                $.ajax({
-                    url: '/Home/Test',
-                    type: "POST",
-                    contentType: false,
-                    processData: false,
-                    data: fileData,
-                    success: function (result) {
-                        $("#Tacl tr").remove();
-                        var item = '', rows, rowss;
-                        $.each(result, function (i, item) {
-
-                            rows = "<tr style='font-size:11px;'>" +
-                                "<td align='center'><input type='checkbox' value=" + item.invoiceNo + " name='chkCreate'></td>" +
-                                "<td  align='center'>" + (i + 1) + "</td>" +
-                                "<td  align='center'>" + item.invoiceNo + "</td>" +
-                                "<td  align='center'>" + item.invoiceDate + "</td>" +
-                                "<td  align='center'>" + item.invoiceDue + "</td>";
-
-                            rows += "</tr>";
-                            $("#Tacl").append(rows);
-                        });
-
-                    },
-                    error: function (err) {
-
-                    }
-                });
-            }
+        var invoice = [];
+        $.each($("input[name='chkCreate']:checked"), function () {
+            invoice.push("'" + $(this).val() + "'");
+        });
 
 
+
+        if (invoice.length > 0) {
+
+            $("#gO").click();
+
+            var fileData = new FormData();
+            fileData.append('name', name);
+            fileData.append('month', res);
+            fileData.append('year', resE);
+            fileData.append('invoice', invoice);
+
+            // alert(invoice+":"+name+":"+month+":"+year);
+
+            $.ajax({
+                url: '/Home/GetOver',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+
+                    location.href = "@Url.Action("Index","Home")";
+
+                },
+                error: function (err) {
+
+                }
+            });
+
+
+        } else {
+
+            alert("Please select Invoice, but not exceed 15 Invoice.!!");
+        }
+
+
+
+    }
 </script>
-
-        <script>
-
-            function createInvoice() {
-
-             
-
-         
-                var name = $("#chaName").val();
-
-                var dateS = $("#dateStart").val();
-                var dateE = $("#dateEnd").val();
-
-
-                if(dateS ==""){
-
-                    dateS = @ViewBag.datew ;
-                }
-                if(dateE ==""){
-
-                    dateE = @ViewBag.datew ;
-                }
-
-
-                var res = dateS.replaceAll("-", "");
-
-                var resE = dateE.replaceAll("-", "");
-
-
-                var invoice = [];
-                $.each($("input[name='chkCreate']:checked"), function () {
-                    invoice.push("'" + $(this).val() + "'");
-                });
-
-               
-
-                if (invoice.length > 0 ) {
-
-                    $("#gO").click();
-
-                    var fileData = new FormData();
-                    fileData.append('name', name);
-                    fileData.append('month', res);
-                    fileData.append('year', resE);
-                    fileData.append('invoice', invoice);
-
-                    // alert(invoice+":"+name+":"+month+":"+year);
-
-
-                    
-
-                        $.ajax({
-                            url: '/Home/GetOver',
-                            type: "POST",
-                            contentType: false,
-                            processData: false,
-                            data: fileData,
-                            success: function (result) {
-
-                                location.href = "@Url.Action("Index","Home")";
-
-                            },
-                            error: function (err) {
-
-                            }
-                        });
-
-                    
-                } else {
-
-                    alert("Please select Invoice, but not exceed 15 Invoice.!!");
-                }
-
-
-             
-
-         
-
-            
-            }
-        </script>
 <script>
 
     function createInvoiceEx() {
@@ -289,20 +278,20 @@
         var dateS = $("#dateStart").val();
         var dateE = $("#dateEnd").val();
 
+        var dateTimeStart = new Date();
+        var startDate = dateTimeStart.getFullYear() + "-" + (dateTimeStart.getMonth() + 1) + "-" + dateTimeStart.getDay();
+        if (dateS == "") {
 
-        if(dateS ==""){
-
-            dateS = @ViewBag.datew ;
+            dateS = startDate;//ViewBag.datew ;
         }
-        if(dateE ==""){
+        if (dateE == "") {
 
-            dateE = @ViewBag.datew ;
+            dateE = startDate;//ViewBag.datew ;
         }
 
 
-        var res = dateS.replaceAll("-", "");
-
-        var resE = dateE.replaceAll("-", "");
+        var res = dateS;//.replaceAll("-", "");
+        var resE = dateE;//.replaceAll("-", "");
 
 
         var invoice = [];
@@ -311,21 +300,21 @@
         });
 
 
-      
-        if (invoice.length > 0 ) {
+
+        if (invoice.length > 0) {
 
             $("#gO").click();
 
-        var fileData = new FormData();
-        fileData.append('name', name);
-        fileData.append('month', res);
-        fileData.append('year', resE);
-        fileData.append('invoice', invoice);
+            var fileData = new FormData();
+            fileData.append('name', name);
+            fileData.append('month', res);
+            fileData.append('year', resE);
+            fileData.append('invoice', invoice);
 
-        // alert(invoice+":"+name+":"+month+":"+year);
+            // alert(invoice+":"+name+":"+month+":"+year);
 
 
-      
+
 
             $.ajax({
                 url: '/Home/GetExport',
@@ -343,27 +332,27 @@
                 }
             });
 
-        
-    } else {
+
+        } else {
 
             alert("Please select Invoice, but not exceed 15 Invoice.!!");
-    }
+        }
 
-         
 
-            
+
+
     }
 </script>
 
-        <script>
+<script>
 
 
 
-            $("#selectAll").click(function () {
-                $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+    $("#selectAll").click(function () {
+        $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
 
-            });
+    });
 
-        </script>
+</script>
 
 

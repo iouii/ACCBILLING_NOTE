@@ -1,5 +1,4 @@
-﻿
-@using ACCBILLING_NOTE.Models
+﻿@using ACCBILLING_NOTE.Models
 <div id="ShntableArea" style=" background-color:#ffffff ; border:1px solid #000000; padding:15px;  margin-top:-140px;" class="col-8 scaled">
     <div style="padding-left:40px; padding-right:40px; padding-top:90px; padding-bottom:50px;">
         <div style="padding-left:35px; padding-right:35px;" class="table">
@@ -19,7 +18,7 @@
                         <td rowspan="2" style="word-wrap: break-word; max-width:40px;">@cus.custName <br /> @cus.custAdress</td>
                         <td style="width:200px;"></td>
                         <td style="width:70px;">No. :</td>
-                        <td style="width:100px;"></td>
+                        <td style="width:100px;" id="TreiTwo" onclick="editTDateTwo(this)">@ViewBag.DocOnExp</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -77,7 +76,7 @@
                             <td>@v.invoiceNo</td>
                             <td align="center">@v.invoiceDate</td>
                             <td align="right">@v.invoiceAm2Cal</td>
-                            <td align="center" >@v.invoiceDue</td>
+                            <td align="center">@v.invoiceDue</td>
 
 
                         </tr>
@@ -173,7 +172,7 @@
                         <input type="button" onclick="printDiv('printableArea')" value="PRINT" class="btn btn-sm btn-success" style="border-radius:0px; color:#ffffff" />
                     </td>
                 </tr>
-            
+
                 <tr>
 
                     <td>
@@ -213,12 +212,12 @@
                         <td rowspan="2" style="word-wrap: break-word; max-width:40px;">@cus.custName <br /> @cus.custAdress</td>
                         <td style="width:200px;"></td>
                         <td style="width:70px;">No. :</td>
-                        <td style="width:100px;"></td>
+                        <td style="width:100px;" id="TDateTwo" onclick="editTDateTwo(this)">@ViewBag.DocOnExp</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Date :</td>
-                        <td>@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
+                        <td id="pirntDateNow">@DateTime.Now.Date.ToString("dd-MM-yyyy")</td>
                     </tr>
 
                     <tr>
@@ -379,7 +378,7 @@
                             <td rowspan="2" style="word-wrap:break-word; max-width:80px;">@cus.custName <br /> @cus.custAdress</td>
                             <td style="width:260px;"></td>
                             <td>No. :</td>
-                            <td style="width:150px;"></td>
+                            <td style="width:150px;" id="tbChangeDatass" onclick="editTDateTwo(this)">@ViewBag.DocOnExp</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -550,7 +549,7 @@
                             <td rowspan="2" style="word-wrap:break-word; max-width:80px;">@cus.custName <br /> @cus.custAdress</td>
                             <td style="width:260px;"></td>
                             <td>No. :</td>
-                            <td style="width:150px;"></td>
+                            <td style="width:150px;" id="tbChangeDatasss" onclick="editTDateTwo(this)">@ViewBag.DocOnExp</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -611,7 +610,7 @@
                                 <td>@v.invoiceNo</td>
                                 <td align="center">@v.invoiceDate</td>
                                 <td align="right">@v.invoiceAm2Cal</td>
-                                <td align="center">@v.invoiceDue</td>
+                                <td align="center" id="tbduedate">@v.invoiceDue</td>
 
 
                             </tr>
@@ -698,7 +697,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 
@@ -725,7 +724,7 @@
                 $("#shii tbody").remove();
                 $("#pri tbody").remove();
                 $("#prii tbody").remove();
-                var item = '', rowshi, rowshii,rowpri,rowprii;
+                var item = '', rowshi, rowshii, rowpri, rowprii;
                 $.each(result, function (i, item) {
 
                     rowshi = "<tbody>                                       " +
@@ -805,36 +804,57 @@
         var tableii = document.getElementById("tableOci");
         var tablePi = document.getElementById("tableOP");
         var tablePii = document.getElementById("tableOPi");
-       
+
         var qe = tablei.rows[3].cells[3].innerText;
 
         var al = prompt('Would you like to change currency?', qe)
 
 
-    
 
-        for(var ea=2; ea < @ViewBag.countDt + 2 ; ea++){
+
+        for (var ea = 2; ea < @ViewBag.countDt +2 ; ea++) {
 
             tablei.rows[ea].cells[3].innerHTML = al;
         }
 
-        for(sa = 2; sa < @ViewBag.countDt1 + 2 ; sa++){
+        for (sa = 2; sa < @ViewBag.countDt1 +2 ; sa++) {
 
             tableii.rows[sa].cells[3].innerHTML = al;
         }
 
-        for(var e=2; e < @ViewBag.countDt + 2 ; e++){
+        for (var e = 2; e < @ViewBag.countDt +2 ; e++) {
 
-         
+
             tablePi.rows[e].cells[3].innerHTML = al;
         }
 
-        for(s = 2; s < @ViewBag.countDt1 + 2 ; s++){
+        for (s = 2; s < @ViewBag.countDt1 +2 ; s++) {
 
             tablePii.rows[s].cells[3].innerHTML = al;
         }
 
 
+
+    }
+</script>
+<script>
+
+    function editTDateTwo(r) {
+
+
+
+        var ra = document.getElementById("TreiTwo").innerText;
+
+
+        //var e = ra.nodeValue();
+
+        var al = prompt('Would you like to change due date?', ra);
+
+        // alert(i);
+        $("#TreiTwo").text(al);
+        $("#TDateTwo").text(al);
+        $("#tbChangeDatass").text(al);
+        $("#tbChangeDatasss").text(al);
 
     }
 </script>

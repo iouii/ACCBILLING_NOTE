@@ -19,11 +19,14 @@ namespace ACCBILLING_NOTE.Models
             public string invoiceAm1Cal { get; set; }
             public string invoiceAm2Cal { get; set; }
             public string invoiceVatCal { get; set; }
+            public string invoicebldate { get; set; }
+            public string invoicenocom { get; set; }
             public SumData datas { get; set; }
 
     }
     public class SumData {
 
         public double data { get; set; }
+
     }
 }

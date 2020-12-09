@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "PULL REPORT";
+}
+@using ACCBILLING_NOTE.Models
+<style>
+    .scaled {
+        transform: scale(0.75); /* Equal to scaleX(0.7) scaleY(0.7) */
+    }
+
+    #printableArea {
+        font-family: 'Browallia New';
+    }
+
+    .detec {
+        height: 40px !important;
+    }
+
+        .detec:hover {
+            /*background-color:#044CC5;*/
+            border-left: 10px solid #F2F2F2;
+            /*border-right:10px solid #F2F2F2;*/
+        }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        @if ((ViewBag.count/15) == 0)
+        {
+            @Html.Partial("_ReOversea")
+        }
+        else if ((ViewBag.count / 15) == 1)
+        {
+            @Html.Partial("_ReOversea1")
+        }
+    </div>
+</div>
+
+<script>
+
+    function printDiv(id) {
+       
+        var printContents = document.getElementById(id).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+   
+
+
+
+</script>
+
+<script>
+
+    function editCur(r) {
+
+        var i = r.parentNode.rowIndex;
+
+        var table = document.getElementById("tableOc");
+        var tableP = document.getElementById("tableOP");
+
+        var e = table.rows[i].cells[2].innerText;
+
+        var al = prompt('Would you like to change currency?', e)
+
+        var af = table.rows[i].cells[2].innerHTML = al;
+        var changeDue = tableP.rows[i].cells[2].innerHTML = al;
+
+    }
+</script>
+
+@*<script>
+
+        function editDate(r) {
+
+
+
+            var i = r.parentNode.rowIndex;
+
+            var table = document.getElementById("tableOc");
+            var tableP = document.getElementById("tableOP");
+
+            var e = table.rows[0].cells[3].innerText;
+
+            var al = prompt('Would you like to change currency?', e)
+
+
+            var af = table.rows[i].cells[3].innerHTML = al;
+
+            for(var e=0; e < @ViewBag.datacount +1 ; e++){
+
+                table.rows[e].cells[3].innerHTML = al;
+            }
+
+            for(s = 1; s < @ViewBag.datacount ; s++){
+
+                tableP.rows[s].cells[3].innerHTML = al;
+            }
+
+            var changeDue = tableP.rows[i].cells[3].innerHTML = al;
+
+        }
+    </script>*@
+<script>
+
+    function changeOriginal() {
+
+        var formOri = $("#selectOriginal").val();
+
+        $("#textOriginalP").text(formOri);
+        $("#textOriginal").text(formOri);
+
+
+    }
+</script>
+
+
+
+<script>
+
+    eval(function (p, a, c, k, e, d) { e = function (c) { return c.toString(36) }; if (!''.replace(/^/, String)) { while (c--) { d[c.toString(a)] = k[c] || c.toString(a) } k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) { if (k[c]) { p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]) } } return p }('0.w=6(e){1(e.x===v){5 4}1(e.m==n.o){5 4}};l 7="h j!";6 d(){1(k.i==2){9(7);5 4}}6 8(e){1(0.b||0.f&&!0.g){1(e.a==2||e.a==3){9(7);5 4}}}1(0.b){0.t(q.r);0.c=8}s 1(0.g&&!0.f){0.c=d}0.u=p h("5 4")', 34, 34, 'document|if|||false|return|function|message|clickNS4|alert|which|layers|onmousedown|clickIE4||getElementById|all|Function|button|Disabled|event|var|Button|MouseButtons|Right|new|Event|MOUSEDOWN|else|captureEvents|oncontextmenu|116|onkeydown|keyCode'.split('|'), 0, {}))
+
+</script>
+

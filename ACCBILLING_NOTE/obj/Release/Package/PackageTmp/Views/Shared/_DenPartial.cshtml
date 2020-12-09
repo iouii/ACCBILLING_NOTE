@@ -2,6 +2,7 @@
     ViewBag.Title = "PULL REPORT";
 }
 @using ACCBILLING_NOTE.Models
+@using Newtonsoft.Json.Linq
 <style>
     .scaled {
         transform: scale(0.8); /* Equal to scaleX(0.7) scaleY(0.7) */
@@ -69,7 +70,7 @@
                             <td width="40px;"></td>
                             <td width="140px;"></td>
                             <td width="80px;"><b>เลขที่/No.</b></td>
-                            <td width="150px;"></td>
+                            <td width="150px;" id="TDateTwo" onclick="editTDateTwo(this);">@ViewBag.DocOn</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -80,10 +81,10 @@
                             <td><b>ชื่อลูกค้า <br />Customer Name</b></td>
                             <td colspan="3">@cus.custName <br />( TAX ID. @cus.custTex )</td>
                             <td><b>วันที่ <br />Date</b></td>
-                            <td>@DateTime.Now.Date.ToString("dd/MM/yyyy")</td>
+                            <td id="pirntDateNow">@DateTime.Now.Date.ToString("dd/MM/yyyy")</td>
 
                         </tr>
-                      
+
                         <tr style="font-size:12px;">
 
                             <td><b>ที่อยู่ <br />Address</b></td>
@@ -97,7 +98,7 @@
 
                             <td><b></b></td>
                             <td onclick="editTDate(this);"><b>เงือนไขการชำระ </b></td>
-                            <td rowspan="2" ><p id="textTre">@cus.custTerm  วัน </p></td>
+                            <td rowspan="2"><p id="textTre">@cus.custTerm  วัน </p></td>
 
                         </tr>
 
@@ -142,7 +143,7 @@
                                 <td style="border-right:1px solid #000000" align="center">@a</td>
                                 <td style="border-right:1px solid #000000">@v.invoiceNo</td>
                                 <td style="border-right:1px solid #000000" align="center">@v.invoiceDate</td>
-                                <td style="border-right:1px solid #000000" align="center" >@v.invoiceDue</td>
+                                <td style="border-right:1px solid #000000" align="center">@v.invoiceDue</td>
                                 <td style="border-right:1px solid #000000" align="right">@v.invoiceAm1Cal</td>
                                 <td style="border-right:1px solid #000000" align="right">@v.invoiceVatCal</td>
                                 <td style="border-right:1px solid #000000" align="right">@v.invoiceAm2Cal</td>
@@ -332,7 +333,7 @@
                                 <td width="120px;"></td>
                                 <td width="90px;"></td>
                                 <td width="80px;"><b>เลขที่/No.</b></td>
-                                <td width="100px;"></td>
+                                <td width="100px;" id="TDateTwoi" onclick="editTDateTwo(this);">@ViewBag.DocOn</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -346,7 +347,7 @@
                                 <td>@DateTime.Now.Date.ToString("dd/MM/yyyy")</td>
 
                             </tr>
-                        
+
                             <tr style="font-size:14px;">
 
                                 <td><b>ที่อยู่ <br />Address</b></td>
@@ -395,7 +396,7 @@
                                 <td style="width:120px; ">จำนวนเงิน <br />Amount</td>
                             </tr>
 
-                
+
                         </thead>
                         <tbody style="height:340px;">
                             @{ var c = 1;}
@@ -577,8 +578,10 @@
                         </tr>
 
                     </table>
+
                     @foreach (InvoiceCus cusP in (InvoiceCus[])ViewBag.cus)
                     {
+
                         <table class="table table-borderless table-sm ">
 
                             <tr style="font-size:15px;">
@@ -587,7 +590,7 @@
                                 <td width="120px;"></td>
                                 <td width="90px;"></td>
                                 <td width="80px;"><b>เลขที่/No.</b></td>
-                                <td width="100px;"></td>
+                                <td width="100px;" id="TDateTwoii" onclick="editTDateTwo(this);">@ViewBag.DocOn</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -601,7 +604,7 @@
                                 <td>@DateTime.Now.Date.ToString("dd/MM/yyyy")</td>
 
                             </tr>
-                    
+
                             <tr style="font-size:14px;">
 
                                 <td><b>ที่อยู่ <br />Address</b></td>
@@ -650,7 +653,7 @@
                                 <td style="width:120px; ">จำนวนเงิน <br />Amount</td>
                             </tr>
 
-                         
+
                         </thead>
                         <tbody style="height:340px;">
                             @{ var e = 1;}
@@ -662,7 +665,7 @@
                                     <td style="border-right:1px solid #000000" align="center">@e</td>
                                     <td style="border-right:1px solid #000000">@v.invoiceNo</td>
                                     <td style="border-right:1px solid #000000" align="center">@v.invoiceDate</td>
-                                    <td style="border-right:1px solid #000000" align="center" onclick="editDate(this)">@v.invoiceDue</td>
+                                    <td style="border-right:1px solid #000000" align="center" id="tbduedate" onclick="editDate(this)">@v.invoiceDue</td>
                                     <td style="border-right:1px solid #000000" align="right">@v.invoiceAm1Cal</td>
                                     <td style="border-right:1px solid #000000" align="right">@v.invoiceVatCal</td>
                                     <td style="border-right:1px solid #000000" align="right">@v.invoiceAm2Cal</td>
@@ -808,7 +811,7 @@
             </div>
         </div>
 
-       
+
 
         <div class="col-3">
             <div class="table-responsive" style="margin-top:5px;">
@@ -824,18 +827,18 @@
                             <td>
 
                                 <select class="form-control form-control-sm" id="selectBank" onchange="bankChange()" style="border-radius:0px;">
-                                    
+
                                     <option>bank</option>
-@foreach (bankTranfer ban in (bankTranfer[])ViewBag.bankTr)
-{
-                                    <option value="@ban.bId">@ban.bNameEn</option>
-}
+                                    @foreach (bankTranfer ban in (bankTranfer[])ViewBag.bankTr)
+                                    {
+                                        <option value="@ban.bId">@ban.bNameEn</option>
+                                    }
                                 </select>
 
                             </td>
                         </tr>
 
-                       
+
                     </thead>
 
                 </table>
@@ -875,71 +878,71 @@
                 $.each(result, function (i, item) {
 
                     rows = "<tbody class='textB'>                                       " +
-                            
-                            "<tr>                                                                                   "+
-                            "    <td colspan='2' style='width:160px;'><b>เอกสารที่ใช้ในการวางบิล</b></td>                 "+
-                            "    <td>โปรดชำระเงินด้วยเช็คขีดคร่อม 'เข้าบัญชีผู้รับเท่านั้น' สั่งจ่ายในนาม</td>                           "+
-                            "                                                                                       "+
-                            "                                                                                       "+
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "    <td colspan='2'><b>Document for Billing </b></td>                                  "+
-                            "    <td><b>บริษัท โอกุระ คลัทช์ (ไทยแลนด์) จำกัด</b></td>                                      "+
-                            "                                                                                       "+
-                            "                                                                                       "+
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "    <td rowspan='2' style='width:90px; border-bottom:1px double #000000;'></td>        "+
-                            "    <td>ต้นฉบับใบกำกับภาษี / ใบแจ้งหนี้ / ใบส่งสินค้า</td>                                        "+
-                            "    <td>Please make payment by crossed cheque</td>                                     "+
-                            "                                                                                       "+
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "                                                                                       "+
-                            "    <td>Original Tax Inv. / Invoice / Delivery Order</td>                              "+
-                            "    <td>''Account payee only'' Payable to </td>                                          "+
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "    <td rowspan='2' style='width:90px; border-bottom:1px double #000000;'></td>        "+
-                            "    <td>สำเนาใบกำกับภาษี / ใบแจ้งหนี้ / ใบส่งสินค้า</td>                                          "+
-                            "    <td><b>''Ogura Clutch (Thailand) Co.,Ltd.''</b></td>                                 "+
-                            "                                                                                       "+
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "                                                                                       "+
-                            "    <td>Copy Tax Inv. / Invoice / Delivery Order</td>                                  "+
-                            "    <td></td>                                                                          "+
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "    <td style='width:90px; border-bottom:1px double #000000;'></td>                    "+
-                            "    <td>ต้นฉบับใบวางบิล / Original Billing receipt</td>                                    "+
+
+                            "<tr>                                                                                   " +
+                            "    <td colspan='2' style='width:160px;'><b>เอกสารที่ใช้ในการวางบิล</b></td>                 " +
+                            "    <td>โปรดชำระเงินด้วยเช็คขีดคร่อม 'เข้าบัญชีผู้รับเท่านั้น' สั่งจ่ายในนาม</td>                           " +
+                            "                                                                                       " +
+                            "                                                                                       " +
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "    <td colspan='2'><b>Document for Billing </b></td>                                  " +
+                            "    <td><b>บริษัท โอกุระ คลัทช์ (ไทยแลนด์) จำกัด</b></td>                                      " +
+                            "                                                                                       " +
+                            "                                                                                       " +
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "    <td rowspan='2' style='width:90px; border-bottom:1px double #000000;'></td>        " +
+                            "    <td>ต้นฉบับใบกำกับภาษี / ใบแจ้งหนี้ / ใบส่งสินค้า</td>                                        " +
+                            "    <td>Please make payment by crossed cheque</td>                                     " +
+                            "                                                                                       " +
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "                                                                                       " +
+                            "    <td>Original Tax Inv. / Invoice / Delivery Order</td>                              " +
+                            "    <td>''Account payee only'' Payable to </td>                                          " +
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "    <td rowspan='2' style='width:90px; border-bottom:1px double #000000;'></td>        " +
+                            "    <td>สำเนาใบกำกับภาษี / ใบแจ้งหนี้ / ใบส่งสินค้า</td>                                          " +
+                            "    <td><b>''Ogura Clutch (Thailand) Co.,Ltd.''</b></td>                                 " +
+                            "                                                                                       " +
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "                                                                                       " +
+                            "    <td>Copy Tax Inv. / Invoice / Delivery Order</td>                                  " +
+                            "    <td></td>                                                                          " +
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "    <td style='width:90px; border-bottom:1px double #000000;'></td>                    " +
+                            "    <td>ต้นฉบับใบวางบิล / Original Billing receipt</td>                                    " +
                             "    <td><b>" + item.bNameEn + "</b></td>                                                                          " +
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "    <td style='width:90px; border-bottom:1px double #000000;'></td>                    "+
-                            "    <td>สำเนาใบวางบิล / Copy Billing receipt</td>                                         "+
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "    <td style='width:90px; border-bottom:1px double #000000;'></td>                    " +
+                            "    <td>สำเนาใบวางบิล / Copy Billing receipt</td>                                         " +
                             "    <td><b>By transfering to Bank A/C Number:" + item.bAccNo + "</b></td>                                                                          " +
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "    <td style='width:90px;'></td>                                                     "+
-                            "    <td></td>                                                                          "+
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "    <td style='width:90px;'></td>                                                     " +
+                            "    <td></td>                                                                          " +
                             "    <td style='word-wrap: break-word; max-width:110px;'><b>Bank & Branch " + item.bBranch + " " + item.bAddressEn + " </b></td>                                                                          " +
-                            "                                                                                       "+
-                            "</tr>                                                                                  "+
-                            "<tr>                                                                                   "+
-                            "    <td style='width:90px;'></td>                                                     "+
-                            "    <td></td>                                                                          "+
-                            "    <td></td>                                                                          "+
-                            "                                                                                       "+
+                            "                                                                                       " +
+                            "</tr>                                                                                  " +
+                            "<tr>                                                                                   " +
+                            "    <td style='width:90px;'></td>                                                     " +
+                            "    <td></td>                                                                          " +
+                            "    <td></td>                                                                          " +
+                            "                                                                                       " +
                             "</tr>                                                                                  ";
 
 
 
                     rows += "</tbody>";
 
-        
-                   
-                   
+
+
+
 
 
                     $("#bill").append(rows);
@@ -962,16 +965,52 @@
 <script>
 
     function printDiv(id) {
+
+        if (confirm("You sure save this data?")) {
+            saveDataSumary();
+        }
+
         var printContents = document.getElementById(id).innerHTML;
         var originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
 
+    }
+
+    function saveDataSumary() {
+
+        //set value
+        var arrDuedate = [], arrDateNow = [];
+        var OnDoc = $("#TDateTwo").text();
+        arrDuedate = $("#tbduedate").text().split("/");
+        arrDateNow = $("#pirntDateNow").text().split("/");
+        //get value
+        var dueDate = arrDuedate[0] + "-" + arrDuedate[1] + "-" + arrDuedate[2];
+        var dateprint = arrDateNow[0] + "-" + arrDateNow[1] + "-" + arrDateNow[2];
+        var jsonStr = "@Session["saveData"]";
+        var jsonData = JSON.parse(jsonStr.replace(/&quot;/g,'"'));
+
+        //loop push json
+        $.each(jsonData, function (i, item) {
+            jsonData[i].ondoc = OnDoc;
+            jsonData[i].duedate = dueDate;
+            jsonData[i].dateprints = dateprint;
+        });
+        var jsonString = JSON.stringify(jsonData);
+        $.ajax({
+            url: "/SaveData/SaveData",
+            type: "POST",
+            data: { jsonData: jsonString },
+            datatype: "json",
+            success: function (data) {
+                alert(data);
+            }
+        });
+
 
 
     }
-
 
 </script>
 
@@ -994,7 +1033,7 @@
 
     function editTDate(r) {
 
-       
+
 
         var ra = document.getElementById("textTre").innerText;
 
@@ -1003,13 +1042,33 @@
 
         var al = prompt('Would you like to change due date?', ra);
 
-       // alert(i);
+        // alert(i);
         $("#textTre").text(al);
         $("#textTreP").text(al);
         $("#textTrePc").text(al);
         // table.rows[i].cells[6].innerHTML = al;
 
     }
+
+    function editTDateTwo(r) {
+
+
+
+        var ra = document.getElementById("TDateTwo").innerText;
+
+
+        //var e = ra.nodeValue();
+
+        var al = prompt('Would you like to change due date?', ra);
+
+        // alert(i);
+        $("#TDateTwo").text(al);
+        $("#TDateTwoi").text(al);
+        $("#TDateTwoii").text(al);
+        // table.rows[i].cells[6].innerHTML = al;
+
+    }
+
 </script>
 
 <script>
@@ -1027,15 +1086,15 @@
         var al = prompt('Would you like to change due date?', e)
 
 
-        for(var c = 1; c < @ViewBag.datacount + 1 ; c++ ){
+        for (var c = 1; c < @ViewBag.datacount +1 ; c++) {
 
             table.rows[c].cells[3].innerHTML = al;
             tableP.rows[c].cells[3].innerHTML = al;
             tablePC.rows[c].cells[3].innerHTML = al;
-           
+
         }
 
-        //var af = 
+        //var af =
         //var changeDue = tableP.rows[i].cells[3].innerHTML = al;
 
     }
@@ -1129,9 +1188,10 @@
         document.onmousedown = clickIE4;
     }
     document.oncontextmenu = new Function("return false")
+    
 </script>
 
 
-
+@{ Session.Clear();}
 
 

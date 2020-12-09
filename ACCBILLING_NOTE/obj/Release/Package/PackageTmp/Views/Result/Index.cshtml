@@ -1,0 +1,147 @@
+﻿
+@using ACCBILLING_NOTE.Models
+<style>
+    .container {
+        margin-top: 20px;
+    }
+
+    .belowtop {
+        margin-top: 100px;
+    }
+
+    tr {
+        font-size: 12px;
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
+    }
+</style>
+
+<div class="container">
+    <div class="form-group">
+        <div class="form-row">
+
+            <div class="col-md-6">
+                <label>Customer</label>
+                <select class="form-control" id="chaName" style="border-radius:0px;">
+                    <option value="" selected></option>
+                    @foreach (InvoiceCus ov in (InvoiceCus[])ViewBag.cusname)
+                    {
+                        <option value="@ov.custName">@ov.custName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label>Date Start</label>
+                <input type="date" name="name" value="" class="form-control" id="dateStart" />
+            </div>
+
+            <div class="col-md-3">
+                <label>Date End </label>
+                <input type="date" name="name" value="" class="form-control" id="dateEnd" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-row float-right">
+            <button type="button" class="btn btn-primary" onclick="SearchData()" style="border-radius:0px" data-toggle="tooltip" data-placement="top" title="">SEARCH</button>
+        </div>
+    </div>
+
+    <div class="form-group belowtop">
+        <div class="form-row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr class="table-bordered">
+                            <th>ON</th>
+                            <th>DATE</th>
+                            <th>ON INV</th>
+                            <th>CODE CUSTOMER</th>
+                            <th>CUSTOMER NAME</th>
+                            <th>AMOUNT</th>
+                            <th>VAT%</th>
+                            <th>TOTAL</th>
+                            <th>DUE DATE</th>
+                            <th>DEL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbData"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function SearchData() {
+
+        var customerName = $("#chaName").val();
+
+        var dateStarts = $("#dateStart").val().split("-");
+        var dateEnds = $("#dateEnd").val().split("-");
+        var dateStart = "";
+        var dateEnd = "";
+
+        if (dateStarts[0].length > 0 && dateEnds[0].length > 0) {
+             dateStart = dateStarts[2] + "-" +dateStarts[1] + "-" + dateStarts[0];
+             dateEnd = dateEnds[2] + "-" + dateEnds[1] + "-" + dateEnds[0];
+        }
+        var json = { "customerName": customerName, "dateStart": dateStart, "dateEnd": dateEnd };
+        var jsonstr = JSON.stringify(json);
+
+        if (dateStart != "" && dateEnd != "") {
+            $.ajax({
+                type: "POST",
+                url: "/Result/SearchData",
+                data: { jsonData: jsonstr },
+                datatype: "json",
+                success: function (data) {
+                    $("#tbData tr").remove();
+                    var row;
+                    $.each(data, function (i, item) {
+                        row = "<tr class='table-bordered'>";
+                        row += "<td>" + (i + 1) + "</td>" +
+                                "<td>" + item.date + "</td>" +
+                                "<td>" + item.Oninv + "</td>" +
+                                "<td>" + item.Codecus + "</td>" +
+                                "<td>" + item.CusName + "</td>" +
+                                "<td>" + item.Amount + "</td>" +
+                                "<td>" + item.Vat + "</td>" +
+                                "<td>" + item.Total + "</td>" +
+                                "<td>" + item.duedate + "</td>" +
+                                "<td><img src='/Content/Img/close-icon.png' style='cursor:pointer;' onclick='deleteData(" + JSON.stringify(item.Oninv) + ")'></td>";
+
+                        row += "</tr>";
+                        $("#tbData").append(row);
+                    });
+
+                }
+            });
+        } else {
+
+            alert("Please Fill date ");
+        }
+    }
+
+
+    function deleteData(invoiceHeader) {
+
+        if(confirm("You sure delete this data?") == true){
+        $.ajax({
+            type: "POST",
+            url: "/Result/DeleteData",
+            data: { InvoiceH: invoiceHeader },
+            datatype: "json",
+            success: function (data) {
+                alert(data);
+            }
+        });
+        }
+    }
+</script>

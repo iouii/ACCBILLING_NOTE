@@ -24,8 +24,11 @@
     <Property Name="Inv_date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="Inv_duedate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="Amount" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Vat" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Vat" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Total" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Inv_headerDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="AccBankId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Acc_BillingHeader">
     <Key>

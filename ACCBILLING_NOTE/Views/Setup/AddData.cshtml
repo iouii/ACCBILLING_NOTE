@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "AddData";
+}
+
+<div class="container">
+    <div class="form-group row" style="margin-top:20px;">
+        <div class="form-row ">
+            <h2>AddData</h2>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">BankNameEN :</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtBankEn">
+        </div>
+    </div>
+
+    <div class="form-group row" style="display:none;">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">BankNameTH :</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtBankTh">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">AddressEN :</label>
+        <div class="col-sm-10">
+            <textarea type="text" class="form-control" id="txtAen"></textarea>
+        </div>
+    </div>
+    <div class="form-group row" style="display:none;">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">AddressTH :</label>
+        <div class="col-sm-10">
+            <textarea type="text" class="form-control" id="txtAeth"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Acc On :</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtAcc">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Branch :</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtBranch">
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">SwiftCode :</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtSwit">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <div class="form-row float-right">
+                <div>
+                    <button type="submit" class="btn btn-primary " onclick="saveData()">SAVE</button>
+                </div>&nbsp;
+                <div>
+                    <button type="submit" class="btn btn-danger " onclick="back()">CANCEL</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function saveData() {
+        var txtBankEn = $("#txtBankEn").val();
+        var txtBankTh = $("#txtBankTh").val();
+        var txtAen = $("#txtAen").val();
+        var txtAeth = $("#txtAeth").val();
+        var txtAcc = $("#txtAcc").val();
+        var txtBranch = $("#txtBranch").val();
+        var txtSwit = $("#txtSwit").val();
+        if (txtBankEn != "" && txtAen != "") {
+
+            $.post("/Setup/AddData", {
+                idtxtBankEn: txtBankEn,
+                idtxtBankTh: txtBankTh,
+                idtxtAen: txtAen,
+                idtxtAeth: txtAeth,
+                idtxtAcc: txtAcc,
+                idtxtBranch: txtBranch,
+                idtxtSwit: txtSwit
+
+            }, function (data) {
+                location.reload();
+                alert("Save Data Success");
+
+            });
+        } else {
+
+            alert("กรุณากรอกข้อมูล ชื่อของ ธนาคาร และ ที่อยู่");
+        }
+
+    }
+    function back() {
+        location.href = "@Url.Action("Index","Setup")";
+    }
+</script>
+
+
+
+
+
+

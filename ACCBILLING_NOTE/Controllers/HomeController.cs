@@ -12,6 +12,8 @@ using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Web.Helpers;
 using ACCBILLING_NOTE.Context;
+using System.Text;
+using ACCBILLING_NOTE.NumberAuto;
 
 
 namespace ACCBILLING_NOTE.Controllers
@@ -48,6 +50,7 @@ namespace ACCBILLING_NOTE.Controllers
             ViewBag.countDt3 = TempData["dataCu13"];
 
             ViewBag.bankTr = bankQuery();
+            ViewBag.DocOn = AutoNumberDoc._Autonumber();
 
             return View();
         }
@@ -77,6 +80,7 @@ namespace ACCBILLING_NOTE.Controllers
             ViewBag.countDt3 = TempData["dataCu13"];
 
             ViewBag.bankTr = bankQuery();
+            ViewBag.DocOnExp = AutoNumberDoc._Autonumber();
 
             return View();
         }
@@ -88,8 +92,6 @@ namespace ACCBILLING_NOTE.Controllers
         public ActionResult Contact()
         {
 
-
-
             ViewBag.getIn = ParController.IntE();
 
             return View();
@@ -99,19 +101,19 @@ namespace ACCBILLING_NOTE.Controllers
         public ActionResult GetOver(string name,string month,string year,string invoice)
         {
 
-            string sqlPirce = "", sqlHeader;
+            string sqlPirce = "", sqlHeader, sqlNational = "", National = "" ;
             Array asas, cuss,data,data1,data2,data3,data4;
           
-
-            sqlPirce = "WITH INVOICE AS ( " +
+           //Table ange 300 
+            /*sqlPirce = "WITH INVOICE AS ( " +
                   "SELECT  CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
                   "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
                   "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE DATEINVC BETWEEN  '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
             ") " +
             "SELECT DISTINCT " +
             "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
-            "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-            "ON INV.IDCUST = AST.IDCUST  WHERE INV.IDINVC IN (" + invoice + ")";
+            "FROM INVOICE INV INNER JOIN ARCUS ARC " +
+            "ON INV.IDCUST = ARC.IDCUST  WHERE INV.IDINVC IN (" + invoice + ")";
 
             sqlHeader = "WITH INVOICE AS ( " +
             "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
@@ -119,33 +121,57 @@ namespace ACCBILLING_NOTE.Controllers
             "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
             "FROM ARIBH WHERE DATEINVC BETWEEN  '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
             ") " +
-            "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
+            "SELECT TOP 1 INV.IDCUST,ARC.NAMECUST,ARC.IDTAXREGI1," +
             "REPLACE(INV.SHPTOSTE2,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOSTE3,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOSTTE,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOPOST,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOCTRY,' ',' ') AS ADRRESS," +
-            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
-            "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-            "ON INV.IDCUST = ART.IDCUST WHERE  ART.IDCUST = '" + name + "'ORDER BY ART.NAMECUST DESC";
+            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ARC.NAMECTAC " +
+            "FROM INVOICE INV INNER JOIN ARCUS ARC " +
+            "ON INV.IDCUST = ARC.IDCUST WHERE  ARC.IDCUST = '" + name + "'ORDER BY ARC.NAMECUST DESC";*/
+
+           //table Thomas
+            sqlPirce = "SELECT IH.Id AS CNTBTCH,MC.CustomerCode AS IDCUST,IH.InvoiceNo AS IDINVC," +
+           "IH.PaymentTerm AS TERMCODE,IH.Amount AS BASETAX1,IH.Vat AS AMTTAX1,IH.GrandTotal AS AMTPYMSCHD,IH.ExchangeRate AS EXCHRATEHC,CASE WHEN IH.MasterCurrencyId = 1 THEN 'JPY' WHEN IH.MasterCurrencyId = 2 THEN 'THB' WHEN IH.MasterCurrencyId = 3 THEN 'USD' WHEN IH.MasterCurrencyId = 4 THEN 'EUR' END AS CODECURN," +
+           "IH.DestinationAddress1+' '+IH.DestinationAddress2 AS SHPTOSTE2,IH.InvoiceCreateDate AS DATEINVC,IH.PaymentDueDate AS DATEDUE,IH.DestinationTelephoneNo1 AS SHPTOPHON,IH.DestinationFaxNo AS SHPTOFAX " +
+           "FROM InvoiceHeader IH INNER JOIN MasterCustomer MC " +
+           "ON IH.MasterCustomerId = MC.Id " +
+           "WHERE InvoiceCreateDate BETWEEN '" + month + "' AND '" + year + "' " +
+           "AND CustomerCode ='" + name.Trim() + "' AND InvoiceNo IN (" + invoice + ") ";
+
+            sqlHeader = "SELECT TOP 1 MSC.CustomerCode AS IDCUST,IH.InvoiceName AS NAMECUST,IH.CustomerTaxId AS IDTAXREGI1," +
+            "IH.DestinationAddress1+' '+IH.DestinationAddress2+' '+IH.PostalCode AS ADRRESS," +
+            "IH.PaymentTerm AS TERMCODE,IH.TelephoneNo1 AS SHPTOPHON,IH.FaxNo AS SHPTOFAX,IH.Attn AS NAMECTAC " +
+            "FROM InvoiceHeader IH INNER JOIN MasterCustomer MSC ON IH.MasterCustomerId = MSC.Id  " +
+            " WHERE CustomerCode = '" + name.Trim() + "' AND InvoiceCreateDate BETWEEN   '" + month + "' AND  '" + year + "' ORDER BY InvoiceName DESC";
 
 
-
-
-
+            sqlNational = "SELECT TOP 1 CODECTRY FROM ARCUS WHERE IDCUST = '" + name.Trim() + "'";
 
             con.OpenConnectionSql();
+            SqlCommand cmd = new SqlCommand(sqlNational,con.con);
+            SqlDataReader reader = cmd.ExecuteReader();
 
+            while(reader.Read())
+            {
+                National = reader[0].ToString();
+            }
+
+
+            con.OpensThomas();
             DataTable dbp = new DataTable();
-            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
+            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.consThos);
             daprice.Fill(dbp);
 
 
             DataTable dbh = new DataTable();
-            SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
+            SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.consThos);
             daheader.Fill(dbh);
-
-
+            con.ClosesThomas();
+            con.CloseConnectionSql();
+            //Send Data For Filter Data
+            Session["saveData"] = FilterSaveData._getData(dbh, dbp);
 
 
             var json = new List<Invoice>();
@@ -154,18 +180,18 @@ namespace ACCBILLING_NOTE.Controllers
             for (int i = 0; i < row; i++)
             {
 
-                var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
+                /*var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
                 var monthT = dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
                 var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
                 var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
                 var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
-                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
+                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);*/
                 json.Add(new Invoice()
                 {
 
                     invoiceNo       = dbp.Rows[i]["IDINVC"].ToString(),
-                    invoiceDate         = day + "/" + monthT + "/" + yearT,
-                    invoiceDue      = dayD + "/" + monthD + "/" + yearD,
+                    invoiceDate         = Convert.ToDateTime(dbp.Rows[i]["DATEINVC"]).ToString("dd/MM/yyy"),//day + "/" + monthT + "/" + yearT,
+                    invoiceDue      = Convert.ToDateTime(dbp.Rows[i]["DATEDUE"]).ToString("dd/MM/yyy"),//dayD + "/" + monthD + "/" + yearD,
                     invoiceAm1      = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
                     invoiceVat      = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
                     invoiceAm2      = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
@@ -185,7 +211,6 @@ namespace ACCBILLING_NOTE.Controllers
             var jsonAd = new List<InvoiceCus>();
             var rowCus = dbh.Rows.Count;
             byte textD;
-            string adi;
 
           
            // string Add;
@@ -201,14 +226,8 @@ namespace ACCBILLING_NOTE.Controllers
                 else
                 {
 
-                 textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString().Substring(0, 3));
+                    textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString()); //.Substring(0, 3)
                 }
-
-
-                 adi =  dbh.Rows[i]["ADRRESS"].ToString();
-
-
-               //  Add = dbh.Rows[i]["ADRRESS"].ToString().Split(", ");
              
                 
                 jsonAd.Add(new InvoiceCus()
@@ -217,7 +236,7 @@ namespace ACCBILLING_NOTE.Controllers
                     idCust = dbh.Rows[i]["IDCUST"].ToString(),
                     custName = dbh.Rows[i]["NAMECUST"].ToString(),
                     custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
-                    custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
+                    custAdress = dbh.Rows[i]["ADRRESS"].ToString() +" "+ National,
                     custTerm = textD.ToString(),
                     //custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
                     custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
@@ -351,16 +370,9 @@ namespace ACCBILLING_NOTE.Controllers
                         invoiceVatCal = json[i].invoiceVatCal,
                         invoiceAm2Cal = json[i].invoiceAm2Cal
 
-
-
-
-
-
                     });
 
                 }
-
-
 
             }
 
@@ -441,52 +453,77 @@ namespace ACCBILLING_NOTE.Controllers
         public ActionResult GetExport(string name, string month, string year, string invoice)
         {
 
-            string sqlPirce = "", sqlHeader;
+            string sqlPirce = "", sqlHeader, sqlNational="",National="";
             Array asas, cuss, data, data1, data2, data3, data4;
 
-            sqlPirce = "WITH INVOICE AS ( " +
-                  "SELECT  CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
-                  "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
-                  "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE DATEINVC BETWEEN   '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
-            ") " +
-            "SELECT DISTINCT " +
-            "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
-            "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-            "ON INV.IDCUST = AST.IDCUST  WHERE INV.IDINVC IN (" + invoice + ")";
+            /*sqlPirce = "WITH INVOICE AS ( " +
+                "SELECT  CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
+                "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
+                "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE DATEINVC BETWEEN  '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
+          ") " +
+          "SELECT DISTINCT " +
+          "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
+          "FROM INVOICE INV INNER JOIN ARCUS ARC " +
+          "ON INV.IDCUST = ARC.IDCUST  WHERE INV.IDINVC IN (" + invoice + ")";
 
             sqlHeader = "WITH INVOICE AS ( " +
             "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
             "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN, " +
             "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
-            "FROM ARIBH WHERE DATEINVC BETWEEN   '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
+            "FROM ARIBH WHERE DATEINVC BETWEEN  '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
             ") " +
-            "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
+            "SELECT TOP 1 INV.IDCUST,ARC.NAMECUST,ARC.IDTAXREGI1," +
             "REPLACE(INV.SHPTOSTE2,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOSTE3,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOSTTE,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOPOST,' ',' ')+SPACE(2)+ " +
             "REPLACE(INV.SHPTOCTRY,' ',' ') AS ADRRESS," +
-            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
-            "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-            "ON INV.IDCUST = ART.IDCUST WHERE   ART.IDCUST = '" + name + "'  ORDER BY ART.NAMECUST DESC";
+            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ARC.NAMECTAC " +
+            "FROM INVOICE INV INNER JOIN ARCUS ARC " +
+            "ON INV.IDCUST = ARC.IDCUST WHERE  ARC.IDCUST = '" + name + "'ORDER BY ARC.NAMECUST DESC";*/
+
+            //table Thomas
+            sqlPirce = "SELECT IH.Id AS CNTBTCH,MC.CustomerCode AS IDCUST,IH.InvoiceNo AS IDINVC," +
+          "IH.PaymentTerm AS TERMCODE,IH.Amount AS BASETAX1,IH.Vat AS AMTTAX1,IH.GrandTotal AS AMTPYMSCHD,IH.ExchangeRate AS EXCHRATEHC,CASE WHEN IH.MasterCurrencyId = 1 THEN 'JPY' WHEN IH.MasterCurrencyId = 2 THEN 'THB' WHEN IH.MasterCurrencyId = 3 THEN 'USD' WHEN IH.MasterCurrencyId = 4 THEN 'EUR' END AS CODECURN," +
+          "IH.DestinationAddress1+' '+IH.DestinationAddress2 AS SHPTOSTE2,IH.InvoiceCreateDate AS DATEINVC,IH.PaymentDueDate AS DATEDUE,IH.DestinationTelephoneNo1 AS SHPTOPHON,IH.DestinationFaxNo AS SHPTOFAX " +
+          "FROM InvoiceHeader IH INNER JOIN MasterCustomer MC " +
+          "ON IH.MasterCustomerId = MC.Id " +
+          "WHERE InvoiceCreateDate BETWEEN '" + month + "' AND '" + year + "' " +
+          "AND CustomerCode ='" + name.Trim() + "' AND InvoiceNo IN (" + invoice + ") ";
+
+            sqlHeader = "SELECT TOP 1 MSC.CustomerCode AS IDCUST,IH.InvoiceName AS NAMECUST,IH.CustomerTaxId AS IDTAXREGI1," +
+            "IH.DestinationAddress1+' '+IH.DestinationAddress2+' '+IH.PostalCode AS ADRRESS," +
+            "IH.PaymentTerm AS TERMCODE,IH.TelephoneNo1 AS SHPTOPHON,IH.FaxNo AS SHPTOFAX,IH.Attn AS NAMECTAC " +
+            "FROM InvoiceHeader IH INNER JOIN MasterCustomer MSC ON IH.MasterCustomerId = MSC.Id  " +
+            " WHERE CustomerCode = '" + name.Trim() + "' AND InvoiceCreateDate BETWEEN   '" + month + "' AND  '" + year + "' ORDER BY InvoiceName DESC";
 
 
-
-
-
+            sqlNational = "SELECT TOP 1 CODECTRY FROM ARCUS WHERE IDCUST = '" + name.Trim() + "'";
 
             con.OpenConnectionSql();
+            SqlCommand cmd = new SqlCommand(sqlNational, con.con);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                National = reader[0].ToString();
+            }
+
+            con.OpensThomas();
 
             DataTable dbp = new DataTable();
-            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
+            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.consThos);
             daprice.Fill(dbp);
 
 
             DataTable dbh = new DataTable();
-            SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
+            SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.consThos);
             daheader.Fill(dbh);
-
-
+            con.ClosesThomas();
+            con.CloseConnectionSql();
+            Session.Clear();
+            //get Data save
+            Session["saveDataExort"] = FilterSaveData._getData(dbh, dbp);
 
 
             var json = new List<Invoice>();
@@ -495,18 +532,18 @@ namespace ACCBILLING_NOTE.Controllers
             for (int i = 0; i < row; i++)
             {
 
-                var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
+                /*var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
                 var monthT = dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
                 var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
                 var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
                 var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
-                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
+                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);*/
                 json.Add(new Invoice()
                 {
 
                     invoiceNo = dbp.Rows[i]["IDINVC"].ToString(),
-                    invoiceDate = day + "-" + monthT + "-" + yearT,
-                    invoiceDue = dayD + "-" + monthD + "-" + yearD,
+                    invoiceDate = Convert.ToDateTime(dbp.Rows[i]["DATEINVC"]).ToString("dd-MM-yyyy"),
+                    invoiceDue = Convert.ToDateTime(dbp.Rows[i]["DATEDUE"]).ToString("dd-MM-yyyy"),
                     invoiceAm1 = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
                     invoiceVat = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
                     invoiceAm2 = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
@@ -546,7 +583,7 @@ namespace ACCBILLING_NOTE.Controllers
                 else
                 {
 
-                    textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString().Substring(0, 3));
+                    textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString()); //.Substring(0, 3)
                 }
 
                 jsonAd.Add(new InvoiceCus()
@@ -555,7 +592,7 @@ namespace ACCBILLING_NOTE.Controllers
                     idCust = dbh.Rows[i]["IDCUST"].ToString(),
                     custName = dbh.Rows[i]["NAMECUST"].ToString(),
                     custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
-                    custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
+                    custAdress = dbh.Rows[i]["ADRRESS"].ToString() + " " + National,
                     custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
                     custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
                     custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
@@ -769,18 +806,18 @@ namespace ACCBILLING_NOTE.Controllers
             string sqlq;
             Array cusname;
 
+            con.OpensThomas();
 
-            con.OpenConnectionSql();
-            sqlq = " SELECT DISTINCT IDCUST,NAMECUST FROM  ARSTCUS WHERE  NOT  NAMECUST = 'CALSONIC KANSEI (THAILAND) CO.,LTD.' ";
-
+            //sqlq = " SELECT DISTINCT IDCUST,NAMECUST FROM  ARSTCUS WHERE  NOT  NAMECUST = 'CALSONIC KANSEI (THAILAND) CO.,LTD.' ";
+            sqlq = "SELECT  CustomerCode AS IDCUST,InvoiceName AS NAMECUST FROM MasterCustomer MC " +
+            "INNER JOIN MasterInvoice MI ON MC.MasterInvoiceId = MI.Id ORDER BY InvoiceName ASC";
+            //"WHERE  NOT  NAMECUST = 'CALSONIC KANSEI (THAILAND) CO.,LTD.' "; //AND NOT IDCUST = 'C0019' 
             DataTable dbq = new DataTable();
-            SqlDataAdapter daq = new SqlDataAdapter(sqlq, con.con);
+            SqlDataAdapter daq = new SqlDataAdapter(sqlq,con.consThos);
 
             daq.Fill(dbq);
 
-
-
-            con.CloseConnectionSql();
+            con.ClosesThomas();
 
             var jsonCusname = new List<InvoiceCus>();
             var rowName = dbq.Rows.Count;
@@ -892,25 +929,48 @@ namespace ACCBILLING_NOTE.Controllers
         public List<Invoice> nameQ(string name,string month,string year)
         {
 
-            string sqlPirce;
+            string sqlPirce, queryData="";
 
-            sqlPirce = "WITH INVOICE AS ( " +
-         "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
-         "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
-         "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE DATEINVC BETWEEN   '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
-           ") " +
-           "SELECT DISTINCT " +
-           "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
-           "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-           "ON INV.IDCUST = AST.IDCUST  WHERE AST.IDCUST LIKE  '" + name + "%' ";
+            queryData = CompareData._getCompareData(year, month, name);
 
+            //Sange 300 
+         /*sqlPirce = "WITH INVOICE AS ( " +
+        "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
+        "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
+        "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE DATEINVC BETWEEN   '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
+        ") " +
+        "SELECT DISTINCT " +
+        "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
+        "FROM INVOICE INV INNER JOIN ARCUS ARC " +
+        "ON INV.IDCUST = ARC.IDCUST  WHERE ARC.IDCUST LIKE  '" + name + "%' AND  INV.IDINVC NOT IN (" + queryData + ")";*/
 
-            con.OpenConnectionSql();
+        //Thomas program
+            sqlPirce = "SELECT DISTINCT IH.Id AS CNTBTCH,MC.CustomerCode AS IDCUST,IH.InvoiceNo AS IDINVC," +
+           "IH.PaymentTerm AS TERMCODE,IH.Amount AS BASETAX1,IH.Vat AS AMTTAX1,IH.GrandTotal AS AMTPYMSCHD,IH.ExchangeRate AS EXCHRATEHC,CASE WHEN IH.MasterCurrencyId = 1 THEN 'JPY' WHEN IH.MasterCurrencyId = 2 THEN 'THB' WHEN IH.MasterCurrencyId = 3 THEN 'USD' WHEN IH.MasterCurrencyId = 4 THEN 'EUR' END AS CODECURN," +
+           "IH.DestinationAddress1+' '+IH.DestinationAddress2 AS SHPTOSTE2,IH.InvoiceCreateDate AS DATEINVC,IH.PaymentDueDate AS DATEDUE,IH.DestinationTelephoneNo1 AS SHPTOPHON,IH.DestinationFaxNo AS SHPTOFAX,IH.Remark,COH.CustomerOrderNo " +
+           "FROM InvoiceHeader IH " +
+           "INNER JOIN MasterCustomer MC " +
+           "ON IH.MasterCustomerId = MC.Id " +
+           "INNER JOIN MasterInvoice MI " +
+           "ON MC.MasterInvoiceId = MI.Id " +
+           "INNER JOIN ShippingActualHeader SAH ON " +
+           "IH.Id = SAH.InvoiceHeaderId " +
+           "INNER JOIN ShippingActualDetail SAD ON " +
+           "SAH.Id = SAD.ShippingActualHeaderId " +
+           "INNER JOIN CustomerOrderDetail COD " +
+           "ON SAD.CustomerOrderDetailId = COD.Id " +
+           "INNER JOIN CustomerOrderHeader COH " +
+           "ON COD.CustomerOrderHeaderId = COH.Id " +
+           "WHERE InvoiceCreateDate BETWEEN '" + month + "' AND '" + year + "' " +
+           "AND CustomerCode ='" + name.Trim() + "' AND IsInvoiceExportedToAcc = 1 AND InvoiceNo NOT IN (" + queryData + ")";
+
+            con.OpensThomas();
 
             DataTable dbp = new DataTable();
-            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
+            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.consThos);
             daprice.Fill(dbp);
 
+            con.ClosesThomas();
 
             var json = new List<Invoice>();
             var row = dbp.Rows.Count;
@@ -919,25 +979,27 @@ namespace ACCBILLING_NOTE.Controllers
             for (int i = 0; i < row; i++)
             {
 
-                var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
+               /* var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
                 var monthT= dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
                 var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
                 var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
                 var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
-                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
+                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);*/
+
                 json.Add(new Invoice()
                 {
 
                     invoiceNo = dbp.Rows[i]["IDINVC"].ToString(),
-                    invoiceDate = day + "/" + monthT + "/" + yearT,
-                    invoiceDue = dayD + "/" + monthD + "/" + yearD,
+                    invoiceDate = Convert.ToDateTime(dbp.Rows[i]["DATEINVC"]).ToString("dd/MM/yyyy"),
+                    invoiceDue = Convert.ToDateTime(dbp.Rows[i]["DATEDUE"]).ToString("dd/MM/yyyy"),
                     invoiceAm1 = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
                     invoiceVat = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
                     invoiceAm2 = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
                     invoiceAm1Cal = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
                     invoiceVatCal = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
                     invoiceAm2Cal = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
-                    
+                    invoicebldate = dbp.Rows[i]["Remark"].ToString(),
+                    invoicenocom = dbp.Rows[i]["CustomerOrderNo"].ToString()
                 
                 });
 
@@ -951,195 +1013,6 @@ namespace ACCBILLING_NOTE.Controllers
             
         }
 
-        //public List<InvoiceCus> cusHead(string name,string month,string year)
-        //{
-
-        //    string sqlHeader;
-
-        //    sqlHeader = "WITH INVOICE AS ( " +
-        //   "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
-        //   "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN, " +
-        //   "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
-        //   "FROM ARIBH WHERE FISCYR = '"+year+"' AND FISCPER = '"+month+"' " +
-        //   ") " +
-        //   "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
-        //   "REPLACE(INV.SHPTOSTE2,' ','')+SPACE(2)+ " +
-        //   "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
-        //   "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
-        //   "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
-        //   "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX " +
-        //   "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-        //   "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '" + name + "' ";
-
-        //    con.OpenConnectionSql();
-
-        //    DataTable dbh = new DataTable();
-        //    SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
-        //    daheader.Fill(dbh);
-        //    var jsonAd = new List<InvoiceCus>();
-        //    var rowCus = dbh.Rows.Count;
-
-        //    for (int i = 0; i < rowCus; i++)
-        //    {
-        //        jsonAd.Add(new InvoiceCus()
-        //        {
-
-        //            idCust = dbh.Rows[i]["IDCUST"].ToString(),
-        //            custName = dbh.Rows[i]["NAMECUST"].ToString(),
-        //            custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
-        //            custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
-        //            custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
-        //            custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
-        //            custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
-
-
-
-        //        });
-
-
-
-
-        //    }
-
-
-
-        //    return jsonAd;
-        //}
-
-
-
-        //public void call(string name,string month,string year,string invoice)
-        //{
-
-        //    string sqlPirce = "", sqlHeader;
-        //    Array asas, cuss;
-
-        //    sqlPirce = "WITH INVOICE AS ( " +
-        //          "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
-        //          "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
-        //          "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE FISCYR = '"+year+"' AND FISCPER = '"+month+"' " +
-        //    ") " +
-        //    "SELECT " +
-        //    "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
-        //    "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-        //    "ON INV.IDCUST = AST.IDCUST  WHERE INV.IDINVC IN ("+invoice+")";
-
-        //    sqlHeader = "WITH INVOICE AS ( " +
-        //    "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
-        //    "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN, " +
-        //    "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
-        //    "FROM ARIBH WHERE FISCYR = '" + year + "' AND FISCPER = '"+month+"' " +
-        //    ") " +
-        //    "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
-        //    "REPLACE(INV.SHPTOSTE2,' ','')+SPACE(2)+ " +
-        //    "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
-        //    "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
-        //    "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
-        //    "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX " +
-        //    "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-        //    "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '"+name+"' ";
-
-
-
-
-
-
-        //    con.OpenConnectionSql();
-
-        //    DataTable dbp = new DataTable();
-        //    SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
-        //    daprice.Fill(dbp);
-
-
-        //    DataTable dbh = new DataTable();
-        //    SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
-        //    daheader.Fill(dbh);
-
-
-
-
-        //    var json = new List<Invoice>();
-        //    var row = dbp.Rows.Count;
-
-        //    for (int i = 0; i < row; i++)
-        //    {
-
-        //        var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
-        //        var monthT = dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
-        //        var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
-        //        var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
-        //        var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
-        //        var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
-        //        json.Add(new Invoice()
-        //        {
-
-        //            invoiceNo = dbp.Rows[i]["IDINVC"].ToString(),
-        //            invoiceDate = day + "/" + monthT + "/" + yearT,
-        //            invoiceDue = dayD + "/" + monthD + "/" + yearD,
-        //            invoiceAm1 = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
-        //            invoiceVat = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
-        //            invoiceAm2 = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
-        //            invoiceAm1Cal = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-        //            invoiceVatCal = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-        //            invoiceAm2Cal = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
-
-        //        });
-
-
-
-
-        //    }
-
-
-        //    var jsonAd = new List<InvoiceCus>();
-        //    var rowCus = dbh.Rows.Count;
-
-        //    for (int i = 0; i < rowCus; i++)
-        //    {
-        //        jsonAd.Add(new InvoiceCus()
-        //        {
-
-        //            idCust = dbh.Rows[i]["IDCUST"].ToString(),
-        //            custName = dbh.Rows[i]["NAMECUST"].ToString(),
-        //            custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
-        //            custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
-        //            custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
-        //            custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
-        //            custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
-
-
-
-        //        });
-
-
-
-
-        //    }
-
-            
-            
-        //    cuss = jsonAd.ToArray();
-        //    ViewBag.cus = cuss;
-
-        //    // var model = JsonConvert.SerializeObject(json);
-
-        //    var cal = json.Sum(c => c.invoiceAm1);
-        //    var calV = json.Sum(c => c.invoiceVat);
-        //    var calAm = json.Sum(c => c.invoiceAm2);
-        //    var calText = calAm.ToString();
-
-        //    asas = json.ToArray();
-        //    ViewBag.data = asas;
-        //    ViewBag.datacount = json.Count();
-        //    ViewBag.calAm1 = cal.ToString("N2", CultureInfo.InvariantCulture);
-        //    ViewBag.calAm2 = calAm.ToString("N2", CultureInfo.InvariantCulture);
-        //    ViewBag.calV = calV.ToString("N2", CultureInfo.InvariantCulture);
-
-        //    ViewBag.TextCal = ThaiBahtText(calText);
-
-            
-            
-        //}
 
 
         public string ThaiBahtText(string strNumber, bool IsTrillion = false)
@@ -1242,7 +1115,7 @@ namespace ACCBILLING_NOTE.Controllers
 
 
 
-         
+        
    
     }
 }

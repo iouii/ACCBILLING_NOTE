@@ -1,0 +1,195 @@
+﻿@using ACCBILLING_NOTE.Models;
+@{
+    ViewBag.Title = "Add bank";
+}
+
+<style>
+    table tr td {
+        border-style: inset;
+    }
+
+    th {
+        border-style: inset;
+    }
+
+    table {
+        width: 1050px;
+        font-size: 12px;
+    }
+    img {
+        width:24px;
+        height:24px;
+        cursor:pointer;
+    }
+</style>
+<div class="container">
+
+    <div class="form-row">
+        <h2>Add Bank</h2><br />
+    </div>
+    <div class="form-row float-right">
+        <button class="btn btn-success" onclick="location.href='@Url.Action("AddData","Setup")'">Add</button>
+    </div><br /><br />
+    <div class="form-row">
+
+
+            <table id="advancedEditableTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>BankNameEN</th>
+                        <th>AddressEN</th>
+                        <th>AccOn</th>
+                        <th>Branch</th>
+                        <th>SwiftCode</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tbData"></tbody>
+             
+            </table>
+        
+    </div>
+
+    <div class="form-group">
+        <div class="form-row">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Nodify Data</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Bank Name:</label>
+                                    <input type="text" class="form-control" id="txtBankname">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Address:</label>
+                                    <textarea class="form-control" id="txtAddress"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">AccOn:</label>
+                                    <input type="text" class="form-control" id="txtAccOn">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Branch:</label>
+                                    <input type="text" class="form-control" id="txtBranch">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Swiftcode:</label>
+                                    <input type="text" class="form-control" id="txtswiftcode">
+                                </div>
+                           
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnclose">CLOSE</button>
+                            <button type="button" class="btn btn-primary" onclick="saveData()">SAVE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        SearchData();
+    });
+
+    
+
+    function SearchData() {
+        var jsonArr = [];
+        $.ajax({
+            type: "POST",
+            url:"/Setup/SearchData",
+            data:{name:""},
+            datatype: "json",
+            success: function (data) {
+                $("#tbData tr").remove();
+                $.each(data, function (i, item) {
+                    jsonArr[i] = [{"Id":item.Id,"bankName_En":item.bankName_En,"address_En":item.address_En,"accOn":item.accOn,"branch":item.branch,"swiftcode":item.swiftcode}];
+                    var rowtb = "<tr>" +
+                                "<td>" + item.bankName_En + "</td>" +
+                                "<td>" + item.address_En + "</td>" +
+                                "<td>" + item.accOn + "</td>" +
+                                "<td>" + item.branch + "</td>" +
+                                "<td>" + item.swiftcode + "</td>" +
+                                "<td><img src='/Content/Img/edit-icon.png' data-toggle='modal' data-target='#exampleModal' onclick='editData("+JSON.stringify(jsonArr[i])+")'></td>" +
+                                "<td><img src='/Content/Img/close-icon.png' onclick='DeleteData("+item.Id+")'></td>" +
+                            "</tr>";
+                 
+                    $("#tbData").append(rowtb);
+                });
+            }
+        });
+
+    }
+    var Id_glod = "", bankname_glod = "", address_glod = "", accOn_glod = "", branch_glod = "", swiftcode_glod = "";
+
+    function editData(jsonArr){
+
+        Id_glod = jsonArr[0].Id;
+        bankname_glod = jsonArr[0].bankName_En;
+        address_glod = jsonArr[0].address_En;
+        accOn_glod = jsonArr[0].accOn;
+        branch_glod = jsonArr[0].branch;
+        swiftcode_glod = jsonArr[0].swiftcode;
+
+        $("#txtBankname").val(bankname_glod);
+        $("#txtAddress").val(address_glod);
+        $("#txtAccOn").val(accOn_glod);
+        $("#txtBranch").val(branch_glod);
+        $("#txtswiftcode").val(swiftcode_glod);
+       
+
+
+    }
+    function saveData() {
+        var id = Id_glod;
+        var bankname = $("#txtBankname").val();
+        var address =  $("#txtAddress").val();
+        var accOn =  $("#txtAccOn").val();
+        var branch = $("#txtBranch").val();
+        var swiftcode = $("#txtswiftcode").val();
+
+        var arrData = [id, bankname, address, accOn, branch, swiftcode];
+        var arrDataGlod = [Id_glod, bankname_glod, address_glod, accOn_glod, branch_glod, swiftcode_glod];
+        var arrColumn = ["Id", "BankName_EN", "Address_EN", "AccOn", "Branch", "SwiftCode"];
+        var arrSendData = { "arrGlobel": arrDataGlod, "arrStrData": arrData, "arrNameCol": arrColumn }
+        var jsonString = JSON.stringify(arrSendData);
+
+        $.ajax({
+            type: "POST",
+            url:"/Setup/UpdateData",
+            data:{jsonstr:jsonString},
+            datatype: "json",
+            success: function (data) {
+                alert(data);
+                $("#btnclose").click();
+            }
+        });
+    }
+
+    function DeleteData(idCode){
+       if(confirm("You sure delete this data ?")==true){
+            $.ajax({
+            type: "POST",
+            url:"/Setup/DeleteData",
+            data:{Id:idCode},
+            datatype: "json",
+            success: function (data) {
+                    alert(data);
+        }
+        });
+        }
+    }
+</script>

@@ -1,0 +1,69 @@
+﻿
+@using ACCBILLING_NOTE.Models
+
+<style>
+    .scaled {
+        transform: scale(0.8); /* Equal to scaleX(0.7) scaleY(0.7) */
+    }
+
+    #printableArea {
+        font-family: 'Browallia New' !important;
+    }
+
+    #textBank {
+        width: 300px;
+        word-break: normal;
+    }
+
+    .detec {
+        height: 40px !important;
+    }
+
+        .detec:hover {
+            /*background-color:#044CC5;*/
+            border-left: 10px solid #F2F2F2;
+            border-right: 10px solid #F2F2F2;
+        }
+</style>
+
+@{
+    
+    var countt = (ViewBag.count/15);
+    
+    if(countt == 0){
+
+        @Html.Partial("_ReDomestic");
+    }
+    else if (countt == 1)
+    {
+
+        @Html.Partial("_ReDomestic1");
+
+    }
+    else if (countt == 2)
+    {
+
+        @Html.Partial("_ReDomestic2");
+
+    }
+    
+    
+}
+
+
+
+  
+
+<script>
+
+    function printDiv(id) {
+
+
+        var printContents = document.getElementById(id).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+
+    }
+</script>
