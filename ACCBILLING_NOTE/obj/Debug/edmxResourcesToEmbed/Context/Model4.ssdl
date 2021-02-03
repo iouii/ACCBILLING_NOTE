@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Thomas_OguraModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="MasterBusinessPartner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BusinessPartnerCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BusinessPartnerName" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="BusinessPartnerShortName" Type="nvarchar" MaxLength="20" />
+    <Property Name="EnumBusinessPartnerTypeId" Type="int" Nullable="false" />
+    <Property Name="Address1" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Address2" Type="nvarchar" MaxLength="150" />
+    <Property Name="PostalCode" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="TelephoneNo1" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="TelephoneNo2" Type="varchar" MaxLength="20" />
+    <Property Name="FaxNo" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="ParentCompanyName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParentCompanyLocation" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedUser" Type="nvarchar" MaxLength="80" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedUser" Type="nvarchar" MaxLength="80" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ModelNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="RevisionNo" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="ItemShortName" Type="nvarchar" MaxLength="40" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ItemSpec" Type="nvarchar" MaxLength="100" />
+    <Property Name="OriginalLength" Type="varchar" MaxLength="15" />
+    <Property Name="ItemGroup" Type="nvarchar" MaxLength="100" />
+    <Property Name="MakerName" Type="nvarchar" MaxLength="80" />
+    <Property Name="EnumItemTypeId" Type="int" Nullable="false" />
+    <Property Name="EnumMfgTypeId" Type="int" />
+    <Property Name="EnumPurTypeId" Type="int" />
+    <Property Name="EnumAbcClassId" Type="int" />
+    <Property Name="MasterUnitId" Type="int" Nullable="false" />
+    <Property Name="MasterUnitAltItemUnitCodeId" Type="int" Nullable="false" />
+    <Property Name="EnumIssueTypeId" Type="int" Nullable="false" />
+    <Property Name="EnumStockControlTypeId" Type="int" Nullable="false" />
+    <Property Name="IsLotControl" Type="bit" Nullable="false" />
+    <Property Name="IsCyclicCounting" Type="bit" Nullable="false" />
+    <Property Name="CyclicCountingPeriod" Type="numeric" Precision="3" Scale="0" />
+    <Property Name="IsOeStockBooking" Type="bit" Nullable="false" />
+    <Property Name="IsRecycle" Type="bit" Nullable="false" />
+    <Property Name="IsMfgInsp" Type="bit" Nullable="false" />
+    <Property Name="MasterLocationId" Type="int" Nullable="false" />
+    <Property Name="LowLevelCode" Type="numeric" Precision="2" Scale="0" />
+    <Property Name="IsCustomGsp" Type="bit" Nullable="false" />
+    <Property Name="MasterCustomGspId" Type="int" />
+    <Property Name="MasterAccCodeId" Type="int" Nullable="false" />
+    <Property Name="MasterAccCodeAssetId" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsSales" Type="bit" Nullable="false" />
+    <Property Name="EvaluatedUnitCost" Type="numeric" Precision="14" Scale="4" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="MasterAccGroupForAccId" Type="int" />
+    <Property Name="MasterVatItemGroupId" Type="int" Nullable="false" />
+    <Property Name="MasterItemDiscountGroupId" Type="int" />
+    <Property Name="LotSize" Type="numeric" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="NumberOfLabelPrint" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="NumberOfPalette" Type="numeric" Precision="6" Scale="0" Nullable="false" />
+    <Property Name="MasterNumberingRuleId" Type="int" />
+    <Property Name="ShelfLife" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="IsDirectOrder" Type="bit" Nullable="false" />
+    <Property Name="IsAllowPriceChange" Type="bit" Nullable="false" />
+    <Property Name="IsAllowSalesPriceChange" Type="bit" Nullable="false" />
+    <Property Name="NetWeight" Type="numeric" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="GrossWeight" Type="numeric" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="Height" Type="numeric" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="Width" Type="numeric" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="Depth" Type="numeric" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="MasterJobId" Type="int" />
+    <Property Name="IsSupply" Type="bit" Nullable="false" />
+    <Property Name="BIGroup1Id" Type="int" />
+    <Property Name="BIGroup2Id" Type="int" />
+    <Property Name="BIGroup3Id" Type="int" />
+    <Property Name="IsNotAllowCalculate" Type="bit" Nullable="false" />
+    <Property Name="IsFinishInsp" Type="bit" Nullable="false" />
+    <Property Name="PurchaseLeadTime" Type="numeric" Precision="3" Scale="1" Nullable="false" />
+    <Property Name="ShippingLeadTime" Type="numeric" Precision="3" Scale="1" Nullable="false" />
+    <Property Name="ProductionLeadTime" Type="numeric" Precision="3" Scale="1" Nullable="false" />
+    <Property Name="MasterCustomerId" Type="int" />
+    <Property Name="CreatedUser" Type="nvarchar" MaxLength="80" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedUser" Type="nvarchar" MaxLength="80" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="Thomas_OguraModel1StoreContainer">
+    <EntitySet Name="MasterBusinessPartner" EntityType="Self.MasterBusinessPartner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterItem" EntityType="Self.MasterItem" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

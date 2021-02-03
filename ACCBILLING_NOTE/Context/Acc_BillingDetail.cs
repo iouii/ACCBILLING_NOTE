@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACCBILLING_NOTE.Context
+namespace BOI_QUO.Context
 {
     using System;
     using System.Collections.Generic;
@@ -23,5 +23,9 @@ namespace ACCBILLING_NOTE.Context
         public string Amount { get; set; }
         public string Vat { get; set; }
         public string Total { get; set; }
+        public string Inv_headerDate { get; set; }
+        public string CustomerName { get; set; }
+        public string AccBankId { get; set; }
+        public string Payment { get; set; }
     }
 }

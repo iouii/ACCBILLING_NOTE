@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OCTIIS_WEBAPPModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="OCTIIS_WEBAPPEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Boi_Quotations" EntityType="OCTIIS_WEBAPPModel1.Boi_Quotations" />
+    <EntitySet Name="Set_Permission" EntityType="OCTIIS_WEBAPPModel1.Set_Permission" />
+    <EntitySet Name="System_Permissions" EntityType="OCTIIS_WEBAPPModel1.System_Permissions" />
+    <EntitySet Name="BusinessPartner_Performance" EntityType="OCTIIS_WEBAPPModel1.BusinessPartner_Performance" />
+  </EntityContainer>
+  <EntityType Name="Boi_Quotations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="itemNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="supllierCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dateReceive" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="quotationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="quotationFile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dateEffective" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="dateExpriation" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="dateModify" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="quotationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="quotationRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="quotationRemark1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="quotationRemark2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Set_Permission">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="permissionId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dateCreate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="System_Permissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typePermission" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="remarkPermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="controllerPermission" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="remark1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BusinessPartner_Performance">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="partnerId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="year" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="month" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dateCreate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dateUpdate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="remark1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userCodeUpdate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

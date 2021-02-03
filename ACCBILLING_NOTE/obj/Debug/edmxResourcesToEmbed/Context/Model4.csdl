@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Thomas_OguraModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MasterBusinessPartner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BusinessPartnerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BusinessPartnerName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BusinessPartnerShortName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EnumBusinessPartnerTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Address1" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TelephoneNo1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TelephoneNo2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FaxNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ParentCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentCompanyLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="MasterItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ModelNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RevisionNo" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="ItemShortName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ItemSpec" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OriginalLength" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="ItemGroup" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MakerName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="EnumItemTypeId" Type="Int32" Nullable="false" />
+    <Property Name="EnumMfgTypeId" Type="Int32" />
+    <Property Name="EnumPurTypeId" Type="Int32" />
+    <Property Name="EnumAbcClassId" Type="Int32" />
+    <Property Name="MasterUnitId" Type="Int32" Nullable="false" />
+    <Property Name="MasterUnitAltItemUnitCodeId" Type="Int32" Nullable="false" />
+    <Property Name="EnumIssueTypeId" Type="Int32" Nullable="false" />
+    <Property Name="EnumStockControlTypeId" Type="Int32" Nullable="false" />
+    <Property Name="IsLotControl" Type="Boolean" Nullable="false" />
+    <Property Name="IsCyclicCounting" Type="Boolean" Nullable="false" />
+    <Property Name="CyclicCountingPeriod" Type="Decimal" Precision="3" Scale="0" />
+    <Property Name="IsOeStockBooking" Type="Boolean" Nullable="false" />
+    <Property Name="IsRecycle" Type="Boolean" Nullable="false" />
+    <Property Name="IsMfgInsp" Type="Boolean" Nullable="false" />
+    <Property Name="MasterLocationId" Type="Int32" Nullable="false" />
+    <Property Name="LowLevelCode" Type="Decimal" Precision="2" Scale="0" />
+    <Property Name="IsCustomGsp" Type="Boolean" Nullable="false" />
+    <Property Name="MasterCustomGspId" Type="Int32" />
+    <Property Name="MasterAccCodeId" Type="Int32" Nullable="false" />
+    <Property Name="MasterAccCodeAssetId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsSales" Type="Boolean" Nullable="false" />
+    <Property Name="EvaluatedUnitCost" Type="Decimal" Precision="14" Scale="4" Nullable="false" />
+    <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MasterAccGroupForAccId" Type="Int32" />
+    <Property Name="MasterVatItemGroupId" Type="Int32" Nullable="false" />
+    <Property Name="MasterItemDiscountGroupId" Type="Int32" />
+    <Property Name="LotSize" Type="Decimal" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="NumberOfLabelPrint" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="NumberOfPalette" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
+    <Property Name="MasterNumberingRuleId" Type="Int32" />
+    <Property Name="ShelfLife" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="IsDirectOrder" Type="Boolean" Nullable="false" />
+    <Property Name="IsAllowPriceChange" Type="Boolean" Nullable="false" />
+    <Property Name="IsAllowSalesPriceChange" Type="Boolean" Nullable="false" />
+    <Property Name="NetWeight" Type="Decimal" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="GrossWeight" Type="Decimal" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="Height" Type="Decimal" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="Width" Type="Decimal" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="Depth" Type="Decimal" Precision="13" Scale="3" Nullable="false" />
+    <Property Name="MasterJobId" Type="Int32" />
+    <Property Name="IsSupply" Type="Boolean" Nullable="false" />
+    <Property Name="BIGroup1Id" Type="Int32" />
+    <Property Name="BIGroup2Id" Type="Int32" />
+    <Property Name="BIGroup3Id" Type="Int32" />
+    <Property Name="IsNotAllowCalculate" Type="Boolean" Nullable="false" />
+    <Property Name="IsFinishInsp" Type="Boolean" Nullable="false" />
+    <Property Name="PurchaseLeadTime" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+    <Property Name="ShippingLeadTime" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+    <Property Name="ProductionLeadTime" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+    <Property Name="MasterCustomerId" Type="Int32" />
+    <Property Name="CreatedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedUser" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="Thomas_OguraEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MasterBusinessPartners" EntityType="Self.MasterBusinessPartner" />
+    <EntitySet Name="MasterItems" EntityType="Self.MasterItem" />
+  </EntityContainer>
+</Schema>

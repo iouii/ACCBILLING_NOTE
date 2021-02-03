@@ -1,0 +1,232 @@
+﻿@using BOI_QUO.Models
+@{
+    ViewBag.Title = "PermissionInsert";
+}
+
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-12" style="margin-bottom:10px;">
+            <div class="card" style="background-color:#1E488C; color:#ffffff;border-radius:0px;">
+                <div class="card-body">
+                    <h5>Permission Management</h5>
+                </div>
+
+            </div>
+            
+        </div>
+   
+        <div class="col-lg-4 col-md-4 col-12">
+            <div class="card">
+                <div class="card-header" style="background-color:#1E488C; color:#ffffff">
+                    Insert Permission
+                </div>
+                <div class="card-body justify-content-center d-flex" style="font-size:14px;">
+                   
+
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td align="right">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#exampleModalLong" style="font-size:9px;">
+                                        Read Me
+                                    </button>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Permission Name
+                                    <input type="text" name="name" value="" class="form-control form-control-sm" id="permissionName" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Permission Controller
+                                    <input type="text" name="name" value="" class="form-control form-control-sm" id="permissionController" />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    Name Permission Show
+                                    <input type="text" class="form-control form-control-sm"  id="permissionRemark"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Status Type
+                                    <input type="text" name="name" value="" id="statusT" class="form-control form-control-sm" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td align="right"><a href="#" name="name" class="btn btn-sm " style="background-color:#ffffff; color:#1E488C;border:1px solid #1E488C" onclick="InsertPermission()">Insert</a></td>
+                            </tr>
+
+
+                        </table>
+                    
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-12">
+            <div class="card">
+                <div class="card-header" style="background-color:#1E488C; color:#ffffff">
+                     Permission
+                </div>
+
+                <div class="card-body justify-content-center d-flex" style="font-size:14px;">
+                   
+                        <table class="table table-sm table-bordered">
+                            <thead style="background-color:#1E488C;font-size:14px;color:#ffffff">
+                                <tr>
+                                    <td>Permission Name</td>
+                                    <td>Permission Controller</td>
+                                    <td>Name Permission Show</td>
+                                    <td>Status </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:11px;">
+                                @foreach (SystemPermission data in (SystemPermission[])ViewBag.Permission)
+                                {
+                                    <tr>
+                                        <td>@data.typePermission</td>
+                                        <td>@data.controller</td>
+                                        <td>@data.remarkPermission</td>
+                                        <td align="center">@data.status</td>
+                                        <td><a href="@Url.Action("EditPermission", "System", new { code = data.id})">Edit</a></td>
+                                        <td><a href="#" onclick="delPermission(@data.id)">delete</a></td>
+                                    </tr>
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            
+        </div>
+        
+
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#1E488C;color:#ffffff">
+                        <h5 class="modal-title" id="exampleModalLongTitle">วิธีการใช้งาน</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="font-size:12px;">
+                        <b style="font-size:14px;color:#1E488C">Permission Name </b><br />
+                        &nbsp; ต้องตั้งชื่อให้เหมือนหน้าฝั่ง view <br />
+                        <b style="font-size:14px;color:#1E488C"> Permission Controller </b><br />
+                        &nbsp; ให้ตั้งชื่อตาม  Controller ที่สร้าง Method นั้นๆ <br />
+                        <b style="font-size:14px; color:#1E488C">Name Permission Show</b> <br />
+                        &nbsp; ชื่อที่ใช้แสดงผล ในเมนู <br />
+                        <b style="font-size:14px;color:#1E488C">Status</b> <br />
+                        &nbsp; จะเป็นส่วนกำหนดที่อยู่ของเมนู <br />
+                        &nbsp;&nbsp; 1 ---> Function Purchase <br />
+                        &nbsp;&nbsp; 2 ---> Function Sales <br />
+                        &nbsp;&nbsp; 3 ---> Function Admin  <br />
+                        &nbsp;&nbsp; 4 ---> Function Main <br />
+                        <b style="color:#ff0000;font-size:11px;">*** หากต้องการเพิ่ม Function จะต้องทำการ Code c# ใน SystemController  Method Login ***</b>  
+                    </div>
+              
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<script>
+
+    
+    function InsertPermission() {
+
+        var permissionName = $("#permissionName").val();
+        var permissionRemark = $("#permissionRemark").val();
+        var permissionController = $("#permissionController").val();
+        var statusT = $("#statusT").val();
+
+        var fileData = new FormData();
+
+        fileData.append('permissionName', permissionName);
+        fileData.append('permissionRemark', permissionRemark);
+        fileData.append('permissionController', permissionController);
+        fileData.append('statusT', statusT);
+       $.ajax({
+           url: '/System/PermissionInsertQuery',
+           type: "POST",
+           contentType: false,
+           processData: false,
+           data: fileData,
+           success: function (result) {
+             
+               window.location.reload();
+               alert("Insert Permission Name Success!");
+           },
+           error: function (err) {
+
+           }
+       });
+
+    }
+
+
+    function delPermission(id) {
+
+
+
+        var permissionId = id;
+
+        var fileData = new FormData();
+
+        if (confirm("Do you want to delete permission name ?")) {
+
+            fileData.append('permissionId', permissionId);
+
+
+            $.ajax({
+                url: '/System/DeletePermission',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+
+                    window.location.reload();
+                    alert("Delete Permission Name Success!");
+                },
+                error: function (err) {
+
+                }
+            });
+        } else {
+
+
+        }
+    }
+</script>
+
+<script>
+
+  
+
+</script>
+    

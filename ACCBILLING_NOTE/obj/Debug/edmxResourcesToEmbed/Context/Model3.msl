@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OCTIIS_WEBAPPModel1StoreContainer" CdmEntityContainer="OCTIIS_WEBAPPEntities1">
+    <EntitySetMapping Name="Boi_Quotations">
+      <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel1.Boi_Quotations">
+        <MappingFragment StoreEntitySet="Boi_Quotations">
+          <ScalarProperty Name="quotationRemark2" ColumnName="quotationRemark2" />
+          <ScalarProperty Name="quotationRemark1" ColumnName="quotationRemark1" />
+          <ScalarProperty Name="quotationRemark" ColumnName="quotationRemark" />
+          <ScalarProperty Name="quotationType" ColumnName="quotationType" />
+          <ScalarProperty Name="userCode" ColumnName="userCode" />
+          <ScalarProperty Name="dateModify" ColumnName="dateModify" />
+          <ScalarProperty Name="dateExpriation" ColumnName="dateExpriation" />
+          <ScalarProperty Name="dateEffective" ColumnName="dateEffective" />
+          <ScalarProperty Name="quotationFile" ColumnName="quotationFile" />
+          <ScalarProperty Name="quotationNo" ColumnName="quotationNo" />
+          <ScalarProperty Name="dateReceive" ColumnName="dateReceive" />
+          <ScalarProperty Name="supllierCode" ColumnName="supllierCode" />
+          <ScalarProperty Name="itemNo" ColumnName="itemNo" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Set_Permission">
+      <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel1.Set_Permission">
+        <MappingFragment StoreEntitySet="Set_Permission">
+          <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+          <ScalarProperty Name="permissionId" ColumnName="permissionId" />
+          <ScalarProperty Name="userCode" ColumnName="userCode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="System_Permissions">
+      <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel1.System_Permissions">
+        <MappingFragment StoreEntitySet="System_Permissions">
+          <ScalarProperty Name="remark1" ColumnName="remark1" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="controllerPermission" ColumnName="controllerPermission" />
+          <ScalarProperty Name="remarkPermission" ColumnName="remarkPermission" />
+          <ScalarProperty Name="typePermission" ColumnName="typePermission" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessPartner_Performance">
+      <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel1.BusinessPartner_Performance">
+        <MappingFragment StoreEntitySet="BusinessPartner_Performance">
+          <ScalarProperty Name="userCodeUpdate" ColumnName="userCodeUpdate" />
+          <ScalarProperty Name="userCode" ColumnName="userCode" />
+          <ScalarProperty Name="remark1" ColumnName="remark1" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="dateUpdate" ColumnName="dateUpdate" />
+          <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+          <ScalarProperty Name="month" ColumnName="month" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="partnerId" ColumnName="partnerId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

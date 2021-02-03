@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Thomas_OguraModel1StoreContainer" CdmEntityContainer="Thomas_OguraEntities1">
+    <EntitySetMapping Name="MasterBusinessPartners">
+      <EntityTypeMapping TypeName="Thomas_OguraModel1.MasterBusinessPartner">
+        <MappingFragment StoreEntitySet="MasterBusinessPartner">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BusinessPartnerCode" ColumnName="BusinessPartnerCode" />
+          <ScalarProperty Name="BusinessPartnerName" ColumnName="BusinessPartnerName" />
+          <ScalarProperty Name="BusinessPartnerShortName" ColumnName="BusinessPartnerShortName" />
+          <ScalarProperty Name="EnumBusinessPartnerTypeId" ColumnName="EnumBusinessPartnerTypeId" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="TelephoneNo1" ColumnName="TelephoneNo1" />
+          <ScalarProperty Name="TelephoneNo2" ColumnName="TelephoneNo2" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ParentCompanyName" ColumnName="ParentCompanyName" />
+          <ScalarProperty Name="ParentCompanyLocation" ColumnName="ParentCompanyLocation" />
+          <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedUser" ColumnName="ModifiedUser" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterItems">
+      <EntityTypeMapping TypeName="Thomas_OguraModel1.MasterItem">
+        <MappingFragment StoreEntitySet="MasterItem">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ItemNo" ColumnName="ItemNo" />
+          <ScalarProperty Name="ModelNo" ColumnName="ModelNo" />
+          <ScalarProperty Name="RevisionNo" ColumnName="RevisionNo" />
+          <ScalarProperty Name="ItemShortName" ColumnName="ItemShortName" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemSpec" ColumnName="ItemSpec" />
+          <ScalarProperty Name="OriginalLength" ColumnName="OriginalLength" />
+          <ScalarProperty Name="ItemGroup" ColumnName="ItemGroup" />
+          <ScalarProperty Name="MakerName" ColumnName="MakerName" />
+          <ScalarProperty Name="EnumItemTypeId" ColumnName="EnumItemTypeId" />
+          <ScalarProperty Name="EnumMfgTypeId" ColumnName="EnumMfgTypeId" />
+          <ScalarProperty Name="EnumPurTypeId" ColumnName="EnumPurTypeId" />
+          <ScalarProperty Name="EnumAbcClassId" ColumnName="EnumAbcClassId" />
+          <ScalarProperty Name="MasterUnitId" ColumnName="MasterUnitId" />
+          <ScalarProperty Name="MasterUnitAltItemUnitCodeId" ColumnName="MasterUnitAltItemUnitCodeId" />
+          <ScalarProperty Name="EnumIssueTypeId" ColumnName="EnumIssueTypeId" />
+          <ScalarProperty Name="EnumStockControlTypeId" ColumnName="EnumStockControlTypeId" />
+          <ScalarProperty Name="IsLotControl" ColumnName="IsLotControl" />
+          <ScalarProperty Name="IsCyclicCounting" ColumnName="IsCyclicCounting" />
+          <ScalarProperty Name="CyclicCountingPeriod" ColumnName="CyclicCountingPeriod" />
+          <ScalarProperty Name="IsOeStockBooking" ColumnName="IsOeStockBooking" />
+          <ScalarProperty Name="IsRecycle" ColumnName="IsRecycle" />
+          <ScalarProperty Name="IsMfgInsp" ColumnName="IsMfgInsp" />
+          <ScalarProperty Name="MasterLocationId" ColumnName="MasterLocationId" />
+          <ScalarProperty Name="LowLevelCode" ColumnName="LowLevelCode" />
+          <ScalarProperty Name="IsCustomGsp" ColumnName="IsCustomGsp" />
+          <ScalarProperty Name="MasterCustomGspId" ColumnName="MasterCustomGspId" />
+          <ScalarProperty Name="MasterAccCodeId" ColumnName="MasterAccCodeId" />
+          <ScalarProperty Name="MasterAccCodeAssetId" ColumnName="MasterAccCodeAssetId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsSales" ColumnName="IsSales" />
+          <ScalarProperty Name="EvaluatedUnitCost" ColumnName="EvaluatedUnitCost" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="MasterAccGroupForAccId" ColumnName="MasterAccGroupForAccId" />
+          <ScalarProperty Name="MasterVatItemGroupId" ColumnName="MasterVatItemGroupId" />
+          <ScalarProperty Name="MasterItemDiscountGroupId" ColumnName="MasterItemDiscountGroupId" />
+          <ScalarProperty Name="LotSize" ColumnName="LotSize" />
+          <ScalarProperty Name="NumberOfLabelPrint" ColumnName="NumberOfLabelPrint" />
+          <ScalarProperty Name="NumberOfPalette" ColumnName="NumberOfPalette" />
+          <ScalarProperty Name="MasterNumberingRuleId" ColumnName="MasterNumberingRuleId" />
+          <ScalarProperty Name="ShelfLife" ColumnName="ShelfLife" />
+          <ScalarProperty Name="IsDirectOrder" ColumnName="IsDirectOrder" />
+          <ScalarProperty Name="IsAllowPriceChange" ColumnName="IsAllowPriceChange" />
+          <ScalarProperty Name="IsAllowSalesPriceChange" ColumnName="IsAllowSalesPriceChange" />
+          <ScalarProperty Name="NetWeight" ColumnName="NetWeight" />
+          <ScalarProperty Name="GrossWeight" ColumnName="GrossWeight" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="Width" ColumnName="Width" />
+          <ScalarProperty Name="Depth" ColumnName="Depth" />
+          <ScalarProperty Name="MasterJobId" ColumnName="MasterJobId" />
+          <ScalarProperty Name="IsSupply" ColumnName="IsSupply" />
+          <ScalarProperty Name="BIGroup1Id" ColumnName="BIGroup1Id" />
+          <ScalarProperty Name="BIGroup2Id" ColumnName="BIGroup2Id" />
+          <ScalarProperty Name="BIGroup3Id" ColumnName="BIGroup3Id" />
+          <ScalarProperty Name="IsNotAllowCalculate" ColumnName="IsNotAllowCalculate" />
+          <ScalarProperty Name="IsFinishInsp" ColumnName="IsFinishInsp" />
+          <ScalarProperty Name="PurchaseLeadTime" ColumnName="PurchaseLeadTime" />
+          <ScalarProperty Name="ShippingLeadTime" ColumnName="ShippingLeadTime" />
+          <ScalarProperty Name="ProductionLeadTime" ColumnName="ProductionLeadTime" />
+          <ScalarProperty Name="MasterCustomerId" ColumnName="MasterCustomerId" />
+          <ScalarProperty Name="CreatedUser" ColumnName="CreatedUser" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ModifiedUser" ColumnName="ModifiedUser" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

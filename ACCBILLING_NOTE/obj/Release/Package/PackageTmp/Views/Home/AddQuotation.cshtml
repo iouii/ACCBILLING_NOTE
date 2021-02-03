@@ -1,0 +1,333 @@
+﻿@using BOI_QUO.Models
+@{
+    ViewBag.Title = "AddQuotation";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-12" style="margin-top:10px;">
+            <div class="card">
+
+                <div class="card-body" style="background-color:#1E488C; color:#fff">
+                    <h5>InsertQuotation</h5>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-12">
+            <div class="card">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-1 col">
+
+                        </div>
+
+                        <div class="col-lg-5 col-md-5 col-12">
+                            <div class="card">
+                                <div class="card-header" style="background-color:#1E488C;">
+
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm table-borderless">
+                                        <tr>
+
+                                            <td> <input type="text" name="name" id="itemNoInput" class="form-control form-control-sm" /></td>
+                                            <td align="center"><a href="#" class="btn btn-sm " style="background-color:#1E488C;color:#ffffff" onclick="ItemNoSelect()">Input Item</a></td>
+
+                                        </tr>
+                                    </table>
+                                    <table class="table table-sm table-bordered" style="font-size:12px;" id="myTable">
+
+                                        <tr style="background-color:#1E488C; color:#ffffff">
+                                            <td colspan="2">Item No</td>
+
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-12 ">
+                            <div class="card">
+                                <div class="card-header" style="background-color:#1E488C;">
+
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm table-borderless" style="font-size:12px;">
+
+                                        <tr>
+
+                                            <td>
+                                                <p>Type</p>
+
+                                                <select class="form-control form-control-sm" id="QuoType" onchange="che()">
+                                                    <option value="Purchase">Purchase</option>
+                                                    <option value="Sales">Sales</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>
+                                                    BusinessPartner
+                                                </p>
+                                                <select class="form-control form-control-sm" id="PartnerCodeS" style="font-size:12px;">
+                                                    @foreach (Supllier item in (Supllier[])ViewBag.Suppllier)
+                                                    {
+
+                                                        <option value="@item.BusinessPartnerCodeM">@item.BusinessPartnerNameM</option>
+                                                    }
+
+                                                </select>
+
+                                                <select class="form-control form-control-sm" id="PartnerCodeM" style="display:none;font-size:12px;">
+                                                    @foreach (Supllier item in (Supllier[])ViewBag.Customer)
+                                                    {
+
+                                                        <option value="@item.BusinessPartnerCodeM">@item.BusinessPartnerNameM</option>
+                                                    }
+
+                                                </select>
+
+                                            </td>
+
+
+                                        </tr>
+
+                                        <tr>
+                                            @*<td></td>*@
+                                            <td>
+                                                <p>Quotation</p>
+                                                <input type="file" name="name" value=" " id="QuoFile" />
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Quotation No.</p>
+                                                <input type="text" name="name" value=" " class="form-control form-control-sm" id="QuoNo" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>
+                                                <p> Effective Date</p>
+                                                <input type="date" name="name" value="" class="form-control form-control-sm" id="EffectDate" />
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Expiration Date</p>
+                                                <input type="date" name="name" value="" class="form-control form-control-sm" id="ExpireDate" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>
+                                                <p>Date Receive</p>
+                                                <input type="date" name="name" value="" class="form-control form-control-sm" id="DateReceive" />
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Note*</p>
+                                                <textarea class="form-control form-control-sm" id="QuoNote" style=" height:120px;"></textarea>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <p class="btn btn-sm btn-outline-dark" onclick="InsertData()" style="background-color:#1E488C;color:#ffffff">Insert Quotation</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+  
+    </div>
+        
+</div>
+
+
+<script>
+
+   function ItemNoSelect() {
+
+        var itemNoInput = $("#itemNoInput").val();
+        var x = document.createElement("TBODY");
+        var y = document.createElement("TR");
+        var cellA = document.createElement("TD");
+        var cellB = document.createElement("TD");
+        cellB.style ="text-align:center;"
+        if (itemNoInput != "") {
+            cellA.innerHTML = itemNoInput;
+            cellB.innerHTML = " <a href='#' class='' onclick='deleteRow(this)' style='font-size:12px;' >delete</a>";;
+
+            y.appendChild(cellA);
+            y.appendChild(cellB);
+
+            x.appendChild(y);
+
+            document.getElementById("myTable").appendChild(x);
+
+            $("#itemNoInput").val("");
+        } else {
+
+            alert("Input Item No");
+        }
+
+
+    }
+</script>
+<script>
+    document.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            ItemNoSelect();
+        }
+    });
+
+
+   
+
+   function che() {
+
+        var Type = $("#QuoType").val();
+
+    
+            
+            switch (Type) {
+
+                case "Purchase":
+                    document.getElementById("PartnerCodeS").style.display = "inline";
+                    document.getElementById("PartnerCodeM").style.display = "none";
+                    break;
+
+                case "Sales":
+
+                    document.getElementById("PartnerCodeM").style.display = "inline";
+                    document.getElementById("PartnerCodeS").style.display = "none";
+                   
+                    break;
+                    
+            }
+
+
+        }
+    
+
+</script>
+
+<script>
+    function deleteRow(r) {
+
+        var i = r.parentNode.parentNode.rowIndex;
+
+        document.getElementById("myTable").deleteRow(i);
+
+
+
+
+    }
+
+
+    function InsertData() {
+        var PartnerCode;
+        var DateReceive = $("#DateReceive").val();
+        var QuoType = $("#QuoType").val();
+        var QuoNo = $("#QuoNo").val();
+        var EffectDate = $("#EffectDate").val();
+        var ExpireDate = $("#ExpireDate").val();
+        var Type = $("#QuoType").val();
+
+        switch (Type) {
+
+            case "Purchase":
+               
+                PartnerCode = $("#PartnerCodeS").val();
+                break;
+
+            case "Sales":
+
+                PartnerCode = $("#PartnerCodeM").val();
+
+                break;
+
+        }
+
+       
+       
+
+       // var DateNowModify = Date.toString();
+        var tableLen = document.getElementById("myTable").rows.length;
+        var table = document.getElementById("myTable");
+
+        if (window.FormData !== undefined) {
+
+            var QuoFile = $("#QuoFile").get(0);
+            var QuoFiles = QuoFile.files;
+            var ArData = [];
+            var fileData = new FormData();
+            for (i = 1; i < tableLen; i++) {
+
+                ArData.push(table.rows[i].cells[0].innerHTML);
+
+
+            }
+
+            for (var i = 0; i < QuoFiles.length; i++) {
+                fileData.append(QuoFiles[i].name, QuoFiles[i]);
+            }
+
+            if (ArData != "") {
+
+                fileData.append('ArData', ArData);
+
+                fileData.append('QuoNo', QuoNo);
+                fileData.append('EffectDate', EffectDate);
+                fileData.append('ExpireDate', ExpireDate);
+                fileData.append('DateReceive', DateReceive);
+                fileData.append('PartnerCode', PartnerCode);
+                fileData.append('Type', Type);
+                // alert(ArData + PartnerCode + DateReceive + QuoNo + ExpireDate + EffectDate + DateNowModify + QuoFiles.name);
+
+                $.ajax({
+                    url: '/Home/InsertQuotations',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (result) {
+                        alert(result);
+                        window.location.reload();
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            }
+
+        }
+    }
+
+</script>
+

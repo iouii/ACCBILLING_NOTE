@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace ACCBILLING_NOTE
+namespace BOI_QUO
 {
     public class BundleConfig
     {
@@ -21,10 +21,11 @@ namespace ACCBILLING_NOTE
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                    //"~/Content/Site.css",
+                    "~/Content/Site.css",
                       "~/Content/bootstrap.css"
                       ));
 

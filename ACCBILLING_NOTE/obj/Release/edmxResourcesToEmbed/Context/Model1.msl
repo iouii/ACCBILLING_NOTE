@@ -18,6 +18,10 @@
     <EntitySetMapping Name="Acc_BillingDetail">
       <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel.Acc_BillingDetail">
         <MappingFragment StoreEntitySet="Acc_BillingDetail">
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="AccBankId" ColumnName="AccBankId" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="Inv_headerDate" ColumnName="Inv_headerDate" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="OnInvoiceHeader" ColumnName="OnInvoiceHeader" />
           <ScalarProperty Name="OnInvoiceDetail" ColumnName="OnInvoiceDetail" />

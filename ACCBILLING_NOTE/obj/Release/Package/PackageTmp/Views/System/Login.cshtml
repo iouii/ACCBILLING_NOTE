@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center d-flex">
+
+            <div class="col-lg-6 col-md-6 col-12" style="padding:60px; margin-top:100px;">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h5></h5>
+                    </div>
+                    <div class="card-body justify-content-center d-flex">
+                        <div class="col-lg-10 col-md-10 col-12">
+
+                            <table class="table table-sm table-borderless" style="font-size:14px;">
+                                <tr>
+
+                                    <td>Username<input type="text" name="name" value="" class="form-control form-control-sm" id="QuoId" /></td>
+                                </tr>
+                                <tr>
+
+                                    <td>Password<input type="password" name="name" value="" class="form-control form-control-sm" id="QuoPass" /></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><input type="button" name="name" value="Login" class="btn btn-sm btn-outline-dark" onclick="LoginQu()" /></td>
+
+                                </tr>
+
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+  @*@RenderSection("scripts", required: false)*@
+</body>
+</html>
+
+<script>
+
+    function LoginQu() {
+
+        var QuoId = $("#QuoId").val();
+        var QuoPass = $("#QuoPass").val();
+
+        var fileData = new FormData();
+
+
+        Objdata = { QuoId: QuoId, QuoPass: QuoPass };
+        loginUser = JSON.stringify(Objdata);
+        $.ajax({
+            type: "POST",
+            url: "/System/Login",
+            data: { JsonUser: loginUser },
+            dataType: "json",
+            success: function (data) {
+                //alert(data);
+                if (data == "1") {
+                    location.href = "@Url.Action("Index","Home")";
+                } else {
+                    alert("รหัสไม่ถูกต้อง");
+                }
+            }
+        });
+    }
+
+
+    document.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            LoginQu();
+        }
+    });
+</script>

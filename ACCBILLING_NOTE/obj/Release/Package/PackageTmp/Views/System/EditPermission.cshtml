@@ -1,0 +1,108 @@
+﻿@using BOI_QUO.Models
+@{
+    ViewBag.Title = "EditPermission";
+}
+
+<h2>EditPermission</h2>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-4 col-md-4 col-12">
+            <div class="card">
+                <div class="card-header" style="background-color:#1E488C; color:#ffffff">
+                    <h5> Edit Permission</h5>
+                </div>
+                <div class="card-body justify-content-center d-flex" style="font-size:14px;">
+
+
+                    <table class="table table-sm table-borderless">
+                        @foreach (SystemPermission data in (SystemPermission[])ViewBag.editPermiss)
+                        {
+                            <tr>
+                                <td>
+                                    Permission Name
+                                    <input type="text" name="name" value="@data.typePermission" class="form-control form-control-sm" id="permissionName" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Permission Controller
+                                    <input type="text" name="name" value="@data.controller" class="form-control form-control-sm" id="permissionController" />
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    Name Permission Show
+                                    <input type="text" name="name" value="@data.remarkPermission" id="permissionremark" class="form-control form-control-sm"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Status Type
+                                    <input type="text" name="name" value="@data.status" id="statusT" class="form-control form-control-sm" />
+                                </td>
+                            </tr>
+                           
+                          
+                        }
+
+                        <tr>
+                            <td align="right"><a name="name" value="Update" class="btn btn-sm " onclick="saveEdit()" style="background-color:#ffffff; color:#1E488C;border:1px solid #1E488C">Insert</a></td>
+                        </tr>
+                    
+                    </table>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function saveEdit() {
+      
+        var codeId = @ViewBag.codeadat;
+        var typePer = $("#permissionName").val();
+        var PerCon = $("#permissionController").val();
+        var PerRemark = $("#permissionremark").val();
+        var statusT = $("#statusT").val();
+        var fileData = new FormData();
+        fileData.append('codeId', codeId);
+        fileData.append('typePer', typePer);
+        fileData.append('PerCon', PerCon);
+        fileData.append('PerRemark', PerRemark);
+        fileData.append('statusT',statusT);
+      
+        if (confirm("Do you want to Edit permission name ?")) {
+
+
+            $.ajax({
+                url: '/System/EditPermissionQuery',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+
+                    location.href = "@Url.Action("PermissionInsert", "System")";
+                    alert("Edit Permission Name Success!");
+                },
+                error: function (err) {
+
+                }
+            });
+        } else {
+
+
+        }
+    }
+</script>

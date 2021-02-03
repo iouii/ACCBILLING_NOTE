@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - BILLING NOTE</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+</head>
+<body style="background-color:#f2f2f2">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#5A6268;">
+        <div class="container-fluid">
+
+            <div class="nav-item col-7">
+                @Html.ActionLink("BOI & PURCHASE SYSTEM", "Index", "Home", new { area = "" }, new { @style = "color:white;", @class = "btn btn-sm " })
+
+            </div>
+            <div class="nav-item col-2 ">
+
+                @Html.ActionLink("Quotations", "AddQuotation", "Home", new { area = "" }, new { @style = "color:white;", @class = "btn btn-sm " })
+
+            </div>
+         
+
+        </div>
+
+    </div>
+    <div class="body-content">
+
+        @RenderBody()
+
+        @*<footer>
+                <p>&copy; @DateTime.Now.Year - BILLING NOTE</p>
+            </footer>*@
+    </div>
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

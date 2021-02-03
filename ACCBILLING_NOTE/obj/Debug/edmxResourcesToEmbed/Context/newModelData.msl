@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OCT01RModelStoreContainer" CdmEntityContainer="OCT01Entities">
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="OCT01RModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Dep_Memo" ColumnName="Dep_Memo" />
+          <ScalarProperty Name="Dep_Type" ColumnName="Dep_Type" />
+          <ScalarProperty Name="RIH_Id" ColumnName="RIH_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmpLists">
+      <EntityTypeMapping TypeName="OCT01RModel.EmpList">
+        <MappingFragment StoreEntitySet="EmpList">
+          <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+          <ScalarProperty Name="IDcode" ColumnName="IDcode" />
+          <ScalarProperty Name="PPID" ColumnName="PPID" />
+          <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+          <ScalarProperty Name="SSO" ColumnName="SSO" />
+          <ScalarProperty Name="Title_TH" ColumnName="Title_TH" />
+          <ScalarProperty Name="FName_TH" ColumnName="FName_TH" />
+          <ScalarProperty Name="LName_TH" ColumnName="LName_TH" />
+          <ScalarProperty Name="NName_TH" ColumnName="NName_TH" />
+          <ScalarProperty Name="Title_EN" ColumnName="Title_EN" />
+          <ScalarProperty Name="FName_EN" ColumnName="FName_EN" />
+          <ScalarProperty Name="LName_EN" ColumnName="LName_EN" />
+          <ScalarProperty Name="NName_EN" ColumnName="NName_EN" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Nation" ColumnName="Nation" />
+          <ScalarProperty Name="BDate" ColumnName="BDate" />
+          <ScalarProperty Name="Disabled_stat" ColumnName="Disabled_stat" />
+          <ScalarProperty Name="Disabled_By" ColumnName="Disabled_By" />
+          <ScalarProperty Name="Addr_Build" ColumnName="Addr_Build" />
+          <ScalarProperty Name="Addr_No" ColumnName="Addr_No" />
+          <ScalarProperty Name="Addr_Alle" ColumnName="Addr_Alle" />
+          <ScalarProperty Name="Addr_Rd" ColumnName="Addr_Rd" />
+          <ScalarProperty Name="Addr_Vill" ColumnName="Addr_Vill" />
+          <ScalarProperty Name="Addr_Prsh" ColumnName="Addr_Prsh" />
+          <ScalarProperty Name="Addr_Dtrct" ColumnName="Addr_Dtrct" />
+          <ScalarProperty Name="Addr_Prvnc" ColumnName="Addr_Prvnc" />
+          <ScalarProperty Name="Addr_Post" ColumnName="Addr_Post" />
+          <ScalarProperty Name="Educate" ColumnName="Educate" />
+          <ScalarProperty Name="In_Email" ColumnName="In_Email" />
+          <ScalarProperty Name="Ex_Email" ColumnName="Ex_Email" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Bank_Acc" ColumnName="Bank_Acc" />
+          <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+          <ScalarProperty Name="DeptDesc" ColumnName="DeptDesc" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="CostCenter" ColumnName="CostCenter" />
+          <ScalarProperty Name="CostCenterName" ColumnName="CostCenterName" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="PassDate" ColumnName="PassDate" />
+          <ScalarProperty Name="StartPosition" ColumnName="StartPosition" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
+          <ScalarProperty Name="ReasonPPS" ColumnName="ReasonPPS" />
+          <ScalarProperty Name="DatePasSport" ColumnName="DatePasSport" />
+          <ScalarProperty Name="DatePasSportExpire" ColumnName="DatePasSportExpire" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rights">
+      <EntityTypeMapping TypeName="OCT01RModel.Right">
+        <MappingFragment StoreEntitySet="Rights">
+          <ScalarProperty Name="RIH_Id" ColumnName="RIH_Id" />
+          <ScalarProperty Name="RIH_Name" ColumnName="RIH_Name" />
+          <ScalarProperty Name="RIH_Description" ColumnName="RIH_Description" />
+          <ScalarProperty Name="RIH_Pages" ColumnName="RIH_Pages" />
+          <ScalarProperty Name="RIG_Id" ColumnName="RIG_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="OCT01RModel.UserDetail">
+        <MappingFragment StoreEntitySet="UserDetail">
+          <ScalarProperty Name="USE_Id" ColumnName="USE_Id" />
+          <ScalarProperty Name="USE_Account" ColumnName="USE_Account" />
+          <ScalarProperty Name="USE_Password" ColumnName="USE_Password" />
+          <ScalarProperty Name="USE_FName" ColumnName="USE_FName" />
+          <ScalarProperty Name="USE_LName" ColumnName="USE_LName" />
+          <ScalarProperty Name="USE_NickName" ColumnName="USE_NickName" />
+          <ScalarProperty Name="USE_TelNo" ColumnName="USE_TelNo" />
+          <ScalarProperty Name="USE_Email" ColumnName="USE_Email" />
+          <ScalarProperty Name="USE_Status" ColumnName="USE_Status" />
+          <ScalarProperty Name="USE_Nationality" ColumnName="USE_Nationality" />
+          <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+          <ScalarProperty Name="USE_Usercode" ColumnName="USE_Usercode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRights">
+      <EntityTypeMapping TypeName="OCT01RModel.UserRight">
+        <MappingFragment StoreEntitySet="UserRight">
+          <ScalarProperty Name="USR_Id" ColumnName="USR_Id" />
+          <ScalarProperty Name="USE_Id" ColumnName="USE_Id" />
+          <ScalarProperty Name="RIH_Id" ColumnName="RIH_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

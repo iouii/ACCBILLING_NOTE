@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace ACCBILLING_NOTE
+namespace BOI_QUO
 {
     public class RouteConfig
     {
@@ -16,7 +16,7 @@ namespace ACCBILLING_NOTE
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Test", id = UrlParameter.Optional }
+                defaults: new { controller = "System", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

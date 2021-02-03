@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OCTIIS_WEBAPPModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Boi_Quotations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="itemNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="supllierCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="dateReceive" Type="nvarchar" MaxLength="50" />
+    <Property Name="quotationNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="quotationFile" Type="nvarchar" MaxLength="50" />
+    <Property Name="dateEffective" Type="nvarchar" MaxLength="50" />
+    <Property Name="dateExpriation" Type="nvarchar" MaxLength="50" />
+    <Property Name="dateModify" Type="nvarchar" MaxLength="50" />
+    <Property Name="userCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="quotationType" Type="nvarchar" MaxLength="50" />
+    <Property Name="quotationRemark" Type="nvarchar" MaxLength="50" />
+    <Property Name="quotationRemark1" Type="nvarchar" MaxLength="50" />
+    <Property Name="quotationRemark2" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="BusinessPartner_Performance">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="partnerId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="year" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="month" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="dateCreate" Type="nvarchar" MaxLength="50" />
+    <Property Name="dateUpdate" Type="nvarchar" MaxLength="50" />
+    <Property Name="version" Type="nvarchar" MaxLength="50" />
+    <Property Name="remark" Type="nvarchar" MaxLength="50" />
+    <Property Name="remark1" Type="nvarchar" MaxLength="50" />
+    <Property Name="userCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="userCodeUpdate" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Set_Permission">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="permissionId" Type="nvarchar" MaxLength="50" />
+    <Property Name="dateCreate" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="System_Permissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="typePermission" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="remarkPermission" Type="nvarchar" MaxLength="50" />
+    <Property Name="controllerPermission" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" />
+    <Property Name="remark1" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="OCTIIS_WEBAPPModel1StoreContainer">
+    <EntitySet Name="Boi_Quotations" EntityType="Self.Boi_Quotations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BusinessPartner_Performance" EntityType="Self.BusinessPartner_Performance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Set_Permission" EntityType="Self.Set_Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="System_Permissions" EntityType="Self.System_Permissions" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

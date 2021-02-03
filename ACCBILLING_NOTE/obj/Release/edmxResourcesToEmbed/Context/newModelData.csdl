@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OCT01RModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Dep_Id" />
+    </Key>
+    <Property Name="Dep_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Dep_Name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dep_Memo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Dep_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RIH_Id" Type="Int32" />
+    <NavigationProperty Name="UserDetails" Relationship="Self.FK_UserDetail_Department" FromRole="Department" ToRole="UserDetail" />
+  </EntityType>
+  <EntityType Name="EmpList">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="Int32" Nullable="false" />
+    <Property Name="IDcode" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="PPID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="TaxID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="SSO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Title_TH" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="FName_TH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LName_TH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NName_TH" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Title_EN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="FName_EN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LName_EN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NName_EN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Nation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BDate" Type="DateTime" Precision="0" />
+    <Property Name="Disabled_stat" Type="Boolean" />
+    <Property Name="Disabled_By" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_Build" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_No" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_Alle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_Rd" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_Vill" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_Prsh" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_Dtrct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_Prvnc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Addr_Post" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Educate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="In_Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Ex_Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Tel" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Bank_Acc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeptCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DeptDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CostCenter" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="CostCenterName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="PassDate" Type="DateTime" Precision="0" />
+    <Property Name="StartPosition" Type="DateTime" Precision="0" />
+    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EmpStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ReasonPPS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DatePasSport" Type="DateTime" Precision="0" />
+    <Property Name="DatePasSportExpire" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Right">
+    <Key>
+      <PropertyRef Name="RIH_Id" />
+    </Key>
+    <Property Name="RIH_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RIH_Name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RIH_Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="RIH_Pages" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="RIG_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserRights" Relationship="Self.FK_UserRight_Rights" FromRole="Rights" ToRole="UserRight" />
+  </EntityType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="USE_Id" />
+    </Key>
+    <Property Name="USE_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USE_Account" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="USE_Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="USE_FName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="USE_LName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="USE_NickName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="USE_TelNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="USE_Email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="USE_Status" Type="Int32" Nullable="false" />
+    <Property Name="USE_Nationality" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Dep_Id" Type="Int32" Nullable="false" />
+    <Property Name="USE_Usercode" Type="Int32" />
+    <NavigationProperty Name="Department" Relationship="Self.FK_UserDetail_Department" FromRole="UserDetail" ToRole="Department" />
+    <NavigationProperty Name="UserRights" Relationship="Self.FK_UserRight_UserDetail" FromRole="UserDetail" ToRole="UserRight" />
+  </EntityType>
+  <EntityType Name="UserRight">
+    <Key>
+      <PropertyRef Name="USR_Id" />
+    </Key>
+    <Property Name="USR_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USE_Id" Type="Int32" Nullable="false" />
+    <Property Name="RIH_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Right" Relationship="Self.FK_UserRight_Rights" FromRole="UserRight" ToRole="Rights" />
+    <NavigationProperty Name="UserDetail" Relationship="Self.FK_UserRight_UserDetail" FromRole="UserRight" ToRole="UserDetail" />
+  </EntityType>
+  <Association Name="FK_UserDetail_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Dep_Id" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="Dep_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRight_Rights">
+    <End Role="Rights" Type="Self.Right" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRight" Type="Self.UserRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rights">
+        <PropertyRef Name="RIH_Id" />
+      </Principal>
+      <Dependent Role="UserRight">
+        <PropertyRef Name="RIH_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRight_UserDetail">
+    <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRight" Type="Self.UserRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetail">
+        <PropertyRef Name="USE_Id" />
+      </Principal>
+      <Dependent Role="UserRight">
+        <PropertyRef Name="USE_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OCT01Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Departments" EntityType="Self.Department" />
+    <EntitySet Name="EmpLists" EntityType="Self.EmpList" />
+    <EntitySet Name="Rights" EntityType="Self.Right" />
+    <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
+    <EntitySet Name="UserRights" EntityType="Self.UserRight" />
+    <AssociationSet Name="FK_UserDetail_Department" Association="Self.FK_UserDetail_Department">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRight_Rights" Association="Self.FK_UserRight_Rights">
+      <End Role="Rights" EntitySet="Rights" />
+      <End Role="UserRight" EntitySet="UserRights" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRight_UserDetail" Association="Self.FK_UserRight_UserDetail">
+      <End Role="UserDetail" EntitySet="UserDetails" />
+      <End Role="UserRight" EntitySet="UserRights" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

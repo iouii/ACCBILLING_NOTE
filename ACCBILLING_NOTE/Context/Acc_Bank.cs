@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACCBILLING_NOTE.Context
+namespace BOI_QUO.Context
 {
     using System;
     using System.Collections.Generic;

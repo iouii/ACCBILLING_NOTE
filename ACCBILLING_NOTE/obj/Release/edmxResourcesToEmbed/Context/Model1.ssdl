@@ -18,14 +18,18 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Inv_headerDate" Type="varchar" MaxLength="50" />
     <Property Name="OnInvoiceHeader" Type="varchar" MaxLength="50" />
     <Property Name="OnInvoiceDetail" Type="varchar" MaxLength="50" />
     <Property Name="Codecustomer" Type="varchar" MaxLength="50" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="200" />
     <Property Name="Inv_date" Type="varchar" MaxLength="10" />
     <Property Name="Inv_duedate" Type="varchar" MaxLength="10" />
     <Property Name="Amount" Type="varchar" MaxLength="100" />
-    <Property Name="Vat" Type="varchar" MaxLength="3" />
+    <Property Name="Vat" Type="varchar" MaxLength="100" />
     <Property Name="Total" Type="varchar" MaxLength="100" />
+    <Property Name="AccBankId" Type="varchar" MaxLength="10" />
+    <Property Name="Payment" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="Acc_BillingHeader">
     <Key>

@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OCT01RModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Dep_Id" />
+    </Key>
+    <Property Name="Dep_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Dep_Name" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Dep_Memo" Type="varchar" MaxLength="250" />
+    <Property Name="Dep_Type" Type="varchar" MaxLength="10" />
+    <Property Name="RIH_Id" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'OCT01.dbo.emp_department' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="emp_department">
+          <Property Name="DeptCode" Type="varchar" MaxLength="15" />
+          <Property Name="DeptName" Type="varchar" MaxLength="250" />
+          <Property Name="Dept_Note" Type="varchar(max)" />
+        </EntityType>-->
+  <EntityType Name="EmpList">
+    <Key>
+      <PropertyRef Name="EmpID" />
+    </Key>
+    <Property Name="EmpID" Type="int" Nullable="false" />
+    <Property Name="IDcode" Type="varchar" MaxLength="25" />
+    <Property Name="PPID" Type="varchar" MaxLength="25" />
+    <Property Name="TaxID" Type="varchar" MaxLength="25" />
+    <Property Name="SSO" Type="varchar" MaxLength="25" />
+    <Property Name="Title_TH" Type="varchar" MaxLength="25" />
+    <Property Name="FName_TH" Type="varchar" MaxLength="100" />
+    <Property Name="LName_TH" Type="varchar" MaxLength="100" />
+    <Property Name="NName_TH" Type="varchar" MaxLength="25" />
+    <Property Name="Title_EN" Type="varchar" MaxLength="25" />
+    <Property Name="FName_EN" Type="varchar" MaxLength="100" />
+    <Property Name="LName_EN" Type="varchar" MaxLength="100" />
+    <Property Name="NName_EN" Type="varchar" MaxLength="25" />
+    <Property Name="Gender" Type="varchar" MaxLength="15" />
+    <Property Name="Nation" Type="varchar" MaxLength="50" />
+    <Property Name="BDate" Type="date" />
+    <Property Name="Disabled_stat" Type="bit" />
+    <Property Name="Disabled_By" Type="varchar" MaxLength="150" />
+    <Property Name="Addr_Build" Type="varchar" MaxLength="150" />
+    <Property Name="Addr_No" Type="varchar" MaxLength="100" />
+    <Property Name="Addr_Alle" Type="varchar" MaxLength="100" />
+    <Property Name="Addr_Rd" Type="varchar" MaxLength="100" />
+    <Property Name="Addr_Vill" Type="varchar" MaxLength="100" />
+    <Property Name="Addr_Prsh" Type="varchar" MaxLength="100" />
+    <Property Name="Addr_Dtrct" Type="varchar" MaxLength="100" />
+    <Property Name="Addr_Prvnc" Type="varchar" MaxLength="100" />
+    <Property Name="Addr_Post" Type="varchar" MaxLength="100" />
+    <Property Name="Educate" Type="varchar" MaxLength="50" />
+    <Property Name="In_Email" Type="varchar" MaxLength="100" />
+    <Property Name="Ex_Email" Type="varchar" MaxLength="100" />
+    <Property Name="Mobile" Type="varchar" MaxLength="25" />
+    <Property Name="Tel" Type="varchar" MaxLength="25" />
+    <Property Name="Bank_Acc" Type="varchar" MaxLength="50" />
+    <Property Name="DeptCode" Type="varchar" MaxLength="20" />
+    <Property Name="DeptDesc" Type="varchar" MaxLength="100" />
+    <Property Name="Position" Type="varchar" MaxLength="100" />
+    <Property Name="CostCenter" Type="varchar" MaxLength="25" />
+    <Property Name="CostCenterName" Type="varchar" MaxLength="25" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="PassDate" Type="date" />
+    <Property Name="StartPosition" Type="date" />
+    <Property Name="Note" Type="varchar(max)" />
+    <Property Name="EmpStatus" Type="varchar" MaxLength="100" />
+    <Property Name="ReasonPPS" Type="varchar" MaxLength="100" />
+    <Property Name="DatePasSport" Type="date" />
+    <Property Name="DatePasSportExpire" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Rights">
+    <Key>
+      <PropertyRef Name="RIH_Id" />
+    </Key>
+    <Property Name="RIH_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RIH_Name" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="RIH_Description" Type="varchar" MaxLength="100" />
+    <Property Name="RIH_Pages" Type="varchar" MaxLength="100" />
+    <Property Name="RIG_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="USE_Id" />
+    </Key>
+    <Property Name="USE_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USE_Account" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="USE_Password" Type="varchar(max)" Nullable="false" />
+    <Property Name="USE_FName" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="USE_LName" Type="varchar" MaxLength="60" />
+    <Property Name="USE_NickName" Type="varchar" MaxLength="25" />
+    <Property Name="USE_TelNo" Type="varchar" MaxLength="15" />
+    <Property Name="USE_Email" Type="varchar" MaxLength="80" />
+    <Property Name="USE_Status" Type="int" Nullable="false" />
+    <Property Name="USE_Nationality" Type="varchar" MaxLength="15" />
+    <Property Name="Dep_Id" Type="int" Nullable="false" />
+    <Property Name="USE_Usercode" Type="int" />
+  </EntityType>
+  <EntityType Name="UserRight">
+    <Key>
+      <PropertyRef Name="USR_Id" />
+    </Key>
+    <Property Name="USR_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USE_Id" Type="int" Nullable="false" />
+    <Property Name="RIH_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_UserDetail_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Dep_Id" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="Dep_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRight_Rights">
+    <End Role="Rights" Type="Self.Rights" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRight" Type="Self.UserRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rights">
+        <PropertyRef Name="RIH_Id" />
+      </Principal>
+      <Dependent Role="UserRight">
+        <PropertyRef Name="RIH_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRight_UserDetail">
+    <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRight" Type="Self.UserRight" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetail">
+        <PropertyRef Name="USE_Id" />
+      </Principal>
+      <Dependent Role="UserRight">
+        <PropertyRef Name="USE_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OCT01RModelStoreContainer">
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmpList" EntityType="Self.EmpList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rights" EntityType="Self.Rights" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDetail" EntityType="Self.UserDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRight" EntityType="Self.UserRight" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_UserDetail_Department" Association="Self.FK_UserDetail_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="UserDetail" EntitySet="UserDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRight_Rights" Association="Self.FK_UserRight_Rights">
+      <End Role="Rights" EntitySet="Rights" />
+      <End Role="UserRight" EntitySet="UserRight" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRight_UserDetail" Association="Self.FK_UserRight_UserDetail">
+      <End Role="UserDetail" EntitySet="UserDetail" />
+      <End Role="UserRight" EntitySet="UserRight" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

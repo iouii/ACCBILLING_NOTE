@@ -1,0 +1,231 @@
+﻿@using BOI_QUO.Models
+@{
+    ViewBag.Title = "InsertPerformance";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-12" style="margin-top:10px;">
+            <div class="card">
+
+                <div class="card-body" style="background-color:#1E488C; color:#fff">
+                    <h5>Insert Performance</h5>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-1 col">
+
+        </div>
+
+ 
+        <div class="col-lg-5 col-md-5 col-12 ">
+            <div class="card">
+                <div class="card-header" style="background-color:#1E488C">
+
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-borderless" style="font-size:12px;">
+
+                        <tr>
+
+                            <td>
+                                <p>Type</p>
+
+                                <select class="form-control form-control-sm" id="PerType" onchange="che()">
+                                    <option value="Supllier">Supllier</option>
+                                    <option value="Customer">Customer</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+                                    BusinessPartner
+                                </p>
+                                <select class="form-control form-control-sm" id="PartnerCodeS" style="font-size:12px;">
+                                    @foreach (Supllier item in (Supllier[])ViewBag.Suppllier)
+                                    {
+
+                                        <option value="@item.BusinessPartnerCodeM">@item.BusinessPartnerNameM</option>
+                                    }
+
+                                </select>
+
+                                <select class="form-control form-control-sm" id="PartnerCodeM" style="display:none;font-size:12px;">
+                                    @foreach (Supllier item in (Supllier[])ViewBag.Customer)
+                                    {
+
+                                        <option value="@item.BusinessPartnerCodeM">@item.BusinessPartnerNameM</option>
+                                    }
+
+                                </select>
+
+                            </td>
+
+
+                        </tr>
+
+                        <tr>
+                        
+                            <td>
+                                <p>Performance</p>
+                                <input type="file" name="name" value=" " id="PerFile" />
+                            </td>
+
+
+                        </tr>
+               
+                        <tr>
+                            <td>
+                                <p>Month</p>
+                                <input type="month" name="name" value="" class="form-control form-control-sm " id="month"/>
+                            </td>
+                        </tr>
+   
+                        <tr>
+                            <td>
+                                <p>Note*</p>
+                                <textarea class="form-control form-control-sm" id="QuoNote" style=" height:100px;"></textarea>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <p class="btn btn-sm btn-outline-dark" onclick="InsertData()" style="background-color:#1E488C;color:#ffffff">Insert Quotation</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    document.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            ItemNoSelect();
+        }
+    });
+
+
+
+
+   function che() {
+
+       var Type = $("#PerType").val();
+
+
+
+            switch (Type) {
+
+                case "Supllier":
+                    document.getElementById("PartnerCodeS").style.display = "inline";
+                    document.getElementById("PartnerCodeM").style.display = "none";
+                    break;
+
+                case "Customer":
+
+                    document.getElementById("PartnerCodeM").style.display = "inline";
+                    document.getElementById("PartnerCodeS").style.display = "none";
+
+                    break;
+
+            }
+
+
+        }
+
+
+</script>
+
+<script>
+    function deleteRow(r) {
+
+        var i = r.parentNode.parentNode.rowIndex;
+
+        document.getElementById("myTable").deleteRow(i);
+
+
+
+
+    }
+
+
+    function InsertData() {
+        var PartnerCode;
+       // var DateReceive = $("#DateReceive").val();
+      //  var PerFile = $("#PerFile").val();
+        var month = $("#month").val();
+        var Type = $("#PerType").val();
+
+        alert(month)
+        switch (Type) {
+
+            case "Supllier":
+
+                PartnerCode = $("#PartnerCodeS").val();
+                break;
+
+            case "Customer":
+
+                PartnerCode = $("#PartnerCodeM").val();
+
+                break;
+
+        }
+
+
+
+
+       // var DateNowModify = Date.toString();
+       
+
+        if (window.FormData !== undefined) {
+
+            var PerFile = $("#PerFile").get(0);
+            var PerFiles = PerFile.files;
+          
+            var fileData = new FormData();
+      
+
+            for (var i = 0; i < PerFiles.length; i++) {
+                fileData.append(PerFiles[i].name, PerFiles[i]);
+            }
+
+                fileData.append('month', month);
+               // fileData.append('DateReceive', DateReceive);
+                fileData.append('PartnerCode', PartnerCode);
+                fileData.append('Type', Type);
+                // alert(ArData + PartnerCode + DateReceive + QuoNo + ExpireDate + EffectDate + DateNowModify + QuoFiles.name);
+
+                $.ajax({
+                    url: '/Home/InsertPerformanceQue',
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (result) {
+                        alert(result);
+                        window.location.reload();
+                    },
+                    error: function (err) {
+
+                    }
+                });
+            }
+
+        }
+    
+
+</script>
+

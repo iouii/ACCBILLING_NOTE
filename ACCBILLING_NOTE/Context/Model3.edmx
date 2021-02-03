@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OCTIIS_WEBAPPModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Boi_Quotations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="supllierCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateReceive" Type="nvarchar" MaxLength="50" />
+          <Property Name="quotationNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="quotationFile" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateEffective" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateExpriation" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateModify" Type="nvarchar" MaxLength="50" />
+          <Property Name="userCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="quotationType" Type="nvarchar" MaxLength="50" />
+          <Property Name="quotationRemark" Type="nvarchar" MaxLength="50" />
+          <Property Name="quotationRemark1" Type="nvarchar" MaxLength="50" />
+          <Property Name="quotationRemark2" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BusinessPartner_Performance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="partnerId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="year" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="month" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateCreate" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateUpdate" Type="nvarchar" MaxLength="50" />
+          <Property Name="version" Type="nvarchar" MaxLength="50" />
+          <Property Name="remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="remark1" Type="nvarchar" MaxLength="50" />
+          <Property Name="userCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="userCodeUpdate" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Set_Permission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="permissionId" Type="nvarchar" MaxLength="50" />
+          <Property Name="dateCreate" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="System_Permissions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typePermission" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="remarkPermission" Type="nvarchar" MaxLength="50" />
+          <Property Name="controllerPermission" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="int" />
+          <Property Name="remark1" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="OCTIIS_WEBAPPModel1StoreContainer">
+          <EntitySet Name="Boi_Quotations" EntityType="Self.Boi_Quotations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessPartner_Performance" EntityType="Self.BusinessPartner_Performance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Set_Permission" EntityType="Self.Set_Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="System_Permissions" EntityType="Self.System_Permissions" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OCTIIS_WEBAPPModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OCTIIS_WEBAPPEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Boi_Quotations" EntityType="OCTIIS_WEBAPPModel1.Boi_Quotations" />
+          <EntitySet Name="Set_Permission" EntityType="OCTIIS_WEBAPPModel1.Set_Permission" />
+          <EntitySet Name="System_Permissions" EntityType="OCTIIS_WEBAPPModel1.System_Permissions" />
+          <EntitySet Name="BusinessPartner_Performance" EntityType="OCTIIS_WEBAPPModel1.BusinessPartner_Performance" />
+        </EntityContainer>
+        <EntityType Name="Boi_Quotations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="supllierCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateReceive" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quotationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quotationFile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateEffective" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="dateExpriation" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="dateModify" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quotationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quotationRemark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quotationRemark1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="quotationRemark2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Set_Permission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="permissionId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateCreate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="System_Permissions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typePermission" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="remarkPermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="controllerPermission" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="remark1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BusinessPartner_Performance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="partnerId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="year" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="month" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateCreate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dateUpdate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="remark1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userCodeUpdate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OCTIIS_WEBAPPModel1StoreContainer" CdmEntityContainer="OCTIIS_WEBAPPEntities1">
+          <EntitySetMapping Name="Boi_Quotations">
+            <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel1.Boi_Quotations">
+              <MappingFragment StoreEntitySet="Boi_Quotations">
+                <ScalarProperty Name="quotationRemark2" ColumnName="quotationRemark2" />
+                <ScalarProperty Name="quotationRemark1" ColumnName="quotationRemark1" />
+                <ScalarProperty Name="quotationRemark" ColumnName="quotationRemark" />
+                <ScalarProperty Name="quotationType" ColumnName="quotationType" />
+                <ScalarProperty Name="userCode" ColumnName="userCode" />
+                <ScalarProperty Name="dateModify" ColumnName="dateModify" />
+                <ScalarProperty Name="dateExpriation" ColumnName="dateExpriation" />
+                <ScalarProperty Name="dateEffective" ColumnName="dateEffective" />
+                <ScalarProperty Name="quotationFile" ColumnName="quotationFile" />
+                <ScalarProperty Name="quotationNo" ColumnName="quotationNo" />
+                <ScalarProperty Name="dateReceive" ColumnName="dateReceive" />
+                <ScalarProperty Name="supllierCode" ColumnName="supllierCode" />
+                <ScalarProperty Name="itemNo" ColumnName="itemNo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Set_Permission">
+            <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel1.Set_Permission">
+              <MappingFragment StoreEntitySet="Set_Permission">
+                <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+                <ScalarProperty Name="permissionId" ColumnName="permissionId" />
+                <ScalarProperty Name="userCode" ColumnName="userCode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="System_Permissions">
+            <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel1.System_Permissions">
+              <MappingFragment StoreEntitySet="System_Permissions">
+                <ScalarProperty Name="remark1" ColumnName="remark1" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="controllerPermission" ColumnName="controllerPermission" />
+                <ScalarProperty Name="remarkPermission" ColumnName="remarkPermission" />
+                <ScalarProperty Name="typePermission" ColumnName="typePermission" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessPartner_Performance">
+            <EntityTypeMapping TypeName="OCTIIS_WEBAPPModel1.BusinessPartner_Performance">
+              <MappingFragment StoreEntitySet="BusinessPartner_Performance">
+                <ScalarProperty Name="userCodeUpdate" ColumnName="userCodeUpdate" />
+                <ScalarProperty Name="userCode" ColumnName="userCode" />
+                <ScalarProperty Name="remark1" ColumnName="remark1" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="dateUpdate" ColumnName="dateUpdate" />
+                <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="partnerId" ColumnName="partnerId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,177 @@
+﻿@using BOI_QUO.Models
+@{
+    ViewBag.Title = "UserPermissionInsert";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-12" style="margin-top:10px;">
+            <div class="card">
+
+                <div class="card-body" style="background-color:#1E488C; color:#fff">
+                    <h5>User Permission</h5>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12" style="margin-top:10px;">
+            <div class="card">
+                <div class="card-header" style="background-color:#1E488C;color:#ffffff">
+                    <h5>Permission Existing</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered text-uppercase" >
+                           <thead style="background-color:#1E488C;font-size:14px; color:#ffffff" >
+                               <tr>
+                                   <td align ="center" style="width:30px;">No.</td>
+                                   
+                                   <td>Permission Name</td>
+                                   <td></td>
+                               </tr>
+
+                           </thead>
+                            <tbody style="font-size:12px">
+                                @{int i = 1;}
+                                @foreach (SetPermission data in (SetPermission[])ViewBag.UserPermis)
+                                {
+                                    <tr>
+                                        <td align="center">@i</td>
+                                        
+                                        <td >@data.permissionName</td>
+                                        <td align="center" ><a href="#" onclick="delUserPermission(@data.id)">Delete</a></td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-12" style="margin-top:10px;">
+            <div class="card">
+                <div class="card-header" style="background-color:#1E488C;color:#ffffff">
+                    <h5>Permission All</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered text-uppercase">
+                            <thead style="background-color:#1E488C;font-size:14px; color:#ffffff">
+                                <tr>
+                                    <td colspan="4" align="right"><input type="button" name="name" value="Add" onclick="insertUserPermission()" class="btn btn-sm" style="background-color:#1E488C; border-color:#ffffff; color:#ffffff"/></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="width:30px;">No.</td>
+                                    <td align="center"><input type="checkbox" name="name" value="" id="selectAll" /></td>
+                                    <td>Permission Name</td>
+                                    
+                                </tr>
+
+                            </thead>
+                            <tbody style="font-size:12px">
+                                @{int ii = 1;}
+                                @foreach (SystemPermission data in (SystemPermission[])ViewBag.Permission)
+                                {
+                                    <tr>
+                                        <td align="center">@ii</td>
+                                        <td align="center"><input type="checkbox"  value="@data.id" name='chkCreate' /></td>
+                                        <td align="center">@data.typePermission</td>
+                                        
+                                    </tr>
+                                    ii++;
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function insertUserPermission() {
+
+        var code = @ViewBag.userCode;
+        var permission = [];
+        $.each($("input[name='chkCreate']:checked"), function () {
+            permission.push( $(this).val());
+        });
+
+        var fileData = new FormData();
+        fileData.append('permission', permission);
+        fileData.append('code', code);
+        $.ajax({
+            url: '/System/PermissionUserAdd',
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: fileData,
+            success: function (result) {
+
+               window.location.reload();
+
+            },
+            error: function (err) {
+
+            }
+        });
+
+
+        //alert(permission);
+    }
+
+</script>
+
+<script>
+
+
+
+    $("#selectAll").click(function () {
+        $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+
+    });
+
+    function delUserPermission(id) {
+
+
+
+        var permissionId = id;
+
+        var fileData = new FormData();
+
+        if (confirm("Do you want to delete permission name ?")) {
+
+          //  alert(permissionId);
+
+            fileData.append('permissionId', permissionId);
+
+
+            $.ajax({
+                url: '/System/DeleteUserPermission',
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: fileData,
+                success: function (result) {
+
+                    window.location.reload();
+                    alert("Delete Permission Name Success!");
+                },
+                error: function (err) {
+
+                }
+            });
+        } else {
+
+
+        }
+    }
+    </script>

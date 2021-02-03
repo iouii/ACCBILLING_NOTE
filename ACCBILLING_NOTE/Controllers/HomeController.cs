@@ -5,1244 +5,939 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
-using ACCBILLING_NOTE.Models;
+
 using Newtonsoft.Json;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Web.Helpers;
-using ACCBILLING_NOTE.Context;
+using BOI_QUO.Context;
+using System.Text;
+using BOI_QUO.Models;
+using System.IO;
 
 
-namespace ACCBILLING_NOTE.Controllers
+
+namespace BOI_QUO.Controllers
 {
     public class HomeController : Controller
     {
-       
+        string months;
 
         ConnectdataBase con = new ConnectdataBase();
 
-        OCTIIS_WEBAPPEntities sql = new OCTIIS_WEBAPPEntities();
+        OCTIIS_WEBAPPEntities1 dbObj = new OCTIIS_WEBAPPEntities1();
+        Thomas_OguraEntities1 dbObjThomas = new Thomas_OguraEntities1();
+       
 
         public ActionResult Index()
         {
 
-            ViewBag.cus = TempData["Cus"];
-           // ViewBag.data = TempData["invoi"];
-            ViewBag.datacount = TempData["count"];
-            ViewBag.calAm1 = TempData["calAm1"];
-            ViewBag.calAm2 = TempData["calAm2"];
-            ViewBag.calV = TempData["calV"];
-            ViewBag.TextCal = TempData["textCal"];
-            ViewBag.data    =  TempData["data"]   ;
-            ViewBag.data1    =  TempData["data1"]  ;
-            ViewBag.data2    =  TempData["data2"]  ;
-            ViewBag.data3    = TempData["data3"]  ;
-            ViewBag.data4    = TempData["data4"]  ;
-            ViewBag.calco = TempData["calcount"];
-
-
-            ViewBag.countDt = TempData["dataCu"];
-            ViewBag.countDt1 = TempData["dataCu1"];
-            ViewBag.countDt2 = TempData["dataCu2"];
-            ViewBag.countDt3 = TempData["dataCu13"];
-
-            ViewBag.bankTr = bankQuery();
-
-            return View();
-        }
-
-   
-        public ActionResult Export()
-        {
-
-            ViewBag.cus = TempData["Cus"];
-            // ViewBag.data = TempData["invoi"];
-            ViewBag.datacount = TempData["count"];
-            ViewBag.calAm1 = TempData["calAm1"];
-            ViewBag.calAm2 = TempData["calAm2"];
-            ViewBag.calV = TempData["calV"];
-            ViewBag.TextCal = TempData["textCal"];
-            ViewBag.data = TempData["data"];
-            ViewBag.data1 = TempData["data1"];
-            ViewBag.data2 = TempData["data2"];
-            ViewBag.data3 = TempData["data3"];
-            ViewBag.data4 = TempData["data4"];
-            ViewBag.calco = TempData["calcount"];
-
-
-            ViewBag.countDt = TempData["dataCu"];
-            ViewBag.countDt1 = TempData["dataCu1"];
-            ViewBag.countDt2 = TempData["dataCu2"];
-            ViewBag.countDt3 = TempData["dataCu13"];
-
-            ViewBag.bankTr = bankQuery();
-
-            return View();
-        }
-        public ActionResult GetOver()
-        {
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-
-
-
-            ViewBag.getIn = ParController.IntE();
-
-            return View();
-        }
-
-       [HttpPost]
-        public ActionResult GetOver(string name,string month,string year,string invoice)
-        {
-
-            string sqlPirce = "", sqlHeader;
-            Array asas, cuss,data,data1,data2,data3,data4;
-          
-
-            sqlPirce = "WITH INVOICE AS ( " +
-                  "SELECT  CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
-                  "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
-                  "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE DATEINVC BETWEEN  '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
-            ") " +
-            "SELECT DISTINCT " +
-            "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
-            "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-            "ON INV.IDCUST = AST.IDCUST  WHERE INV.IDINVC IN (" + invoice + ")";
-
-            sqlHeader = "WITH INVOICE AS ( " +
-            "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
-            "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN, " +
-            "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
-            "FROM ARIBH WHERE DATEINVC BETWEEN  '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
-            ") " +
-            "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
-            "REPLACE(INV.SHPTOSTE2,' ',' ')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOSTE3,' ',' ')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOSTTE,' ',' ')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOPOST,' ',' ')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOCTRY,' ',' ') AS ADRRESS," +
-            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
-            "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-            "ON INV.IDCUST = ART.IDCUST WHERE  ART.IDCUST = '" + name + "'ORDER BY ART.NAMECUST DESC";
-
-
-
-
-
-
-            con.OpenConnectionSql();
-
-            DataTable dbp = new DataTable();
-            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
-            daprice.Fill(dbp);
-
-
-            DataTable dbh = new DataTable();
-            SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
-            daheader.Fill(dbh);
-
-
-
-
-            var json = new List<Invoice>();
-            var row = dbp.Rows.Count;
-
-            for (int i = 0; i < row; i++)
-            {
-
-                var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
-                var monthT = dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
-                var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
-                var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
-                var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
-                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
-                json.Add(new Invoice()
-                {
-
-                    invoiceNo       = dbp.Rows[i]["IDINVC"].ToString(),
-                    invoiceDate         = day + "/" + monthT + "/" + yearT,
-                    invoiceDue      = dayD + "/" + monthD + "/" + yearD,
-                    invoiceAm1      = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
-                    invoiceVat      = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
-                    invoiceAm2      = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
-                    invoiceAm1Cal       = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-                    invoiceVatCal       = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-                    invoiceAm2Cal       = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
-
-
-                });
-
-
-
-
-            }
-
-
-            var jsonAd = new List<InvoiceCus>();
-            var rowCus = dbh.Rows.Count;
-            byte textD;
-            string adi;
-
-          
-           // string Add;
-            for (int i = 0; i < rowCus; i++)
-            {
-                var text =dbh.Rows[i]["TERMCODE"].ToString();
-                if (text == "DTABLE")
-                {
-
-                 textD = 150;
-
-                }
-                else
-                {
-
-                 textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString().Substring(0, 3));
-                }
-
-
-                 adi =  dbh.Rows[i]["ADRRESS"].ToString();
-
-
-               //  Add = dbh.Rows[i]["ADRRESS"].ToString().Split(", ");
-             
-                
-                jsonAd.Add(new InvoiceCus()
-                {
-
-                    idCust = dbh.Rows[i]["IDCUST"].ToString(),
-                    custName = dbh.Rows[i]["NAMECUST"].ToString(),
-                    custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
-                    custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
-                    custTerm = textD.ToString(),
-                    //custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
-                    custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
-                    custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
-                    custAdressi = dbh.Rows[i]["NAMECTAC"].ToString()
-
-
-
-                });
-
-
-            }
-
-
-            cuss = jsonAd.ToArray();
-       
-         
-
-            ViewBag.cus = cuss;
-
-            // var model = JsonConvert.SerializeObject(json);
-
-            var cal = json.Sum(c => c.invoiceAm1);
-            var calV = json.Sum(c => c.invoiceVat);
-            var calAm = json.Sum(c => c.invoiceAm2);
-            var calText = calAm.ToString();
-
-            asas = json.ToArray();
-
-
-            var jsonSr = new List<Invoice>();
-            var jsonSr1 = new List<Invoice>();
-            var jsonSr2 = new List<Invoice>();
-            var jsonSr3 = new List<Invoice>();
-            var jsonSr4 = new List<Invoice>();
-
-            for (var i = 0; i < json.Count();i++ )
-            {
-
-                if(i < 15){
-
-                    jsonSr.Add(new Invoice { 
-                    
-                   invoiceNo     = json[i].invoiceNo,
-                   invoiceDate   = json[i].invoiceDate,
-                   invoiceDue    = json[i].invoiceDue,
-                   invoiceAm1    = json[i].invoiceAm1, 
-                   invoiceVat    = json[i].invoiceVat, 
-                   invoiceAm2    = json[i].invoiceAm2,
-                   invoiceAm1Cal = json[i].invoiceAm1Cal,
-                   invoiceVatCal = json[i].invoiceVatCal,
-                   invoiceAm2Cal = json[i].invoiceAm2Cal
-
-                    });
-                   
-
-                }else if(i > 14 && i < 30  ){
-
-
-                    jsonSr1.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-                    });
-                  
-                }
-                else if (i > 29 && i < 45)
-                {
-
-
-                    jsonSr2.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-
-                    });
-
-                }
-                else if (i > 44 && i < 60)
-                {
-
-
-                    jsonSr3.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-                    });
-
-                }
-                else if (i > 60 && i < 75)
-                {
-
-
-                    jsonSr4.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-
-
-
-
-
-                    });
-
-                }
-
-
-
-            }
-
-
-           data = jsonSr.ToArray();
-           data1 = jsonSr1.ToArray();
-           data2 = jsonSr2.ToArray();
-           data3 = jsonSr3.ToArray();
-           data4 = jsonSr4.ToArray();
-
-
-
-         //  List<Invoice> ArrayData = data.Tolist()
-
-
-           TempData["data"] = data;
-           TempData["data1"] = data1;
-           TempData["data2"] = data2;
-           TempData["data3"] = data3;
-           TempData["data4"] = data4;
-
-           TempData["dataCu"] = jsonSr.Count();
-           TempData["dataCu1"] = jsonSr1.Count();
-           TempData["dataCu2"] = jsonSr2.Count();
-           TempData["dataCu3"] = jsonSr3.Count();
-
-            ViewBag.data = asas;
-            ViewBag.datacount = json.Count();
-            ViewBag.calAm1 = cal.ToString("N2", CultureInfo.InvariantCulture);
-            ViewBag.calAm2 = calAm.ToString("N2", CultureInfo.InvariantCulture);
-            ViewBag.calV = calV.ToString("N2", CultureInfo.InvariantCulture);
-
-            ViewBag.TextCal = ThaiBahtText(calText);
-
-            TempData["invoi"] = asas;
-
-            TempData["calAm1"] = cal.ToString("N2", CultureInfo.InvariantCulture);
-            TempData["calAm2"] = calAm.ToString("N2", CultureInfo.InvariantCulture);
-            TempData["calV"] =   calV.ToString("N2", CultureInfo.InvariantCulture);
-            TempData["textCal"] = ViewBag.TextCal;
-            TempData["Cus"]     = cuss;
-            TempData["count"] = ViewBag.datacount;
-
-
-           var adde = (json.Count / 15);
-
-           TempData["calcount"] = adde;
-
-            return View("Index");
-
-        }
-
-
-        public ActionResult Test()
-        {
-
-            ViewBag.cusname = cus();
-
-           
-
-            var ae = DateTime.Now.Date.ToString("dd/MM/yyyy").ToString();
-
-            ViewBag.datew = ae;
-
+           // ItemNoGet();
+           // QuotationPurchaseView();
             return View();
         }
 
 
 
-        public ActionResult GetExport()
-        {
-            return View();
-        }
-
-
-
-        [HttpPost]
-        public ActionResult GetExport(string name, string month, string year, string invoice)
-        {
-
-            string sqlPirce = "", sqlHeader;
-            Array asas, cuss, data, data1, data2, data3, data4;
-
-            sqlPirce = "WITH INVOICE AS ( " +
-                  "SELECT  CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
-                  "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
-                  "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE DATEINVC BETWEEN   '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
-            ") " +
-            "SELECT DISTINCT " +
-            "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
-            "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-            "ON INV.IDCUST = AST.IDCUST  WHERE INV.IDINVC IN (" + invoice + ")";
-
-            sqlHeader = "WITH INVOICE AS ( " +
-            "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
-            "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN, " +
-            "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
-            "FROM ARIBH WHERE DATEINVC BETWEEN   '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
-            ") " +
-            "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
-            "REPLACE(INV.SHPTOSTE2,' ',' ')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOSTE3,' ',' ')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOSTTE,' ',' ')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOPOST,' ',' ')+SPACE(2)+ " +
-            "REPLACE(INV.SHPTOCTRY,' ',' ') AS ADRRESS," +
-            "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX , ART.NAMECTAC " +
-            "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-            "ON INV.IDCUST = ART.IDCUST WHERE   ART.IDCUST = '" + name + "'  ORDER BY ART.NAMECUST DESC";
-
-
-
-
-
-
-            con.OpenConnectionSql();
-
-            DataTable dbp = new DataTable();
-            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
-            daprice.Fill(dbp);
-
-
-            DataTable dbh = new DataTable();
-            SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
-            daheader.Fill(dbh);
-
-
-
-
-            var json = new List<Invoice>();
-            var row = dbp.Rows.Count;
-
-            for (int i = 0; i < row; i++)
-            {
-
-                var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
-                var monthT = dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
-                var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
-                var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
-                var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
-                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
-                json.Add(new Invoice()
-                {
-
-                    invoiceNo = dbp.Rows[i]["IDINVC"].ToString(),
-                    invoiceDate = day + "-" + monthT + "-" + yearT,
-                    invoiceDue = dayD + "-" + monthD + "-" + yearD,
-                    invoiceAm1 = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
-                    invoiceVat = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
-                    invoiceAm2 = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
-                    invoiceAm1Cal = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-                    invoiceVatCal = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-                    invoiceAm2Cal = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
-
-                });
-
-
-
-
-            }
-
-
-            var jsonAd = new List<InvoiceCus>();
-            var rowCus = dbh.Rows.Count;
-
-            byte textD;
-
-            for (int i = 0; i < rowCus; i++)
-            {
-
-
-
-                var text = dbh.Rows[i]["TERMCODE"].ToString();
-                if (text == "DTABLE")
-                {
-
-                    textD = 150;
-
-                }
-                else if (text == " ")
-                {
-                    textD = 0;
-                }
-                else
-                {
-
-                    textD = Convert.ToByte(dbh.Rows[i]["TERMCODE"].ToString().Substring(0, 3));
-                }
-
-                jsonAd.Add(new InvoiceCus()
-                {
-
-                    idCust = dbh.Rows[i]["IDCUST"].ToString(),
-                    custName = dbh.Rows[i]["NAMECUST"].ToString(),
-                    custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
-                    custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
-                    custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
-                    custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
-                    custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
-                    custAdressi = dbh.Rows[i]["NAMECTAC"].ToString()
-
-
-                });
-
-
-            }
-
-
-            cuss = jsonAd.ToArray();
-            ViewBag.cus = cuss;
-
-            // var model = JsonConvert.SerializeObject(json);
-
-            var cal = json.Sum(c => c.invoiceAm1);
-            var calV = json.Sum(c => c.invoiceVat);
-            var calAm = json.Sum(c => c.invoiceAm2);
-            var calText = calAm.ToString();
-
-            asas = json.ToArray();
-
-
-
-            var jsonSr = new List<Invoice>();
-            var jsonSr1 = new List<Invoice>();
-            var jsonSr2 = new List<Invoice>();
-            var jsonSr3 = new List<Invoice>();
-            var jsonSr4 = new List<Invoice>();
-
-            for (var i = 0; i < json.Count(); i++)
-            {
-
-                if (i < 15)
-                {
-
-                    jsonSr.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-                    });
-
-
-                }
-                else if (i > 14 && i < 30)
-                {
-
-
-                    jsonSr1.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-                    });
-
-                }
-                else if (i > 29 && i < 45)
-                {
-
-
-                    jsonSr2.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-
-                    });
-
-                }
-                else if (i > 44 && i < 60)
-                {
-
-
-                    jsonSr3.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-                    });
-
-                }
-                else if (i > 60 && i < 75)
-                {
-
-
-                    jsonSr4.Add(new Invoice
-                    {
-
-                        invoiceNo = json[i].invoiceNo,
-                        invoiceDate = json[i].invoiceDate,
-                        invoiceDue = json[i].invoiceDue,
-                        invoiceAm1 = json[i].invoiceAm1,
-                        invoiceVat = json[i].invoiceVat,
-                        invoiceAm2 = json[i].invoiceAm2,
-                        invoiceAm1Cal = json[i].invoiceAm1Cal,
-                        invoiceVatCal = json[i].invoiceVatCal,
-                        invoiceAm2Cal = json[i].invoiceAm2Cal
-
-
-
-
-
-
-                    });
-
-                }
-
-
-
-            }
-
-
-            data = jsonSr.ToArray();
-            data1 = jsonSr1.ToArray();
-            data2 = jsonSr2.ToArray();
-            data3 = jsonSr3.ToArray();
-            data4 = jsonSr4.ToArray();
-
-
-
-            //  List<Invoice> ArrayData = data.Tolist()
-
-
-            TempData["data"] = data;
-            TempData["data1"] = data1;
-            TempData["data2"] = data2;
-            TempData["data3"] = data3;
-            TempData["data4"] = data4;
-
-            TempData["dataCu"] = jsonSr.Count();
-            TempData["dataCu1"] = jsonSr1.Count();
-            TempData["dataCu2"] = jsonSr2.Count();
-            TempData["dataCu3"] = jsonSr3.Count();
-
-
-            ViewBag.data = asas;
-            ViewBag.datacount = json.Count();
-            ViewBag.calAm1 = cal.ToString("N2", CultureInfo.InvariantCulture);
-            ViewBag.calAm2 = calAm.ToString("N2", CultureInfo.InvariantCulture);
-            ViewBag.calV = calV.ToString("N2", CultureInfo.InvariantCulture);
-
-            ViewBag.TextCal = ThaiBahtText(calText);
-
-            TempData["invoi"] = asas;
-
-            TempData["calAm1"] = cal.ToString("N2", CultureInfo.InvariantCulture);
-            TempData["calAm2"] = calAm.ToString("N2", CultureInfo.InvariantCulture);
-            TempData["calV"] = calV.ToString("N2", CultureInfo.InvariantCulture);
-            TempData["textCal"] = ViewBag.TextCal;
-            TempData["Cus"] = cuss;
-            TempData["count"] = ViewBag.datacount;
-            var adde = (json.Count / 15);
-
-            TempData["calcount"] = adde;
-
-
-            return View("Export");
-        }
-
-
-        [HttpPost]
-        public ActionResult Test(string name,string month,string year)
-        {
-           
-          var sh  = nameQ(name,month,year);
-         
-         return Json(sh,JsonRequestBehavior.AllowGet);
-        }
-
- 
-
-       
-
-        public Array cus()
+        public void SupplierGet()
         {
             string sqlq;
-            Array cusname;
+            Array SupplierArray;
+            var SupllierM = new List<Supllier>();
 
+            con.OpensThomas();
 
-            con.OpenConnectionSql();
-            sqlq = " SELECT DISTINCT IDCUST,NAMECUST FROM  ARSTCUS WHERE  NOT  NAMECUST = 'CALSONIC KANSEI (THAILAND) CO.,LTD.' ";
+            sqlq = "SELECT BusinessPartnerCode , BusinessPartnerName FROM MasterBusinessPartner WHERE BusinessPartnerCode LIKE 'V%' ";
 
-            DataTable dbq = new DataTable();
-            SqlDataAdapter daq = new SqlDataAdapter(sqlq, con.con);
-
-            daq.Fill(dbq);
-
-
-
-            con.CloseConnectionSql();
-
-            var jsonCusname = new List<InvoiceCus>();
-            var rowName = dbq.Rows.Count;
+            DataTable dbq1 = new DataTable();
+            SqlDataAdapter daq = new SqlDataAdapter(sqlq, con.consThos);
+            daq.Fill(dbq1);
+            var rowName = dbq1.Rows.Count;
             for (int i = 0; i < rowName; i++)
             {
-                jsonCusname.Add(new InvoiceCus()
+                SupllierM.Add(new Supllier()
                 {
-                    idCust = dbq.Rows[i]["IDCUST"].ToString().Trim(),
-                    custName = dbq.Rows[i]["NAMECUST"].ToString(),
+                    BusinessPartnerCodeM = Convert.ToBase64String(Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes(dbq1.Rows[i]["BusinessPartnerCode"].ToString())))),
+                    BusinessPartnerNameM = dbq1.Rows[i]["BusinessPartnerName"].ToString()
 
 
                 });
             }
 
-            cusname = jsonCusname.ToArray();
 
-
-            return cusname;
+            SupplierArray = SupllierM.ToArray();
+            ViewBag.Suppllier = SupplierArray;
         }
 
 
-        public Array bankQuery()
+        public void CustomerGet()
         {
-            List<bankTranfer> bank = new List<bankTranfer>();
-            Array bankAr;
+            string sqlq;
+            Array CustomerArray;
+            var CustomerM = new List<Supllier>();
 
-            var querySql = sql.Acc_Bank.ToList();
+            con.OpensThomas();
 
-            foreach (var bn in querySql)
+            sqlq = "SELECT BusinessPartnerCode , BusinessPartnerName FROM MasterBusinessPartner WHERE BusinessPartnerCode LIKE 'C%' ";
+
+            DataTable dbq1 = new DataTable();
+            SqlDataAdapter daq = new SqlDataAdapter(sqlq, con.consThos);
+            daq.Fill(dbq1);
+            var rowName = dbq1.Rows.Count;
+            for (int i = 0; i < rowName; i++)
             {
-
-                bank.Add(new bankTranfer
+                CustomerM.Add(new Supllier()
                 {
-                    bId = bn.Id.ToString(),
-                    bAddressEn  =bn.Address_EN,
-                    bAddressThai = bn.Address_Thi,
-                    bNameEn = bn.BankName_EN,
-                    bNameThai = bn.BankName_Thi,
-                    bAccNo = bn.AccOn,
-                    bBranch = bn.Branch,
-                    bSwiftCode = bn.SwiftCode
+                    BusinessPartnerCodeM =Convert.ToBase64String(Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes(dbq1.Rows[i]["BusinessPartnerCode"].ToString())))),
+                    BusinessPartnerNameM = dbq1.Rows[i]["BusinessPartnerName"].ToString()
 
 
                 });
             }
 
 
-            bankAr = bank.ToArray();
+            CustomerArray = CustomerM.ToArray();
+            ViewBag.Customer = CustomerArray;
+        }
 
-            return bankAr;
 
+        public ActionResult AddQuotation()
+        {
 
+           
+            CustomerGet();
+            SupplierGet();
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Index(string id)
+        public ActionResult InsertQuotations(string ArData, string QuoNo, string EffectDate, string ExpireDate, string DateReceive, string PartnerCode,string Type)
         {
-            var bnf = cBankTranfer(id);
-
-            return Json(bnf, JsonRequestBehavior.AllowGet);
-
-
-          
-        }
-
-
-        [HttpPost]
-        public ActionResult Export(string id)
-        {
-            var bnf = cBankTranfer(id);
-
-
-            return Json(bnf, JsonRequestBehavior.AllowGet);
-        }
-        
-        public List<bankTranfer> cBankTranfer(string id)
-        {
-            var json = new List<bankTranfer>();
-
-            var bankQuery = sql.Acc_Bank.Where(c => c.Id.ToString() == id).ToList();
-
-
-            foreach (var bn in bankQuery)
-            {
-
-                json.Add(new bankTranfer {
-
-                    bId = bn.Id.ToString(),
-                    bAddressEn = bn.Address_EN,
-                    bAddressThai = bn.Address_Thi,
-                    bNameEn = bn.BankName_EN,
-                    bNameThai = bn.BankName_Thi,
-                    bAccNo = bn.AccOn,
-                    bBranch = bn.Branch,
-                    bSwiftCode = bn.SwiftCode
-                
-                
-                });
-
-            }
-
-
-
-
-
-            return json;
-        }
-
-        public List<Invoice> nameQ(string name,string month,string year)
-        {
-
-            string sqlPirce;
-
-            sqlPirce = "WITH INVOICE AS ( " +
-         "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
-         "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
-         "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE DATEINVC BETWEEN   '" + Convert.ToInt32(month) + "' AND  '" + Convert.ToInt32(year) + "' " +
-           ") " +
-           "SELECT DISTINCT " +
-           "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
-           "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-           "ON INV.IDCUST = AST.IDCUST  WHERE AST.IDCUST LIKE  '" + name + "%' ";
-
-
-            con.OpenConnectionSql();
-
-            DataTable dbp = new DataTable();
-            SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
-            daprice.Fill(dbp);
-
-
-            var json = new List<Invoice>();
-            var row = dbp.Rows.Count;
-            
-
-            for (int i = 0; i < row; i++)
-            {
-
-                var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
-                var monthT= dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
-                var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
-                var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
-                var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
-                var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
-                json.Add(new Invoice()
-                {
-
-                    invoiceNo = dbp.Rows[i]["IDINVC"].ToString(),
-                    invoiceDate = day + "/" + monthT + "/" + yearT,
-                    invoiceDue = dayD + "/" + monthD + "/" + yearD,
-                    invoiceAm1 = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
-                    invoiceVat = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
-                    invoiceAm2 = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
-                    invoiceAm1Cal = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-                    invoiceVatCal = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-                    invoiceAm2Cal = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
-                    
-                
-                });
-
-              
-            }
-
-        
 
          
-            return  json;
-            
-        }
-
-        //public List<InvoiceCus> cusHead(string name,string month,string year)
-        //{
-
-        //    string sqlHeader;
-
-        //    sqlHeader = "WITH INVOICE AS ( " +
-        //   "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
-        //   "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN, " +
-        //   "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
-        //   "FROM ARIBH WHERE FISCYR = '"+year+"' AND FISCPER = '"+month+"' " +
-        //   ") " +
-        //   "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
-        //   "REPLACE(INV.SHPTOSTE2,' ','')+SPACE(2)+ " +
-        //   "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
-        //   "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
-        //   "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
-        //   "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX " +
-        //   "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-        //   "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '" + name + "' ";
-
-        //    con.OpenConnectionSql();
-
-        //    DataTable dbh = new DataTable();
-        //    SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
-        //    daheader.Fill(dbh);
-        //    var jsonAd = new List<InvoiceCus>();
-        //    var rowCus = dbh.Rows.Count;
-
-        //    for (int i = 0; i < rowCus; i++)
-        //    {
-        //        jsonAd.Add(new InvoiceCus()
-        //        {
-
-        //            idCust = dbh.Rows[i]["IDCUST"].ToString(),
-        //            custName = dbh.Rows[i]["NAMECUST"].ToString(),
-        //            custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
-        //            custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
-        //            custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
-        //            custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
-        //            custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
-
-
-
-        //        });
-
-
-
-
-        //    }
-
-
-
-        //    return jsonAd;
-        //}
-
-
-
-        //public void call(string name,string month,string year,string invoice)
-        //{
-
-        //    string sqlPirce = "", sqlHeader;
-        //    Array asas, cuss;
-
-        //    sqlPirce = "WITH INVOICE AS ( " +
-        //          "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER," +
-        //          "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN," +
-        //          "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX FROM ARIBH WHERE FISCYR = '"+year+"' AND FISCPER = '"+month+"' " +
-        //    ") " +
-        //    "SELECT " +
-        //    "INV.IDINVC,INV.DATEINVC,INV.DATEDUE,INV.BASETAX1,INV.AMTTAX1,INV.AMTPYMSCHD " +
-        //    "FROM INVOICE INV INNER JOIN ARSTCUS AST " +
-        //    "ON INV.IDCUST = AST.IDCUST  WHERE INV.IDINVC IN ("+invoice+")";
-
-        //    sqlHeader = "WITH INVOICE AS ( " +
-        //    "SELECT CNTBTCH,IDCUST,IDINVC,FISCYR,FISCPER, " +
-        //    "TERMCODE,BASETAX1,AMTTAX1,AMTPYMSCHD,EXCHRATEHC,CODECURN, " +
-        //    "SHPTOSTE2,SHPTOSTE3,DATEINVC,DATEDUE,SHPTOPHON,SHPTOFAX,SHPTOSTTE,SHPTOPOST,SHPTOCTRY  " +
-        //    "FROM ARIBH WHERE FISCYR = '" + year + "' AND FISCPER = '"+month+"' " +
-        //    ") " +
-        //    "SELECT TOP 1 INV.IDCUST,ART.NAMECUST,ART.IDTAXREGI1," +
-        //    "REPLACE(INV.SHPTOSTE2,' ','')+SPACE(2)+ " +
-        //    "REPLACE(INV.SHPTOSTTE,' ','')+SPACE(2)+ " +
-        //    "REPLACE(INV.SHPTOPOST,' ','')+SPACE(2)+ " +
-        //    "REPLACE(INV.SHPTOCTRY,' ','') AS ADRRESS," +
-        //    "INV.TERMCODE,INV.SHPTOPHON,INV.SHPTOFAX " +
-        //    "FROM INVOICE INV INNER JOIN ARSTCUS ART " +
-        //    "ON INV.IDCUST = ART.IDCUST WHERE ART.NAMECUST = '"+name+"' ";
-
-
-
-
-
-
-        //    con.OpenConnectionSql();
-
-        //    DataTable dbp = new DataTable();
-        //    SqlDataAdapter daprice = new SqlDataAdapter(sqlPirce, con.con);
-        //    daprice.Fill(dbp);
-
-
-        //    DataTable dbh = new DataTable();
-        //    SqlDataAdapter daheader = new SqlDataAdapter(sqlHeader, con.con);
-        //    daheader.Fill(dbh);
-
-
-
-
-        //    var json = new List<Invoice>();
-        //    var row = dbp.Rows.Count;
-
-        //    for (int i = 0; i < row; i++)
-        //    {
-
-        //        var yearT = dbp.Rows[i]["DATEINVC"].ToString().Substring(0, 4);
-        //        var monthT = dbp.Rows[i]["DATEINVC"].ToString().Substring(4, 2);
-        //        var day = dbp.Rows[i]["DATEINVC"].ToString().Substring(6, 2);
-        //        var yearD = dbp.Rows[i]["DATEDUE"].ToString().Substring(0, 4);
-        //        var monthD = dbp.Rows[i]["DATEDUE"].ToString().Substring(4, 2);
-        //        var dayD = dbp.Rows[i]["DATEDUE"].ToString().Substring(6, 2);
-        //        json.Add(new Invoice()
-        //        {
-
-        //            invoiceNo = dbp.Rows[i]["IDINVC"].ToString(),
-        //            invoiceDate = day + "/" + monthT + "/" + yearT,
-        //            invoiceDue = dayD + "/" + monthD + "/" + yearD,
-        //            invoiceAm1 = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]),
-        //            invoiceVat = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]),
-        //            invoiceAm2 = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]),
-        //            invoiceAm1Cal = Convert.ToDouble(dbp.Rows[i]["BASETAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-        //            invoiceVatCal = Convert.ToDouble(dbp.Rows[i]["AMTTAX1"]).ToString("N2", CultureInfo.InvariantCulture),
-        //            invoiceAm2Cal = Convert.ToDouble(dbp.Rows[i]["AMTPYMSCHD"]).ToString("N2", CultureInfo.InvariantCulture),
-
-        //        });
-
-
-
-
-        //    }
-
-
-        //    var jsonAd = new List<InvoiceCus>();
-        //    var rowCus = dbh.Rows.Count;
-
-        //    for (int i = 0; i < rowCus; i++)
-        //    {
-        //        jsonAd.Add(new InvoiceCus()
-        //        {
-
-        //            idCust = dbh.Rows[i]["IDCUST"].ToString(),
-        //            custName = dbh.Rows[i]["NAMECUST"].ToString(),
-        //            custTex = dbh.Rows[i]["IDTAXREGI1"].ToString(),
-        //            custAdress = dbh.Rows[i]["ADRRESS"].ToString(),
-        //            custTerm = dbh.Rows[i]["TERMCODE"].ToString(),
-        //            custPhone = dbh.Rows[i]["SHPTOPHON"].ToString(),
-        //            custFax = dbh.Rows[i]["SHPTOFAX"].ToString(),
-
-
-
-        //        });
-
-
-
-
-        //    }
-
-            
-            
-        //    cuss = jsonAd.ToArray();
-        //    ViewBag.cus = cuss;
-
-        //    // var model = JsonConvert.SerializeObject(json);
-
-        //    var cal = json.Sum(c => c.invoiceAm1);
-        //    var calV = json.Sum(c => c.invoiceVat);
-        //    var calAm = json.Sum(c => c.invoiceAm2);
-        //    var calText = calAm.ToString();
-
-        //    asas = json.ToArray();
-        //    ViewBag.data = asas;
-        //    ViewBag.datacount = json.Count();
-        //    ViewBag.calAm1 = cal.ToString("N2", CultureInfo.InvariantCulture);
-        //    ViewBag.calAm2 = calAm.ToString("N2", CultureInfo.InvariantCulture);
-        //    ViewBag.calV = calV.ToString("N2", CultureInfo.InvariantCulture);
-
-        //    ViewBag.TextCal = ThaiBahtText(calText);
-
-            
-            
-        //}
-
-
-        public string ThaiBahtText(string strNumber, bool IsTrillion = false)
-        {
-            string BahtText = "";
-            string strTrillion = "";
-            string[] strThaiNumber = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า", "สิบ" };
-            string[] strThaiPos = { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน" };
-
-            decimal decNumber = 0;
-            decimal.TryParse(strNumber, out decNumber);
-
-            if (decNumber == 0)
+            string[] Arrd = ArData.Split(',');
+            string[] DateEF = EffectDate.Split('-');
+            string[] DateEX = ExpireDate.Split('-');
+            string[] DateRE = DateReceive.Split('-');
+           
+            if (Request.Files.Count > 0)
             {
-                return "ศูนย์บาทถ้วน";
-            }
-
-            strNumber = decNumber.ToString("0.00");
-            string strInteger = strNumber.Split('.')[0];
-            string strSatang = strNumber.Split('.')[1];
-
-            if (strInteger.Length > 13)
-                throw new Exception("รองรับตัวเลขได้เพียง ล้านล้าน เท่านั้น!");
-
-            bool _IsTrillion = strInteger.Length > 7;
-            if (_IsTrillion)
-            {
-                strTrillion = strInteger.Substring(0, strInteger.Length - 6);
-                BahtText = ThaiBahtText(strTrillion, _IsTrillion);
-                strInteger = strInteger.Substring(strTrillion.Length);
-            }
-
-            int strLength = strInteger.Length;
-            for (int i = 0; i < strInteger.Length; i++)
-            {
-                string number = strInteger.Substring(i, 1);
-                if (number != "0")
+                try
                 {
-                    if (i == strLength - 1 && number == "1" && strLength != 1)
+
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
                     {
-                        BahtText += "เอ็ด";
-                    }
-                    else if (i == strLength - 2 && number == "2" && strLength != 1)
-                    {
-                        BahtText += "ยี่";
-                    }
-                    else if (i != strLength - 2 || number != "1")
-                    {
-                        BahtText += strThaiNumber[int.Parse(number)];
+
+
+                        HttpPostedFileBase file = files[i];
+                        string fname,fnameup;
+
+
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                            fnameup = file.FileName;
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                            fnameup = file.FileName;
+                        }
+
+
+                        fname = Path.Combine(Server.MapPath("~/File/PDF/"), fname);
+                       file.SaveAs(fname);
+
+                        for (var ii = 0; ii < Arrd.Count(); ii++)
+                        {
+
+                            var sql = new Boi_Quotations()
+                            {
+                                itemNo = Arrd[ii].ToString(),
+                                supllierCode = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(Convert.FromBase64String(PartnerCode.ToString())))),
+                                quotationNo = QuoNo.ToString(),
+                                quotationFile = fnameup,
+                                dateEffective = DateEF[0] + DateEF[1] + DateEF[2],
+                                dateExpriation = DateEX[0] + DateEX[1] + DateEX[2],
+                                dateReceive = DateRE[0] + DateRE[1] + DateRE[2],
+                                quotationType = Type,
+                                dateModify  = DateTime.Now.ToString(),
+                                userCode = Session["userCode"].ToString()
+
+                            };
+                            dbObj.Boi_Quotations.Add(sql);
+
+                            dbObj.SaveChanges(); 
+                        }
+                      
+
                     }
 
-                    BahtText += strThaiPos[(strLength - i) - 1];
+                    return Json("File Uploaded Successfully!" );
                 }
-            }
-
-            if (IsTrillion)
-            {
-                return BahtText + "ล้าน";
-            }
-
-            if (strInteger != "0")
-            {
-                BahtText += "บาท";
-            }
-
-            if (strSatang == "00")
-            {
-                BahtText += "ถ้วน";
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
             }
             else
             {
-                strLength = strSatang.Length;
-                for (int i = 0; i < strSatang.Length; i++)
-                {
-                    string number = strSatang.Substring(i, 1);
-                    if (number != "0")
-                    {
-                        if (i == strLength - 1 && number == "1" && strSatang[0].ToString() != "0")
-                        {
-                            BahtText += "เอ็ด";
-                        }
-                        else if (i == strLength - 2 && number == "2" && strSatang[0].ToString() != "0")
-                        {
-                            BahtText += "ยี่";
-                        }
-                        else if (i != strLength - 2 || number != "1")
-                        {
-                            BahtText += strThaiNumber[int.Parse(number)];
-                        }
-
-                        BahtText += strThaiPos[(strLength - i) - 1];
-                    }
-                }
-
-                BahtText += "สตางค์";
+                return Json("No files selected.");
             }
 
-            return BahtText;
+
         }
 
 
+        public ActionResult QuotationPurchaseView()
+        {
+            Array QuotationArray;
+            List<QuotationShow> QuotationShowModel = new List<QuotationShow>();
 
-         
-   
+
+            var quotationM = dbObj.Boi_Quotations.ToList();
+            var masterPartner = dbObjThomas.MasterBusinessPartners.ToList();
+            var masterIt = dbObjThomas.MasterItems.ToList();
+
+        
+            var quotationQuery = quotationM
+                .Join(masterPartner, qm => qm.supllierCode, mp => mp.BusinessPartnerCode, (qm, mp) => new { qm, mp })
+                .Join(masterIt, qm => qm.qm.itemNo, mi => mi.ItemNo, (qm, mi) => new { qm, mi })
+                .Where(qmw => qmw.qm.qm.quotationType == "Purchase")
+                .ToList();
+            foreach (var gr in quotationQuery)
+            {
+                string dateRe = gr.qm.qm.dateReceive;
+                string dateree = dateRe[0] + "" + dateRe[1] + "" + dateRe[2] + "" + dateRe[3] + "-" + dateRe[4] + "" + dateRe[5] + "-" + dateRe[6] + "" + dateRe[7];
+                string dateEf = gr.qm.qm.dateEffective;
+                string dateefR = dateEf[0]+""+ dateEf[1] +""+ dateEf[2]+""+ dateEf[3] + "-" + dateEf[4]+""+ dateEf[5] + "-" + dateEf[6]+"" + dateEf[7];
+                string dateEx = gr.qm.qm.dateExpriation;
+                string dateexR = dateEx[0] + "" + dateEx[1] + "" + dateEx[2] + "" + dateEx[3] + "-" + dateEx[4] + "" + dateEx[5] + "-" + dateEx[6] + "" + dateEx[7];
+
+                QuotationShowModel.Add(new QuotationShow
+                {
+                    Ida = gr.qm.qm.id,
+                    itemNo = gr.mi.ItemNo,
+                    ModelNoa = gr.mi.ItemName,
+                    ItemShortNamea  =gr.mi.ItemShortName,
+                    BusinessPartnerNameM = gr.qm.mp.BusinessPartnerName,
+                    dateEffective = dateefR,
+                    dateExpriation = dateexR,
+                    quotationFile = gr.qm.qm.quotationFile,
+                    quotationRemark = gr.qm.qm.quotationRemark,
+                    dateModify = gr.qm.qm.dateModify,
+                    quotationNo = gr.qm.qm.quotationNo,
+                    dateReceive = dateree
+
+                });
+            }
+
+
+            QuotationArray = QuotationShowModel.ToArray();
+
+            ViewBag.Quotations = QuotationArray;
+
+
+            return View();
+        
+       
+        }
+
+        public ActionResult QuotationSalesView()
+        {
+            Array QuotationArray;
+            List<QuotationShow> QuotationShowModel = new List<QuotationShow>();
+
+
+            var quotationM = dbObj.Boi_Quotations.ToList();
+            var masterPartner = dbObjThomas.MasterBusinessPartners.ToList();
+            var masterIt = dbObjThomas.MasterItems.ToList();
+
+
+            var quotationQuery = quotationM
+                .Join(masterPartner, qm => qm.supllierCode, mp => mp.BusinessPartnerCode, (qm, mp) => new { qm, mp })
+                .Join(masterIt, qm => qm.qm.itemNo, mi => mi.ItemNo, (qm, mi) => new { qm, mi })
+                .Where(qmw => qmw.qm.qm.quotationType == "Sales")
+                .ToList();
+            foreach (var gr in quotationQuery)
+            {
+                string dateRe = gr.qm.qm.dateReceive;
+                string dateree = dateRe[0] + "" + dateRe[1] + "" + dateRe[2] + "" + dateRe[3] + "-" + dateRe[4] + "" + dateRe[5] + "-" + dateRe[6] + "" + dateRe[7];
+
+                string dateEf = gr.qm.qm.dateEffective;
+                string dateefR = dateEf[0] + "" + dateEf[1] + "" + dateEf[2] + "" + dateEf[3] + "-" + dateEf[4] + "" + dateEf[5] + "-" + dateEf[6] + "" + dateEf[7];
+                string dateEx = gr.qm.qm.dateExpriation;
+                string dateexR = dateEx[0] + "" + dateEx[1] + "" + dateEx[2] + "" + dateEx[3] + "-" + dateEx[4] + "" + dateEx[5] + "-" + dateEx[6] + "" + dateEx[7];
+                QuotationShowModel.Add(new QuotationShow
+                {
+                    Ida = gr.qm.qm.id,
+                    itemNo = gr.mi.ItemNo,
+                    ModelNoa = gr.mi.ItemName,
+                    ItemShortNamea = gr.mi.ItemShortName,
+                    BusinessPartnerNameM = gr.qm.mp.BusinessPartnerName,
+                    dateEffective = dateefR,//gr.qm.qm.dateEffective,
+                    dateExpriation = dateexR,//gr.qm.qm.dateExpriation,
+                    quotationFile = gr.qm.qm.quotationFile,
+                    quotationRemark = gr.qm.qm.quotationRemark,
+                    dateModify = gr.qm.qm.dateModify,
+                    quotationNo = gr.qm.qm.quotationNo,
+                    dateReceive = dateree
+
+
+                });
+            }
+
+
+            QuotationArray = QuotationShowModel.ToArray();
+
+            ViewBag.Quotations = QuotationArray;
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult QuotationPurchaseView(string itemNo, string modelNo, string partNo, string supllierNo, string quotationNo, string efNo,string exNo)
+        {
+            var query = QuotationSearch(itemNo,modelNo,partNo,supllierNo,quotationNo,efNo,exNo,"Purchase");
+
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult QuotationSalesView(string itemNo, string modelNo, string partNo, string supllierNo, string quotationNo, string efNo, string exNo)
+        {
+            var query = QuotationSearch(itemNo, modelNo, partNo, supllierNo, quotationNo, efNo, exNo,"Sales");
+
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+        public List<QuotationShow> QuotationSearch(string itemNo, string modelNo, string partNo, string supllierNo, string quotationNo, string efNo, string exNo, string type)
+        {
+           
+            var QuotationShowModel = new List<QuotationShow>();
+
+            var quotationM = dbObj.Boi_Quotations.ToList();
+            var masterPartner = dbObjThomas.MasterBusinessPartners.ToList();
+            var masterIt = dbObjThomas.MasterItems.ToList();
+            string[] DateEF;
+            string[] DateEX;
+            
+            if (efNo =="")
+            {
+
+            var quotationQuery = quotationM
+                .Join(masterPartner, qm => qm.supllierCode, mp => mp.BusinessPartnerCode, (qm, mp) => new { qm, mp })
+                .Join(masterIt, qm => qm.qm.itemNo, mi => mi.ItemNo, (qm, mi) => new { qm, mi })
+                .Where(qmw => qmw.qm.qm.quotationType == type
+                    && qmw.qm.qm.quotationNo.ToLower().Contains(quotationNo.ToLower())
+                    && qmw.qm.qm.itemNo.ToLower().Contains(itemNo.ToLower())
+                    && qmw.mi.ModelNo.ToLower().Contains(modelNo.ToLower())
+                    && qmw.mi.ItemShortName.ToLower().Contains(partNo.ToLower())
+                    && qmw.qm.mp.BusinessPartnerName.ToLower().Contains(supllierNo.ToLower())
+                    ).ToList();
+
+
+            foreach (var gr in quotationQuery)
+            {
+                string dateEf = gr.qm.qm.dateEffective;
+                string dateefR = dateEf[0] + "" + dateEf[1] + "" + dateEf[2] + "" + dateEf[3] + "-" + dateEf[4] + "" + dateEf[5] + "-" + dateEf[6] + "" + dateEf[7];
+                string dateEx = gr.qm.qm.dateExpriation;
+                string dateexR = dateEx[0] + "" + dateEx[1] + "" + dateEx[2] + "" + dateEx[3] + "-" + dateEx[4] + "" + dateEx[5] + "-" + dateEx[6] + "" + dateEx[7];
+
+
+                QuotationShowModel.Add(new QuotationShow
+                {
+                    Ida = gr.qm.qm.id,
+                    itemNo = gr.mi.ItemNo,
+                    ModelNoa = gr.mi.ItemName,
+                    ItemShortNamea = gr.mi.ItemShortName,
+                    BusinessPartnerNameM = gr.qm.mp.BusinessPartnerName,
+                    dateEffective = dateefR,
+                    dateExpriation = dateexR,
+                    quotationFile = gr.qm.qm.quotationFile,
+                    quotationRemark = gr.qm.qm.quotationRemark,
+                    dateModify = gr.qm.qm.dateModify,
+                    quotationNo = gr.qm.qm.quotationNo,
+                    dateReceive = gr.qm.qm.dateReceive
+
+                });
+            }
+            return QuotationShowModel;
+                
+
+           }else{
+
+            if (exNo =="")
+            {
+                exNo = "9999-99-99";
+                
+                }
+
+            DateEF = efNo.Split('-');
+            DateEX = exNo.Split('-');
+            var ef = DateEF[0] + DateEF[1] + DateEF[2];
+            var ex = DateEX[0] + DateEX[1] + DateEX[2];
+           
+
+           var  quotationQuery = quotationM
+                .Join(masterPartner, qm => qm.supllierCode, mp => mp.BusinessPartnerCode, (qm, mp) => new { qm, mp })
+                .Join(masterIt, qm => qm.qm.itemNo, mi => mi.ItemNo, (qm, mi) => new { qm, mi })
+                .Where(qmw => qmw.qm.qm.quotationType == type
+                    && qmw.qm.qm.quotationNo.ToLower().Contains(quotationNo.ToLower())
+                    && qmw.qm.qm.itemNo.ToLower().Contains(itemNo.ToLower())
+                    && Convert.ToInt32(qmw.qm.qm.dateEffective) >= Convert.ToInt32(ef)
+                    && Convert.ToInt32(qmw.qm.qm.dateExpriation) <= Convert.ToInt32(ex)
+                    && qmw.mi.ModelNo.ToLower().Contains(modelNo.ToLower())
+                    && qmw.mi.ItemShortName.ToLower().Contains(partNo.ToLower())
+                    && qmw.qm.mp.BusinessPartnerName.ToLower().Contains(supllierNo.ToLower())
+                    )          
+                .ToList();
+
+
+           foreach (var gr in quotationQuery)
+           {
+               string dateEf = gr.qm.qm.dateEffective;
+               string dateefR = dateEf[0] + "" + dateEf[1] + "" + dateEf[2] + "" + dateEf[3] + "-" + dateEf[4] + "" + dateEf[5] + "-" + dateEf[6] + "" + dateEf[7];
+               string dateEx = gr.qm.qm.dateExpriation;
+               string dateexR = dateEx[0] + "" + dateEx[1] + "" + dateEx[2] + "" + dateEx[3] + "-" + dateEx[4] + "" + dateEx[5] + "-" + dateEx[6] + "" + dateEx[7];
+
+
+               QuotationShowModel.Add(new QuotationShow
+               {
+                   itemNo = gr.mi.ItemNo,
+                   ModelNoa = gr.mi.ItemName,
+                   ItemShortNamea = gr.mi.ItemShortName,
+                   BusinessPartnerNameM = gr.qm.mp.BusinessPartnerName,
+                   dateEffective =dateefR ,
+                   dateExpriation = dateexR,
+                   quotationFile = gr.qm.qm.quotationFile,
+                   quotationRemark = gr.qm.qm.quotationRemark,
+                   dateModify = gr.qm.qm.dateModify,
+                   quotationNo = gr.qm.qm.quotationNo,
+                   dateReceive = gr.qm.qm.dateReceive
+
+               });
+           }
+           return QuotationShowModel;
+
+           }
+
+            
+        }
+        public ActionResult QuotationPurchaseDelete()
+        {
+            Array QuotationArray;
+            List<QuotationShow> QuotationShowModel = new List<QuotationShow>();
+
+
+            var quotationM = dbObj.Boi_Quotations.ToList();
+            var masterPartner = dbObjThomas.MasterBusinessPartners.ToList();
+            var masterIt = dbObjThomas.MasterItems.ToList();
+
+
+            var quotationQuery = quotationM
+                .Join(masterPartner, qm => qm.supllierCode, mp => mp.BusinessPartnerCode, (qm, mp) => new { qm, mp })
+                .Join(masterIt, qm => qm.qm.itemNo, mi => mi.ItemNo, (qm, mi) => new { qm, mi })
+                .Where(qmw => qmw.qm.qm.quotationType == "Purchase")
+                .ToList();
+            foreach (var gr in quotationQuery)
+            {
+                string dateEf = gr.qm.qm.dateEffective;
+                string dateefR = dateEf[0] + "" + dateEf[1] + "" + dateEf[2] + "" + dateEf[3] + "-" + dateEf[4] + "" + dateEf[5] + "-" + dateEf[6] + "" + dateEf[7];
+                string dateEx = gr.qm.qm.dateExpriation;
+                string dateexR = dateEx[0] + "" + dateEx[1] + "" + dateEx[2] + "" + dateEx[3] + "-" + dateEx[4] + "" + dateEx[5] + "-" + dateEx[6] + "" + dateEx[7];
+
+                QuotationShowModel.Add(new QuotationShow
+                {
+                    Ida = gr.qm.qm.id,
+                    itemNo = gr.mi.ItemNo,
+                    ModelNoa = gr.mi.ItemName,
+                    ItemShortNamea = gr.mi.ItemShortName,
+                    BusinessPartnerNameM = gr.qm.mp.BusinessPartnerName,
+                    dateEffective = dateefR,
+                    dateExpriation = dateexR,
+                    quotationFile = gr.qm.qm.quotationFile,
+                    quotationRemark = gr.qm.qm.quotationRemark,
+                    dateModify = gr.qm.qm.dateModify,
+                    quotationNo = gr.qm.qm.quotationNo,
+                    dateReceive = gr.qm.qm.dateReceive
+
+                });
+            }
+
+
+            QuotationArray = QuotationShowModel.ToArray();
+
+            ViewBag.Quotations = QuotationArray;
+
+
+            return View();
+
+        }
+
+        public ActionResult QuotationSalesDelete()
+        {
+            Array QuotationArray;
+            List<QuotationShow> QuotationShowModel = new List<QuotationShow>();
+
+
+            var quotationM = dbObj.Boi_Quotations.ToList();
+            var masterPartner = dbObjThomas.MasterBusinessPartners.ToList();
+            var masterIt = dbObjThomas.MasterItems.ToList();
+
+
+            var quotationQuery = quotationM
+                .Join(masterPartner, qm => qm.supllierCode, mp => mp.BusinessPartnerCode, (qm, mp) => new { qm, mp })
+                .Join(masterIt, qm => qm.qm.itemNo, mi => mi.ItemNo, (qm, mi) => new { qm, mi })
+                .Where(qmw => qmw.qm.qm.quotationType == "Sales")
+                .ToList();
+            foreach (var gr in quotationQuery)
+            {
+                string dateEf = gr.qm.qm.dateEffective;
+                string dateefR = dateEf[0] + "" + dateEf[1] + "" + dateEf[2] + "" + dateEf[3] + "-" + dateEf[4] + "" + dateEf[5] + "-" + dateEf[6] + "" + dateEf[7];
+                string dateEx = gr.qm.qm.dateExpriation;
+                string dateexR = dateEx[0] + "" + dateEx[1] + "" + dateEx[2] + "" + dateEx[3] + "-" + dateEx[4] + "" + dateEx[5] + "-" + dateEx[6] + "" + dateEx[7];
+
+                QuotationShowModel.Add(new QuotationShow
+                {
+                    Ida = gr.qm.qm.id,
+                    itemNo = gr.mi.ItemNo,
+                    ModelNoa = gr.mi.ItemName,
+                    ItemShortNamea = gr.mi.ItemShortName,
+                    BusinessPartnerNameM = gr.qm.mp.BusinessPartnerName,
+                    dateEffective = dateefR,
+                    dateExpriation = dateexR,
+                    quotationFile = gr.qm.qm.quotationFile,
+                    quotationRemark = gr.qm.qm.quotationRemark,
+                    dateModify = gr.qm.qm.dateModify,
+                    quotationNo = gr.qm.qm.quotationNo,
+                    dateReceive = gr.qm.qm.dateReceive
+
+                });
+            }
+
+
+            QuotationArray = QuotationShowModel.ToArray();
+
+            ViewBag.Quotations = QuotationArray;
+
+
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult QuotationPurchaseDeletez(string id)
+        {
+            QuotationDelete(id);
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult QuotationSalesDeletez(string id)
+        {
+
+            QuotationDelete(id);
+
+            return View();
+        }
+
+
+        public void QuotationDelete(string id)
+        {
+
+            var sql = dbObj.Boi_Quotations.Single(c => c.id.ToString() == id);
+
+            dbObj.Boi_Quotations.Remove(sql);
+            dbObj.SaveChanges();
+        }
+
+
+        public ActionResult SupplierPerformance()
+        {
+          var type = "Supllier" ;
+          PartnerPerformance(type);
+          return View();
+        }
+    
+
+
+        public ActionResult CustomerEvaluation()
+        {
+            var type = "Customer";
+            PartnerPerformance(type);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SupplierPerformance(string YearVal, string supllierNo, string permission)
+        {
+            var type = "Supllier";
+            var query = PartnerPerformanceSearch(type, YearVal, supllierNo, permission);
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CustomerEvaluation(string YearVal, string supllierNo, string permission)
+        {
+            var type = "Customer";
+            var query = PartnerPerformanceSearch(type, YearVal, supllierNo, permission);
+          return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+        public List<Performance> PartnerPerformanceSearch(string type, string YearVal, string supllierNo, string permission)
+        {
+          
+            List<Performance> Perfomance = new List<Performance>();
+            var bpart = dbObj.BusinessPartner_Performance.ToList();
+            var masterPartner = dbObjThomas.MasterBusinessPartners.ToList();
+
+            List<string> listToFill = new List<string>();
+
+            string[] ct = permission.Split(',');
+            for (var i = 0; i < ct.Count(); i++)
+            {
+                listToFill.Add(ct[i].ToString());
+
+            }
+
+            if (permission == "")
+            {
+
+                var sql = bpart
+                    .Join(masterPartner, per => per.partnerId, tb => tb.BusinessPartnerCode, (per, tb) => new { per, tb })
+                    .Where(c => c.per.remark == type
+                     && c.per.year.Contains(YearVal)
+                        //&& listToFill.Contains() c.per.month.Contains(permission)
+                     //&& listToFill.Contains(c.per.month.ToString())
+                     && c.tb.BusinessPartnerName.ToLower().Contains(supllierNo)
+
+                    )
+                    .ToList();
+                foreach (var data in sql)
+                {
+
+
+                    int montr = Convert.ToInt32(data.per.month);
+                    switch (montr)
+                    {
+
+                        case 1:
+                            months = "January";
+                            break;
+                        case 2:
+                            months = "February";
+                            break;
+                        case 3:
+                            months = "March";
+                            break;
+                        case 4:
+                            months = "April";
+                            break;
+                        case 5:
+                            months = "May";
+                            break;
+                        case 6:
+                            months = "June";
+                            break;
+                        case 7:
+                            months = "July";
+                            break;
+                        case 8:
+                            months = "August";
+                            break;
+                        case 9:
+                            months = "September";
+                            break;
+                        case 10:
+                            months = "October";
+                            break;
+                        case 11:
+                            months = "November";
+                            break;
+                        case 12:
+                            months = "December";
+                            break;
+                    }
+
+                    Perfomance.Add(new Performance
+                    {
+
+                        id = data.per.id,
+                        partnerCode = data.per.partnerId,
+                        year = data.per.year,
+                        month = months,
+                        partnerName = data.tb.BusinessPartnerName,
+                        dateCreate = data.per.dateCreate,
+                        dateUpdate = data.per.dateUpdate,
+                        remark = data.per.remark,
+                        remark1 = data.per.remark1,
+                        userCode = data.per.userCode,
+                        usercodeUpdate = data.per.userCodeUpdate,
+                        version = data.per.version
+
+
+                    });
+                }
+            }
+            else
+            {
+
+
+                var sql = bpart
+                    .Join(masterPartner, per => per.partnerId, tb => tb.BusinessPartnerCode, (per, tb) => new { per, tb })
+                    .Where(c => c.per.remark == type
+                     && c.per.year.Contains(YearVal)
+                        //&& listToFill.Contains() c.per.month.Contains(permission)
+                     && listToFill.Contains(c.per.month.ToString())
+                     && c.tb.BusinessPartnerName.ToLower().Contains(supllierNo)
+
+                    )
+                    .ToList();
+                foreach (var data in sql)
+                {
+
+
+                    int montr = Convert.ToInt32(data.per.month);
+                    switch (montr)
+                    {
+
+                        case 1:
+                            months = "January";
+                            break;
+                        case 2:
+                            months = "February";
+                            break;
+                        case 3:
+                            months = "March";
+                            break;
+                        case 4:
+                            months = "April";
+                            break;
+                        case 5:
+                            months = "May";
+                            break;
+                        case 6:
+                            months = "June";
+                            break;
+                        case 7:
+                            months = "July";
+                            break;
+                        case 8:
+                            months = "August";
+                            break;
+                        case 9:
+                            months = "September";
+                            break;
+                        case 10:
+                            months = "October";
+                            break;
+                        case 11:
+                            months = "November";
+                            break;
+                        case 12:
+                            months = "December";
+                            break;
+                    }
+
+                    Perfomance.Add(new Performance
+                    {
+
+                        id = data.per.id,
+                        partnerCode = data.per.partnerId,
+                        year = data.per.year,
+                        month = months,
+                        partnerName = data.tb.BusinessPartnerName,
+                        dateCreate = data.per.dateCreate,
+                        dateUpdate = data.per.dateUpdate,
+                        remark = data.per.remark,
+                        remark1 = data.per.remark1,
+                        userCode = data.per.userCode,
+                        usercodeUpdate = data.per.userCodeUpdate,
+                        version = data.per.version
+
+
+                    });
+                }
+            }
+
+
+            return Perfomance;
+
+
+        }
+        public void PartnerPerformance(string type)
+        {
+            Array PartnerPerformanceArray;
+            List<Performance> Perfomance = new List<Performance>();
+            var bpart = dbObj.BusinessPartner_Performance.ToList();
+            var masterPartner = dbObjThomas.MasterBusinessPartners.ToList();
+            
+
+
+
+            var sql = bpart
+                .Join(masterPartner, per => per.partnerId, tb => tb.BusinessPartnerCode, (per, tb) => new { per, tb })
+                .Where(c => c.per.remark == type)
+                .ToList();
+
+            foreach (var data in sql)
+            {
+
+              
+                int montr =Convert.ToInt32(data.per.month);
+                switch (montr){
+
+                     case 1:
+                        months = "January";
+                        break;
+                     case 2:
+                        months = "February";
+                        break;
+                     case 3:
+                        months = "March";
+                        break;
+                     case 4:
+                        months = "April";
+                        break;
+                     case 5:
+                        months = "May";
+                        break;
+                     case 6:
+                        months = "June";
+                        break;
+                     case 7:
+                        months = "July";
+                        break;
+                     case 8:
+                        months = "August";
+                        break;
+                     case 9:
+                        months = "September";
+                        break;
+                     case 10:
+                        months = "October";
+                        break;
+                     case 11:
+                        months = "November";
+                        break;
+                     case 12:
+                        months = "December";
+                        break;
+                }
+                   
+
+
+                Perfomance.Add(new Performance
+                {
+
+                    id = data.per.id,
+                    partnerCode = data.per.partnerId,
+                    year = data.per.year,
+                    month = months,
+                    partnerName = data.tb.BusinessPartnerName,
+                    dateCreate = data.per.dateCreate,
+                    dateUpdate = data.per.dateUpdate,
+                    remark = data.per.remark,
+                    remark1 = data.per.remark1,
+                    userCode = data.per.userCode,
+                    usercodeUpdate = data.per.userCodeUpdate,
+                    version = data.per.version
+
+
+                });
+            }
+
+            PartnerPerformanceArray = Perfomance.ToArray();
+            ViewBag.Performance = PartnerPerformanceArray;
+
+           
+        }
+
+        public ActionResult InsertPerformance()
+        {
+
+            CustomerGet();
+            SupplierGet();
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult InsertPerformanceQue(string month, string PartnerCode,string Type)
+        {
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+
+
+                        HttpPostedFileBase file = files[i];
+                        string fname, fnameup;
+
+
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                            fnameup = file.FileName;
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                            fnameup = file.FileName;
+                        }
+
+
+                        fname = Path.Combine(Server.MapPath("~/File/Performance/"), fname);
+                        file.SaveAs(fname);
+
+                        var monthz = month.Split('-');
+                        
+                            var sql = new BusinessPartner_Performance()
+                            {
+                                partnerId = Encoding.UTF8.GetString(Convert.FromBase64String(Encoding.UTF8.GetString(Convert.FromBase64String(PartnerCode.ToString())))),
+                                year = monthz[0],
+                                month = monthz[1],
+                                dateCreate = DateTime.Now.ToString(),
+                                dateUpdate = DateTime.Now.ToString(),
+                                userCode = Session["userCode"].ToString(),
+                                userCodeUpdate = Session["userCode"].ToString(),
+                                remark = Type,
+                                remark1 = fnameup
+
+                            };
+                            dbObj.BusinessPartner_Performance.Add(sql);
+
+                            dbObj.SaveChanges();
+                        }
+
+
+                    
+
+                    return Json("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Json("Error occurred. Error details: " + ex.Message);
+                }
+            }
+            else
+            {
+                return Json("No files selected.");
+            }
+
+
+
+        }
     }
+
 }

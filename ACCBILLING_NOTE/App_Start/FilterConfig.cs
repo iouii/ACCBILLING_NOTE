@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace ACCBILLING_NOTE
+namespace BOI_QUO
 {
     public class FilterConfig
     {
